@@ -1,0 +1,21 @@
+# Logs
+debug.log
+*.log
+
+# Backup files
+*.bak
+*.bak-*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Thumbnails
+.thumbnail
+
+# Screenshots (optional - uncomment to exclude)
+# screenshots/
+
+# Node
+node_modules/

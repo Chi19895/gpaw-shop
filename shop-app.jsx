@@ -1419,7 +1419,12 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
         </div>
         <div className="bars-container">
           <div className="chart-element human">
-            <div className="shape-silhouette">🧍</div>
+            <div className="shape-silhouette" style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", height: "64px" }}>
+              <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "24px", height: "54px", display: "block", color: "#16213a" }}>
+                <circle cx="12" cy="3.5" r="2" />
+                <path d="M12 6.5c-1.66 0-3 1.34-3 3v4.5c0 .28.22.5.5.5H10v6.5c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6.5h.5c.28 0 .5-.22.5-.5v-4.5c0-1.66-1.34-3-3-3z" />
+              </svg>
+            </div>
             <span className="label">Người (165cm)</span>
           </div>
           <div className="chart-element pillow size-150">

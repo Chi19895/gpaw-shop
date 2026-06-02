@@ -487,7 +487,6 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings }) {
                   <span className="stamp">Phát hành<br /><b>Giới hạn</b></span>
                 )}
                 <div className={"frame" + (featured.real ? "" : " placeholder")} style={{ position: "relative" }}>
-                  {catalogItem?.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" />}
                   {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
                     <div className="product-badge-container">
                       <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -697,7 +696,6 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
               >
                 <div className="frame manga-cover-frame" style={{ position: "relative" }}>
                   {/* Badges */}
-                  {catalogItem?.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" />}
                   {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
                     <div className="product-badge-container">
                       <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -910,7 +908,6 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
             >
               <div className="elle-cover-frame" style={{ position: "relative" }}>
-                {catalogItem?.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" style={{ top: '12px', left: '12px' }} />}
                 {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
                   <div className="product-badge-container" style={{ top: '8px', right: '8px' }}>
                     <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -1107,7 +1104,6 @@ function Plush({ catalog, onSelectProduct, siteSettings }) {
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <div className="frame" style={{ background: featured.c.bg, position: "relative" }}>
-                  {catalogItem?.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" />}
                   {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
                     <div className="product-badge-container">
                       <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -1533,7 +1529,6 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
           {/* Left: Gallery */}
           <div className="product-gallery">
             <div style={{ position: "relative" }}>
-              {product.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" />}
               {product.isOnSale && discPct > 0 && (
                 <div className="product-badge-container">
                   <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -1659,7 +1654,7 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
               return (
                 <a href={p.url || "#"} className="related-card" key={p.id}>
                   <div className="r-frame">
-                    {p.isBestSeller && <span className="product-badge best-seller small">🔥 Top</span>}
+
                     {p.isOnSale && pDisc > 0 && <span className="product-badge on-sale small">-{pDisc}%</span>}
                     <img src={p.img || "assets/pillow-front.png"} alt={p.name} />
                   </div>
@@ -1689,7 +1684,7 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
                 return (
                   <a href={p.url || "#"} className="related-card" key={p.id} style={{ padding: "10px", borderRadius: "10px" }}>
                     <div className="r-frame" style={{ borderRadius: "6px" }}>
-                      {p.isBestSeller && <span className="product-badge best-seller small">🔥 Top</span>}
+
                       {p.isOnSale && pDisc > 0 && <span className="product-badge on-sale small">-{pDisc}%</span>}
                       <img src={p.img || "assets/pillow-front.png"} alt={p.name} />
                     </div>

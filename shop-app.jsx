@@ -1404,48 +1404,12 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
 
   // CSS size guide chart graphic
   const SizeChart = () => (
-    <div className="specs-comparison-chart">
-      <div className="chart-header">
-        <h5>Bảng so sánh kích thước gối Gpaw</h5>
-        <span>Minh họa tương quan so với chiều cao chuẩn 165cm</span>
-      </div>
-      <div className="chart-body">
-        <div className="height-markers">
-          <span>165cm</span>
-          <span>120cm</span>
-          <span>100cm</span>
-          <span>80cm</span>
-          <span>40cm</span>
-        </div>
-        <div className="bars-container">
-          <div className="chart-element human">
-            <div className="shape-silhouette" style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", height: "100%" }}>
-              <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "26px", height: "100%", display: "block", color: "#16213a" }}>
-                <circle cx="12" cy="3.5" r="2.2" />
-                <path d="M12 7c-1.66 0-3 1.34-3 3v4.5c0 .28.22.5.5.5H10v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6h.5c.28 0 .5-.22.5-.5V10c0-1.66-1.34-3-3-3z" />
-              </svg>
-            </div>
-            <span className="label">Người (165cm)</span>
-          </div>
-          <div className="chart-element pillow size-150">
-            <div className="pillow-shape" style={{ height: "91%" }}></div>
-            <span className="label">150cm</span>
-          </div>
-          <div className="chart-element pillow size-120">
-            <div className="pillow-shape" style={{ height: "73%" }}></div>
-            <span className="label">120cm</span>
-          </div>
-          <div className="chart-element pillow size-100">
-            <div className="pillow-shape" style={{ height: "61%" }}></div>
-            <span className="label">100cm</span>
-          </div>
-          <div className="chart-element pillow size-80">
-            <div className="pillow-shape" style={{ height: "48%" }}></div>
-            <span className="label">80cm</span>
-          </div>
-        </div>
-      </div>
-      <p className="chart-note">{settings.sizeGuideTip || "💡 Gợi ý: Gối 80cm gọn nhẹ thích hợp tựa lưng, gác chân. Bản 120cm và 150cm dài chuẩn ôm toàn thân thoải mái."}</p>
+    <div className="specs-comparison-chart" style={{ border: "none", padding: 0, background: "none" }}>
+      <img 
+        src="assets/pillow-size-chart.png" 
+        alt="Bảng so sánh kích thước gối Gpaw so với người thật" 
+        style={{ width: "100%", height: "auto", display: "block", borderRadius: "12px", border: "1.5px solid #16213a", boxShadow: "var(--shadow-warm)" }}
+      />
     </div>
   );
 

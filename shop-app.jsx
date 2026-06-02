@@ -487,8 +487,13 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings }) {
                   <span className="stamp">Phát hành<br /><b>Giới hạn</b></span>
                 )}
                 <div className={"frame" + (featured.real ? "" : " placeholder")} style={{ position: "relative" }}>
-                  {catalogItem?.isBestSeller && <span className="product-badge best-seller" style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 10 }}>🔥 Top bán chạy</span>}
-                  {catalogItem?.isOnSale && catalogItemDiscount > 0 && <span className="product-badge on-sale" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 10 }}>🏷️ Giảm {catalogItemDiscount}%</span>}
+                  {catalogItem?.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" />}
+                  {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
+                    <div className="product-badge-container">
+                      <img src="assets/badge-super-sale.png" alt="Giảm giá" />
+                      <span className="discount-val">{catalogItemDiscount}%</span>
+                    </div>
+                  )}
                   {featured.real
                     ? <img src={featured.img} alt={featured.name} />
                     : <SilPolitics />}
@@ -692,8 +697,13 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
               >
                 <div className="frame manga-cover-frame" style={{ position: "relative" }}>
                   {/* Badges */}
-                  {catalogItem?.isBestSeller && <span className="product-badge best-seller" style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 10 }}>🔥 Top bán chạy</span>}
-                  {catalogItem?.isOnSale && catalogItemDiscount > 0 && <span className="product-badge on-sale" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 10 }}>🏷️ Giảm {catalogItemDiscount}%</span>}
+                  {catalogItem?.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" />}
+                  {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
+                    <div className="product-badge-container">
+                      <img src="assets/badge-super-sale.png" alt="Giảm giá" />
+                      <span className="discount-val">{catalogItemDiscount}%</span>
+                    </div>
+                  )}
 
                   {/* Main artwork */}
                   {featured.real ? <img src="assets/pillow-hero.png" alt={featured.name} /> : <SilAnime />}
@@ -899,9 +909,14 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
               onClick={(e) => { if (!catalogItem) { e.preventDefault(); handleProductClick(featured); } }}
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
             >
-              <div className="elle-cover-frame">
-                {catalogItem?.isBestSeller && <span className="product-badge best-seller" style={{ position: 'absolute', top: '14px', left: '14px', zIndex: 10 }}>🔥 Top bán chạy</span>}
-                {catalogItem?.isOnSale && catalogItemDiscount > 0 && <span className="product-badge on-sale" style={{ position: 'absolute', top: '14px', right: '14px', zIndex: 10 }}>🏷️ Giảm {catalogItemDiscount}%</span>}
+              <div className="elle-cover-frame" style={{ position: "relative" }}>
+                {catalogItem?.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" style={{ top: '12px', left: '12px' }} />}
+                {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
+                  <div className="product-badge-container" style={{ top: '8px', right: '8px' }}>
+                    <img src="assets/badge-super-sale.png" alt="Giảm giá" />
+                    <span className="discount-val">{catalogItemDiscount}%</span>
+                  </div>
+                )}
                 <SilStar />
                 <div className="elle-frame-overlay"></div>
               </div>
@@ -1092,8 +1107,13 @@ function Plush({ catalog, onSelectProduct, siteSettings }) {
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <div className="frame" style={{ background: featured.c.bg, position: "relative" }}>
-                  {catalogItem?.isBestSeller && <span className="product-badge best-seller" style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 10 }}>🔥 Top bán chạy</span>}
-                  {catalogItem?.isOnSale && catalogItemDiscount > 0 && <span className="product-badge on-sale" style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 10 }}>🏷️ Giảm {catalogItemDiscount}%</span>}
+                  {catalogItem?.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" />}
+                  {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
+                    <div className="product-badge-container">
+                      <img src="assets/badge-super-sale.png" alt="Giảm giá" />
+                      <span className="discount-val">{catalogItemDiscount}%</span>
+                    </div>
+                  )}
                   <IconComponent />
                 </div>
               </a>
@@ -1513,8 +1533,13 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
           {/* Left: Gallery */}
           <div className="product-gallery">
             <div style={{ position: "relative" }}>
-              {product.isBestSeller && <span className="product-badge best-seller">🔥 Top bán chạy</span>}
-              {product.isOnSale && discPct > 0 && <span className="product-badge on-sale">🏷️ Giảm {discPct}%</span>}
+              {product.isBestSeller && <img className="product-badge-img best-seller" src="assets/badge-best-seller.png" alt="Best Seller" />}
+              {product.isOnSale && discPct > 0 && (
+                <div className="product-badge-container">
+                  <img src="assets/badge-super-sale.png" alt="Giảm giá" />
+                  <span className="discount-val">{discPct}%</span>
+                </div>
+              )}
               <img
                 className="main-image"
                 src={displayImages[activeImg] || displayImages[0]}

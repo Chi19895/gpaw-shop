@@ -1885,6 +1885,51 @@
     box-shadow: 0 2px 8px rgba(99,102,241,0.4);
   }
 
+  .product-badge-img {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.16));
+  }
+  .product-badge-img.best-seller {
+    top: 8px;
+    left: 8px;
+  }
+  .product-badge-container {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 72px;
+    height: 72px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .product-badge-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.16));
+  }
+  .product-badge-container .discount-val {
+    position: absolute;
+    top: 13px;
+    left: 36px;
+    transform: translateX(-50%);
+    color: #df2029;
+    font-family: "Outfit", var(--body), sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    background: #fff;
+    padding: 1px 3px;
+    border-radius: 3px;
+    line-height: 1;
+    text-align: center;
+  }
+
   /* ───────────────────────── 6. Size Selector ──────────────────────────── */
   .size-selector {
     display: flex; flex-wrap: wrap; gap: 8px;

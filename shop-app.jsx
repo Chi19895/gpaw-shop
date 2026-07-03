@@ -192,7 +192,8 @@ const PageLoader = ({ active }) => {
       gap: "20px",
       transition: "opacity 0.3s ease",
       opacity: fadeOut ? 0 : 1,
-      pointerEvents: "all"
+      pointerEvents: "all",
+      cursor: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 120 120\"><defs><filter id=\"sh\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"3\" dy=\"4\" stdDeviation=\"3\" flood-color=\"%23000000\" flood-opacity=\"0.65\"/></filter><linearGradient id=\"g\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%23ff4d5a\"/><stop offset=\"50%\" stop-color=\"%23b3242d\"/><stop offset=\"100%\" stop-color=\"%237a0e14\"/></linearGradient></defs><g filter=\"url(%23sh)\"><path d=\"M60 58C43 58 28 72 28 88C28 95 32 101 39 105C46 109 53 111 60 111C67 111 74 109 81 105C88 101 92 85 92 88C92 72 77 58 60 58Z\" fill=\"url(%23g)\"/><ellipse cx=\"28\" cy=\"46\" rx=\"12\" ry=\"17\" transform=\"rotate(-22 28 46)\" fill=\"url(%23g)\"/><ellipse cx=\"47\" cy=\"34\" rx=\"11\" ry=\"16\" transform=\"rotate(-8 47 34)\" fill=\"url(%23g)\"/><ellipse cx=\"73\" cy=\"34\" rx=\"11\" ry=\"16\" transform=\"rotate(8 73 34)\" fill=\"url(%23g)\"/><ellipse cx=\"92\" cy=\"46\" rx=\"12\" ry=\"17\" transform=\"rotate(22 92 46)\" fill=\"url(%23g)\"/><path d=\"M20 26C22 20 26 20 28 26C24 24 22 24 20 26Z\" fill=\"%23ffccd0\"/><path d=\"M41 16C43 10 47 10 49 16C45 14 43 14 41 16Z\" fill=\"%23ffccd0\"/><path d=\"M71 16C73 10 77 10 79 16C75 14 73 14 71 16Z\" fill=\"%23ffccd0\"/><path d=\"M92 26C94 20 98 20 100 26C96 24 94 24 92 26Z\" fill=\"%23ffccd0\"/></g></svg>') 12 12, auto"
     }}>
       <div style={{
         width: "100px",
@@ -1629,7 +1630,7 @@ function FloatContact({ siteSettings }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // ProductDetail — full-screen overlay for product info, gallery, size, qty
 // ─────────────────────────────────────────────────────────────────────────────
-function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettings }) {
+function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettings, onNavigate, onSelectProduct }) {
   const settings = siteSettings || {};
   const [selectedSize, setSelectedSize] = useState(product.sizes.length ? 0 : -1);
   const [qty, setQty] = useState(1);
@@ -1809,9 +1810,9 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
       <div className="product-detail-inner">
         {/* Breadcrumbs */}
         <div className="product-breadcrumb">
-          <a href="index.html">Trang chủ</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate(null); }}>Trang chủ</a>
           <span className="sep">/</span>
-          <a href={`index.html#${product.category}`}>{categoryNameMap[product.category] || product.category}</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate(product.category); }}>{categoryNameMap[product.category] || product.category}</a>
           <span className="sep">/</span>
           <span className="current">{product.name}</span>
         </div>
@@ -1943,7 +1944,15 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
               const pListed = p.sizes[0] ? p.sizes[0].listedPrice : 0;
               const pDisc = pListed > 0 && pPrice > 0 ? calcDiscountPct(pListed, pPrice) : 0;
               return (
-                <a href={p.url || "#"} className="related-card" key={p.id}>
+                <a
+                  href="#"
+                  className="related-card"
+                  key={p.id}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectProduct && onSelectProduct(p);
+                  }}
+                >
                   <div className="r-frame">
 
                     {p.isOnSale && pDisc > 0 && <span className="product-badge on-sale small">-{pDisc}%</span>}
@@ -1973,7 +1982,16 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
                 const pListed = p.sizes[0] ? p.sizes[0].listedPrice : 0;
                 const pDisc = pListed > 0 && pPrice > 0 ? calcDiscountPct(pListed, pPrice) : 0;
                 return (
-                  <a href={p.url || "#"} className="related-card" key={p.id} style={{ padding: "10px", borderRadius: "10px" }}>
+                  <a
+                    href="#"
+                    className="related-card"
+                    key={p.id}
+                    style={{ padding: "10px", borderRadius: "10px" }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onSelectProduct && onSelectProduct(p);
+                    }}
+                  >
                     <div className="r-frame" style={{ borderRadius: "6px" }}>
 
                       {p.isOnSale && pDisc > 0 && <span className="product-badge on-sale small">-{pDisc}%</span>}
@@ -5368,6 +5386,24 @@ function App() {
       }, 300);
     }, 700);
   };
+
+  const handleNavigateHomeOrSection = (id) => {
+    setPageLoading(true);
+    setTimeout(() => {
+      setSelectedProduct(null);
+      setTimeout(() => {
+        if (id) {
+          const el = document.getElementById(id);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: 0 });
+        }
+        setTimeout(() => {
+          setPageLoading(false);
+        }, 300);
+      }, 50);
+    }, 700);
+  };
   const [checkoutItem, setCheckoutItem] = useState(null);
   const [orderResult, setOrderResult] = useState(null);
   const [activePaymentOrder, setActivePaymentOrder] = useState(null);
@@ -5542,22 +5578,52 @@ function App() {
       claw.style.opacity = "1";
       claw.style.transition = "transform 0.16s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out";
       
-      // Inline dynamic 3D paper scratch SVG paths (0 images, charcoal cuts with white highlight fibers)
-      claw.innerHTML = `
-        <svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible;">
-          <!-- Left claw stroke -->
+      // Inline dynamic 3D paper scratch SVG paths - 5 different designs to avoid monotony
+      const types = [
+        // Type 1: 3-claw diagonal curves
+        `<svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible;">
           <path d="M18 15 Q23 45 43 85 Q33 55 18 15" fill="#ffffff" opacity="0.85" />
           <path d="M20 15 Q25 45 45 85 Q35 55 20 15" fill="#150e06" opacity="0.95" />
-          
-          <!-- Middle claw stroke -->
           <path d="M48 10 Q51 45 68 80 Q58 50 48 10" fill="#ffffff" opacity="0.85" />
           <path d="M50 10 Q53 45 70 80 Q60 50 50 10" fill="#150e06" opacity="0.95" />
-          
-          <!-- Right claw stroke -->
           <path d="M73 20 Q75 50 88 75 Q80 55 73 20" fill="#ffffff" opacity="0.85" />
           <path d="M75 20 Q77 50 90 75 Q82 55 75 20" fill="#150e06" opacity="0.95" />
-        </svg>
-      `;
+        </svg>`,
+        // Type 2: 4-claw swipe
+        `<svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible;">
+          <path d="M8 20 Q12 48 27 80 Q19 52 8 20" fill="#ffffff" opacity="0.85" />
+          <path d="M10 20 Q14 48 29 80 Q21 52 10 20" fill="#150e06" opacity="0.95" />
+          <path d="M33 13 Q36 45 52 83 Q43 51 33 13" fill="#ffffff" opacity="0.85" />
+          <path d="M35 13 Q38 45 54 83 Q45 51 35 13" fill="#150e06" opacity="0.95" />
+          <path d="M58 10 Q60 44 75 75 Q67 49 58 10" fill="#ffffff" opacity="0.85" />
+          <path d="M60 10 Q62 44 77 75 Q69 49 60 10" fill="#150e06" opacity="0.95" />
+          <path d="M81 18 Q83 48 93 70 Q87 52 81 18" fill="#ffffff" opacity="0.85" />
+          <path d="M83 18 Q85 48 95 70 Q89 52 83 18" fill="#150e06" opacity="0.95" />
+        </svg>`,
+        // Type 3: Double deep heavy cut
+        `<svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible;">
+          <path d="M22 12 Q32 45 42 85 Q30 50 22 12" fill="#ffffff" opacity="0.85" />
+          <path d="M25 12 Q35 45 45 85 Q33 50 25 12" fill="#150e06" opacity="0.95" />
+          <path d="M57 10 Q65 48 77 80 Q67 52 57 10" fill="#ffffff" opacity="0.85" />
+          <path d="M60 10 Q68 48 80 80 Q70 52 60 10" fill="#150e06" opacity="0.95" />
+        </svg>`,
+        // Type 4: Single giant jagged tear
+        `<svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible;">
+          <path d="M26 10 L30 25 L24 40 L35 55 L28 72 L45 90 L35 68 L42 52 L32 38 L36 24 Z" fill="#ffffff" opacity="0.85" />
+          <path d="M28 10 L32 25 L26 40 L37 55 L30 72 L47 90 L37 68 L44 52 L34 38 L38 24 Z" fill="#150e06" opacity="0.95" />
+        </svg>`,
+        // Type 5: 3-claw outward spreading slash
+        `<svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible;">
+          <path d="M28 20 Q20 48 10 75 Q19 52 28 20" fill="#ffffff" opacity="0.85" />
+          <path d="M30 20 Q22 48 12 75 Q21 52 30 20" fill="#150e06" opacity="0.95" />
+          <path d="M48 15 Q50 48 52 85 Q48 52 48 15" fill="#ffffff" opacity="0.85" />
+          <path d="M50 15 Q52 48 54 85 Q50 52 50 15" fill="#150e06" opacity="0.95" />
+          <path d="M68 20 Q76 48 88 75 Q77 52 68 20" fill="#ffffff" opacity="0.85" />
+          <path d="M70 20 Q78 48 90 75 Q79 52 70 20" fill="#150e06" opacity="0.95" />
+        </svg>`
+      ];
+      
+      claw.innerHTML = types[Math.floor(Math.random() * types.length)];
       
       document.body.appendChild(claw);
       playScratchSound();
@@ -6035,11 +6101,7 @@ function App() {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }
               } else {
-                if (id) {
-                  window.location.href = "index.html#" + id;
-                } else {
-                  window.location.href = "index.html";
-                }
+                handleNavigateHomeOrSection(id);
               }
             }}
           />
@@ -6050,6 +6112,8 @@ function App() {
               onBuyNow={handleBuyNow}
               onAddToCart={handleAddToCart}
               siteSettings={siteSettings}
+              onNavigate={handleNavigateHomeOrSection}
+              onSelectProduct={openProductDetail}
             />
           ) : (
             <div style={{ position: "relative" }}>

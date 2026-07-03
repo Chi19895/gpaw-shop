@@ -51,11 +51,12 @@ export default async function handler(req, res) {
     };
 
     // 4. Send secure server-to-server request to Pancake POS API
-    const url = `https://pos.pancake.vn/api/v1/shops/${shopId}/orders`;
+    const url = `https://pos.pages.fm/api/v1/shops/${shopId}/orders?api_key=${apiKey}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
+        'X-Pos-Api-Key': apiKey,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)

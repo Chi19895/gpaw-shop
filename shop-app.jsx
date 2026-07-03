@@ -5131,6 +5131,11 @@ function App() {
   }, [currentUser]);
 
   const handleBuyNow = (item) => {
+    if (!currentUser) {
+      alert("Vui lòng đăng nhập hoặc đăng ký tài khoản thành viên bằng Số điện thoại để tiếp tục đặt hàng và tích lũy điểm thưởng!");
+      setAuthModal("login");
+      return;
+    }
     setCheckoutItem(item);
     setSelectedProduct(null); // close detail
   };
@@ -5226,36 +5231,43 @@ function App() {
   // Auth Functions
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
-    if (!emailInput || !phoneInput || !passwordInput || !nameInput) {
-      alert("Vui lòng nhập đầy đủ thông tin!");
+    if (!phoneInput || !passwordInput || !nameInput) {
+      alert("Vui lòng nhập đầy đủ thông tin (Họ tên, Số điện thoại, Mật khẩu)!");
       return;
     }
-    // Check if user already exists
-    if (customers.find((c) => c.email === emailInput || c.phone === phoneInput)) {
-      alert("Email hoặc Số điện thoại đã được sử dụng!");
+    
+    // Validate phone number format (Vietnam phone number regex)
+    const phoneRegex = /^(0|\+84)[3|5|7|8|9][0-9]{8}$/;
+    if (!phoneRegex.test(phoneInput)) {
+      alert("Số điện thoại không hợp lệ! Vui lòng nhập số điện thoại Việt Nam hợp lệ (ví dụ: 0901234567).");
       return;
     }
 
-    // Add new customer with Pending status
+    const finalEmail = emailInput || `${phoneInput}@gpaw.vn`;
+
+    // Check if user already exists
+    if (customers.find((c) => c.email === finalEmail || c.phone === phoneInput)) {
+      alert("Số điện thoại này đã được sử dụng để đăng ký!");
+      return;
+    }
+
+    // Add new customer with Active status directly since email is optional
     const newCustomer = {
       id: customers.length + 1,
-      email: emailInput,
+      email: finalEmail,
       phone: phoneInput,
       name: nameInput,
       points: 100, // Initial greeting reward!
       tier: "Đồng",
-      status: "Pending",
+      status: "Active",
       dateJoined: new Date().toISOString().split("T")[0]
     };
 
     setCustomers((prev) => [...prev, newCustomer]);
     
-    // Open verification email virtual toast
-    setMockMail({
-      to: emailInput,
-      name: nameInput,
-      activationCode: `verify_${newCustomer.id}`
-    });
+    // Auto login
+    setCurrentUser(newCustomer);
+    alert(`Đăng ký thành viên thành công! Bạn nhận được 100 Paw chào mừng!`);
 
     setAuthModal(null);
     setEmailInput("");
@@ -5599,10 +5611,10 @@ function App() {
                     />
                   </div>
                   <div className="form-group">
-                    <label>Email</label>
+                    <label>Email (Không bắt buộc)</label>
                     <input
                       type="email"
-                      placeholder="yourname@gmail.com"
+                      placeholder="yourname@gmail.com (Không bắt buộc)"
                       value={emailInput}
                       onChange={(e) => setEmailInput(e.target.value)}
                     />

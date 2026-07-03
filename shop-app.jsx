@@ -82,8 +82,8 @@ const BackgroundPaws = ({ count = 8, theme = "light" }) => {
   const [paws] = React.useState(() => {
     const list = [];
     const colors = theme === "dark"
-      ? ["rgba(255,211,77,0.016)", "rgba(255,255,255,0.012)"] // extremely faint gold/white for dark themes
-      : ["rgba(179,36,45,0.014)", "rgba(22,33,58,0.018)"]; // extremely faint red/navy for light themes
+      ? ["rgba(255,211,77,0.08)", "rgba(255,255,255,0.06)"] // clearly visible gold/white for dark themes
+      : ["rgba(179,36,45,0.06)", "rgba(22,33,58,0.08)"]; // clearly visible red/navy for light themes
       
     for (let i = 0; i < count; i++) {
       list.push({

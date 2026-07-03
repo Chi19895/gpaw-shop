@@ -78,21 +78,22 @@ const PawIcon = ({ size = 20, color = "#b3242d" }) => (
 );
 
 // ── Background Paw prints watermarks scattered randomly ────────────────────
-const BackgroundPaws = ({ count = 8, theme = "light" }) => {
+const BackgroundPaws = ({ count = 15, theme = "light" }) => {
   const [paws] = React.useState(() => {
     const list = [];
     const colors = theme === "dark"
-      ? ["rgba(255,211,77,0.08)", "rgba(255,255,255,0.06)"] // clearly visible gold/white for dark themes
-      : ["rgba(179,36,45,0.06)", "rgba(22,33,58,0.08)"]; // clearly visible red/navy for light themes
+      ? ["rgba(255,211,77,0.16)", "rgba(255,255,255,0.12)"] // doubled gold/white for dark themes
+      : ["rgba(179,36,45,0.12)", "rgba(22,33,58,0.16)"]; // doubled red/navy for light themes
       
     for (let i = 0; i < count; i++) {
       list.push({
         id: i,
         top: `${Math.random() * 85 + 7}%`,
         left: `${Math.random() * 90 + 5}%`,
-        size: Math.floor(Math.random() * 40 + 20), // 20px to 60px
+        size: Math.floor(Math.random() * 60 + 20), // 20px to 80px (wider scale variation)
         rotation: Math.floor(Math.random() * 360),
-        color: colors[i % colors.length]
+        color: colors[i % colors.length],
+        delay: `${Math.random() * -8}s` // randomized negative animation delay
       });
     }
     return list;
@@ -103,20 +104,88 @@ const BackgroundPaws = ({ count = 8, theme = "light" }) => {
       {paws.map(paw => (
         <div
           key={paw.id}
+          className="bg-paw-item"
           style={{
             position: "absolute",
             top: paw.top,
             left: paw.left,
             width: paw.size,
             height: paw.size,
-            transform: `rotate(${paw.rotation}deg)`,
             color: paw.color,
-            pointerEvents: "none"
+            pointerEvents: "none",
+            "--rot": `${paw.rotation}deg`,
+            animationDelay: paw.delay
           }}
         >
           <PawIcon size={paw.size} color="currentColor" />
         </div>
       ))}
+    </div>
+  );
+};
+
+// ── Rotating Dog Face Page Loader Component ──────────────────────────────
+const PageLoader = ({ active }) => {
+  const [visible, setVisible] = React.useState(active);
+  const [fadeOut, setFadeOut] = React.useState(false);
+
+  React.useEffect(() => {
+    if (active) {
+      setVisible(true);
+      setFadeOut(false);
+    } else {
+      setFadeOut(true);
+      const t = setTimeout(() => setVisible(false), 300);
+      return () => clearTimeout(t);
+    }
+  }, [active]);
+
+  if (!visible) return null;
+
+  return (
+    <div style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(10, 8, 20, 0.95)",
+      zIndex: 999999,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "20px",
+      transition: "opacity 0.3s ease",
+      opacity: fadeOut ? 0 : 1,
+      pointerEvents: "all"
+    }}>
+      <div style={{
+        width: "100px",
+        height: "100px",
+        borderRadius: "50%",
+        background: "#fff",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
+        animation: "spinDog 1.5s linear infinite"
+      }}>
+        <img src="assets/dog_face.png" style={{ width: "70px", height: "70px", objectFit: "contain" }} alt="Loading..." />
+      </div>
+      <div style={{
+        color: "#ffd34d",
+        fontFamily: "'Be Vietnam Pro', sans-serif",
+        fontWeight: 900,
+        fontSize: "15px",
+        letterSpacing: "0.15em",
+        textTransform: "uppercase"
+      }}>
+        Đang tải trang...
+      </div>
+      <style>{`
+        @keyframes spinDog {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 };
@@ -5252,8 +5321,19 @@ function App() {
   // Mock Email Notifications State
   const [mockMail, setMockMail] = useState(null); // { to: string, activationLink: string }
 
-  // Checkout & Product Detail states
+  // Page loader and transition states
+  const [pageLoading, setPageLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(() => getActiveProductFromUrl(catalog));
+
+  const openProductDetail = (p) => {
+    setPageLoading(true);
+    setTimeout(() => {
+      setSelectedProduct(p);
+      setTimeout(() => {
+        setPageLoading(false);
+      }, 300);
+    }, 700);
+  };
   const [checkoutItem, setCheckoutItem] = useState(null);
   const [orderResult, setOrderResult] = useState(null);
   const [activePaymentOrder, setActivePaymentOrder] = useState(null);
@@ -5342,6 +5422,117 @@ function App() {
       console.error("Theme color update error", e);
     }
   }, [selectedProduct, catalog, siteSettings]);
+
+  // Initial page load loader timer & Global scratch click listener
+  useEffect(() => {
+    // 1. Initial page load timeout
+    const loadTimer = setTimeout(() => {
+      setPageLoading(false);
+    }, 900);
+
+    // 2. Synthetic Scratch Sound Playback (Synthesizes scratch/tearing sound using highpass/bandpass noise)
+    const playScratchSound = () => {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        
+        const bufferSize = ctx.sampleRate * 0.45;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1800;
+        filter.Q.value = 3.5;
+        
+        const highpass = ctx.createBiquadFilter();
+        highpass.type = 'highpass';
+        highpass.frequency.value = 2500;
+        
+        const gain = ctx.createGain();
+        const now = ctx.currentTime;
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.exponentialRampToValueAtTime(0.45, now + 0.04);
+        gain.gain.linearRampToValueAtTime(0.12, now + 0.12);
+        gain.gain.linearRampToValueAtTime(0.35, now + 0.18);
+        gain.gain.linearRampToValueAtTime(0.08, now + 0.28);
+        gain.gain.linearRampToValueAtTime(0.22, now + 0.32);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        
+        noise.connect(filter);
+        filter.connect(highpass);
+        highpass.connect(gain);
+        gain.connect(ctx.destination);
+        
+        noise.start(now);
+        setTimeout(() => ctx.close(), 600);
+      } catch (e) {
+        console.warn("Web Audio API not supported:", e);
+      }
+    };
+
+    // 3. Spawns Claw Mark effect
+    const handleGlobalClick = (e) => {
+      // Don't trigger claw marks on inputs, textareas, or admin controls to keep page usable
+      if (
+        e.target.tagName === 'INPUT' || 
+        e.target.tagName === 'TEXTAREA' || 
+        e.target.tagName === 'SELECT' ||
+        e.target.closest('.admin-settings-tab') ||
+        e.target.closest('.modal-content')
+      ) {
+        return;
+      }
+
+      const claw = document.createElement("div");
+      claw.className = "claw-mark-effect";
+      
+      const size = Math.floor(Math.random() * 60 + 90); // 90px to 150px
+      const angle = Math.floor(Math.random() * 20 - 10);
+      
+      claw.style.position = "absolute";
+      claw.style.left = `${e.pageX}px`;
+      claw.style.top = `${e.pageY}px`;
+      claw.style.width = `${size}px`;
+      claw.style.height = `${size}px`;
+      claw.style.backgroundImage = "url('assets/claw_mark.png')";
+      claw.style.backgroundSize = "contain";
+      claw.style.backgroundRepeat = "no-repeat";
+      claw.style.backgroundPosition = "center";
+      claw.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(1.3)`;
+      claw.style.pointerEvents = "none";
+      claw.style.zIndex = "999999";
+      claw.style.opacity = "1";
+      claw.style.transition = "transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out";
+      
+      document.body.appendChild(claw);
+      playScratchSound();
+      
+      requestAnimationFrame(() => {
+        claw.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(1)`;
+      });
+      
+      setTimeout(() => {
+        claw.style.opacity = "0";
+        claw.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(0.9)`;
+        setTimeout(() => claw.remove(), 800);
+      }, 500);
+    };
+
+    window.addEventListener("click", handleGlobalClick);
+
+    return () => {
+      clearTimeout(loadTimer);
+      window.removeEventListener("click", handleGlobalClick);
+    };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("gpaw_customers", JSON.stringify(customers));
@@ -5632,8 +5823,28 @@ function App() {
 
   return (
     <>
+      <PageLoader active={pageLoading} />
       {/* Dynamic Style Overrides to remove browser simulator bar spacing and style news/footers */}
       <style>{`
+        /* Custom Mouse Cursors */
+        body, html, .world, .elle-editorial, .manga-magazine, .newspaper, .cozy-magazine {
+          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><path d="M50 48C33 48 18 62 18 78C18 85 22 91 29 95C36 99 43 101 50 101C57 101 64 99 71 95C78 91 82 85 82 78C82 62 67 48 50 48Z" fill="%23b3242d"/><ellipse cx="18" cy="36" rx="12" ry="17" transform="rotate(-22 18 36)" fill="%23b3242d"/><ellipse cx="37" cy="24" rx="11" ry="16" transform="rotate(-8 37 24)" fill="%23b3242d"/><ellipse cx="63" cy="24" rx="11" ry="16" transform="rotate(8 63 24)" fill="%23b3242d"/><ellipse cx="82" cy="36" rx="12" ry="17" transform="rotate(22 82 36)" fill="%23b3242d"/><path d="M10 16C12 10 16 10 18 16C14 14 12 14 10 16Z" fill="%23b3242d"/><path d="M31 6C33 0 37 0 39 6C35 4 33 4 31 6Z" fill="%23b3242d"/><path d="M61 6C63 0 67 0 69 6C65 4 63 4 61 6Z" fill="%23b3242d"/><path d="M82 16C84 10 88 10 90 16C86 14 84 14 82 16Z" fill="%23b3242d"/></svg>') 12 12, auto !important;
+        }
+        a, button, select, input[type="submit"], [role="button"], .logo, .buy-btn, .add-to-cart-btn, .product-card, .thumb, .close-btn, .nav-btn, .interactive {
+          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><path d="M50 48C33 48 18 62 18 78C18 85 22 91 29 95C36 99 43 101 50 101C57 101 64 99 71 95C78 91 82 85 82 78C82 62 67 48 50 48Z" fill="%23ffd34d"/><ellipse cx="18" cy="36" rx="12" ry="17" transform="rotate(-22 18 36)" fill="%23ffd34d"/><ellipse cx="37" cy="24" rx="11" ry="16" transform="rotate(-8 37 24)" fill="%23ffd34d"/><ellipse cx="63" cy="24" rx="11" ry="16" transform="rotate(8 63 24)" fill="%23ffd34d"/><ellipse cx="82" cy="36" rx="12" ry="17" transform="rotate(22 82 36)" fill="%23ffd34d"/><path d="M10 16C12 10 16 10 18 16C14 14 12 14 10 16Z" fill="%23ffd34d"/><path d="M31 6C33 0 37 0 39 6C35 4 33 4 31 6Z" fill="%23ffd34d"/><path d="M61 6C63 0 67 0 69 6C65 4 63 4 61 6Z" fill="%23ffd34d"/><path d="M82 16C84 10 88 10 90 16C86 14 84 14 82 16Z" fill="%23ffd34d"/></svg>') 12 12, pointer !important;
+        }
+        
+        /* Animating Background Paw prints keyframes */
+        @keyframes pawFadeInOut {
+          0% { opacity: 0; transform: scale(0.6) rotate(var(--rot)); }
+          15% { opacity: 1; transform: scale(1) rotate(var(--rot)); }
+          85% { opacity: 1; transform: scale(1) rotate(var(--rot)); }
+          100% { opacity: 0; transform: scale(0.8) rotate(var(--rot)); }
+        }
+        .bg-paw-item {
+          animation: pawFadeInOut 8s ease-in-out infinite;
+        }
+
         body { padding-top: 0 !important; }
         .topnav { top: 0 !important; }
         .topnav .logo::before, .topnav .logo::after { content: none !important; }
@@ -5736,10 +5947,10 @@ function App() {
             />
           ) : (
             <>
-              <Politics catalog={catalog} onSelectProduct={setSelectedProduct} onOpenAuth={setAuthModal} siteSettings={siteSettings} />
-              <Anime catalog={catalog} onSelectProduct={setSelectedProduct} siteSettings={siteSettings} />
-              <Stars catalog={catalog} onSelectProduct={setSelectedProduct} siteSettings={siteSettings} />
-              <Plush catalog={catalog} onSelectProduct={setSelectedProduct} siteSettings={siteSettings} />
+              <Politics catalog={catalog} onSelectProduct={openProductDetail} onOpenAuth={setAuthModal} siteSettings={siteSettings} />
+              <Anime catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
+              <Stars catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
+              <Plush catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
             </>
           )}
           <Complaint />

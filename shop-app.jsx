@@ -5494,23 +5494,36 @@ function App() {
       const claw = document.createElement("div");
       claw.className = "claw-mark-effect";
       
-      const size = Math.floor(Math.random() * 60 + 90); // 90px to 150px
-      const angle = Math.floor(Math.random() * 20 - 10);
+      const size = Math.floor(Math.random() * 45 + 90); // 90px to 135px
+      const angle = Math.floor(Math.random() * 26 - 13); // -13deg to 13deg
       
       claw.style.position = "absolute";
       claw.style.left = `${e.pageX}px`;
       claw.style.top = `${e.pageY}px`;
       claw.style.width = `${size}px`;
       claw.style.height = `${size}px`;
-      claw.style.backgroundImage = "url('assets/claw_mark.png')";
-      claw.style.backgroundSize = "contain";
-      claw.style.backgroundRepeat = "no-repeat";
-      claw.style.backgroundPosition = "center";
-      claw.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(1.3)`;
+      claw.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(1.35)`;
       claw.style.pointerEvents = "none";
       claw.style.zIndex = "999999";
       claw.style.opacity = "1";
-      claw.style.transition = "transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out";
+      claw.style.transition = "transform 0.16s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease-out";
+      
+      // Inline dynamic 3D paper scratch SVG paths (0 images, charcoal cuts with white highlight fibers)
+      claw.innerHTML = `
+        <svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible;">
+          <!-- Left claw stroke -->
+          <path d="M18 15 Q23 45 43 85 Q33 55 18 15" fill="#ffffff" opacity="0.85" />
+          <path d="M20 15 Q25 45 45 85 Q35 55 20 15" fill="#150e06" opacity="0.95" />
+          
+          <!-- Middle claw stroke -->
+          <path d="M48 10 Q51 45 68 80 Q58 50 48 10" fill="#ffffff" opacity="0.85" />
+          <path d="M50 10 Q53 45 70 80 Q60 50 50 10" fill="#150e06" opacity="0.95" />
+          
+          <!-- Right claw stroke -->
+          <path d="M73 20 Q75 50 88 75 Q80 55 73 20" fill="#ffffff" opacity="0.85" />
+          <path d="M75 20 Q77 50 90 75 Q82 55 75 20" fill="#150e06" opacity="0.95" />
+        </svg>
+      `;
       
       document.body.appendChild(claw);
       playScratchSound();
@@ -5521,9 +5534,9 @@ function App() {
       
       setTimeout(() => {
         claw.style.opacity = "0";
-        claw.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(0.9)`;
+        claw.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(0.85)`;
         setTimeout(() => claw.remove(), 800);
-      }, 500);
+      }, 550);
     };
 
     window.addEventListener("click", handleGlobalClick);
@@ -5828,10 +5841,10 @@ function App() {
       <style>{`
         /* Custom Mouse Cursors */
         body, html, .world, .elle-editorial, .manga-magazine, .newspaper, .cozy-magazine {
-          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><path d="M50 48C33 48 18 62 18 78C18 85 22 91 29 95C36 99 43 101 50 101C57 101 64 99 71 95C78 91 82 85 82 78C82 62 67 48 50 48Z" fill="%23b3242d"/><ellipse cx="18" cy="36" rx="12" ry="17" transform="rotate(-22 18 36)" fill="%23b3242d"/><ellipse cx="37" cy="24" rx="11" ry="16" transform="rotate(-8 37 24)" fill="%23b3242d"/><ellipse cx="63" cy="24" rx="11" ry="16" transform="rotate(8 63 24)" fill="%23b3242d"/><ellipse cx="82" cy="36" rx="12" ry="17" transform="rotate(22 82 36)" fill="%23b3242d"/><path d="M10 16C12 10 16 10 18 16C14 14 12 14 10 16Z" fill="%23b3242d"/><path d="M31 6C33 0 37 0 39 6C35 4 33 4 31 6Z" fill="%23b3242d"/><path d="M61 6C63 0 67 0 69 6C65 4 63 4 61 6Z" fill="%23b3242d"/><path d="M82 16C84 10 88 10 90 16C86 14 84 14 82 16Z" fill="%23b3242d"/></svg>') 12 12, auto !important;
+          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 120 120"><defs><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="3" dy="4" stdDeviation="3" flood-color="%23000000" flood-opacity="0.65"/></filter><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23ff4d5a"/><stop offset="50%" stop-color="%23b3242d"/><stop offset="100%" stop-color="%237a0e14"/></linearGradient></defs><g filter="url(%23sh)"><path d="M60 58C43 58 28 72 28 88C28 95 32 101 39 105C46 109 53 111 60 111C67 111 74 109 81 105C88 101 92 85 92 88C92 72 77 58 60 58Z" fill="url(%23g)"/><ellipse cx="28" cy="46" rx="12" ry="17" transform="rotate(-22 28 46)" fill="url(%23g)"/><ellipse cx="47" cy="34" rx="11" ry="16" transform="rotate(-8 47 34)" fill="url(%23g)"/><ellipse cx="73" cy="34" rx="11" ry="16" transform="rotate(8 73 34)" fill="url(%23g)"/><ellipse cx="92" cy="46" rx="12" ry="17" transform="rotate(22 92 46)" fill="url(%23g)"/><path d="M20 26C22 20 26 20 28 26C24 24 22 24 20 26Z" fill="%23ffccd0"/><path d="M41 16C43 10 47 10 49 16C45 14 43 14 41 16Z" fill="%23ffccd0"/><path d="M71 16C73 10 77 10 79 16C75 14 73 14 71 16Z" fill="%23ffccd0"/><path d="M92 26C94 20 98 20 100 26C96 24 94 24 92 26Z" fill="%23ffccd0"/></g></svg>') 12 12, auto !important;
         }
         a, button, select, input[type="submit"], [role="button"], .logo, .buy-btn, .add-to-cart-btn, .product-card, .thumb, .close-btn, .nav-btn, .interactive {
-          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100"><path d="M50 48C33 48 18 62 18 78C18 85 22 91 29 95C36 99 43 101 50 101C57 101 64 99 71 95C78 91 82 85 82 78C82 62 67 48 50 48Z" fill="%23ffd34d"/><ellipse cx="18" cy="36" rx="12" ry="17" transform="rotate(-22 18 36)" fill="%23ffd34d"/><ellipse cx="37" cy="24" rx="11" ry="16" transform="rotate(-8 37 24)" fill="%23ffd34d"/><ellipse cx="63" cy="24" rx="11" ry="16" transform="rotate(8 63 24)" fill="%23ffd34d"/><ellipse cx="82" cy="36" rx="12" ry="17" transform="rotate(22 82 36)" fill="%23ffd34d"/><path d="M10 16C12 10 16 10 18 16C14 14 12 14 10 16Z" fill="%23ffd34d"/><path d="M31 6C33 0 37 0 39 6C35 4 33 4 31 6Z" fill="%23ffd34d"/><path d="M61 6C63 0 67 0 69 6C65 4 63 4 61 6Z" fill="%23ffd34d"/><path d="M82 16C84 10 88 10 90 16C86 14 84 14 82 16Z" fill="%23ffd34d"/></svg>') 12 12, pointer !important;
+          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 120 120"><defs><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="3" dy="4" stdDeviation="3" flood-color="%23000000" flood-opacity="0.65"/></filter><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23fff285"/><stop offset="50%" stop-color="%23ffd34d"/><stop offset="100%" stop-color="%23c49712"/></linearGradient></defs><g filter="url(%23sh)"><path d="M60 58C43 58 28 72 28 88C28 95 32 101 39 105C46 109 53 111 60 111C67 111 74 109 81 105C88 101 92 85 92 88C92 72 77 58 60 58Z" fill="url(%23g)"/><ellipse cx="28" cy="46" rx="12" ry="17" transform="rotate(-22 28 46)" fill="url(%23g)"/><ellipse cx="47" cy="34" rx="11" ry="16" transform="rotate(-8 47 34)" fill="url(%23g)"/><ellipse cx="73" cy="34" rx="11" ry="16" transform="rotate(8 73 34)" fill="url(%23g)"/><ellipse cx="92" cy="46" rx="12" ry="17" transform="rotate(22 92 46)" fill="url(%23g)"/><path d="M20 26C22 20 26 20 28 26C24 24 22 24 20 26Z" fill="%23fffde0"/><path d="M41 16C43 10 47 10 49 16C45 14 43 14 41 16Z" fill="%23fffde0"/><path d="M71 16C73 10 77 10 79 16C75 14 73 14 71 16Z" fill="%23fffde0"/><path d="M92 26C94 20 98 20 100 26C96 24 94 24 92 26Z" fill="%23fffde0"/></g></svg>') 12 12, pointer !important;
         }
         
         /* Animating Background Paw prints keyframes */

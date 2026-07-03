@@ -2,102 +2,162 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/Gpaw — Gối ôm Donal Trump.html",
+      "source": "/Gpaw%20%E2%80%94%20G%E1%BB%91i%20%C3%B4m%20Donal%20Trump.html",
       "destination": "/gpaw-goi-om-donald-trump",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Gối ôm Donal Trump",
+      "source": "/Gpaw%20%E2%80%94%20G%E1%BB%91i%20%C3%B4m%20Donal%20Trump",
       "destination": "/gpaw-goi-om-donald-trump",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Gối ôm Donal Trump.html",
+      "source": "/Gpaw%20-%20G%E1%BB%91i%20%C3%B4m%20Donal%20Trump.html",
       "destination": "/gpaw-goi-om-donald-trump",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Gối ôm Donal Trump",
+      "source": "/Gpaw%20-%20G%E1%BB%91i%20%C3%B4m%20Donal%20Trump",
       "destination": "/gpaw-goi-om-donald-trump",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Senpai School (Anime).html",
+      "source": "/Gpaw%20-%20Senpai%20School%20(Anime).html",
       "destination": "/gpaw-senpai-school-anime",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Senpai School (Anime)",
+      "source": "/Gpaw%20-%20Senpai%20School%20(Anime)",
       "destination": "/gpaw-senpai-school-anime",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Senpai School (Anime).html",
+      "source": "/Gpaw%20-%20Senpai%20School%20%28Anime%29.html",
       "destination": "/gpaw-senpai-school-anime",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Senpai School (Anime)",
+      "source": "/Gpaw%20-%20Senpai%20School%20%28Anime%29",
       "destination": "/gpaw-senpai-school-anime",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Diva Sân Khấu (Ca sĩ).html",
+      "source": "/Gpaw%20%E2%80%94%20Senpai%20School%20(Anime).html",
+      "destination": "/gpaw-senpai-school-anime",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20Senpai%20School%20(Anime)",
+      "destination": "/gpaw-senpai-school-anime",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20Senpai%20School%20%28Anime%29.html",
+      "destination": "/gpaw-senpai-school-anime",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20Senpai%20School%20%28Anime%29",
+      "destination": "/gpaw-senpai-school-anime",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20-%20Diva%20S%C3%A2n%20Kh%E1%BA%A5u%20(Ca%20s%C4%A9).html",
       "destination": "/gpaw-diva-san-khau-ca-si",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Diva Sân Khấu (Ca sĩ)",
+      "source": "/Gpaw%20-%20Diva%20S%C3%A2n%20Kh%E1%BA%A5u%20(Ca%20s%C4%A9)",
       "destination": "/gpaw-diva-san-khau-ca-si",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Diva Sân Khấu (Ca sĩ).html",
+      "source": "/Gpaw%20-%20Diva%20S%C3%A2n%20Kh%E1%BA%A5u%20%28Ca%20s%C4%A9%29.html",
       "destination": "/gpaw-diva-san-khau-ca-si",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Diva Sân Khấu (Ca sĩ)",
+      "source": "/Gpaw%20-%20Diva%20S%C3%A2n%20Kh%E1%BA%A5u%20%28Ca%20s%C4%A9%29",
       "destination": "/gpaw-diva-san-khau-ca-si",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Gấu Mochi (Thú nhồi bông).html",
+      "source": "/Gpaw%20%E2%80%94%20Diva%20S%C3%A2n%20Kh%E1%BA%A5u%20(Ca%20s%C4%A9).html",
+      "destination": "/gpaw-diva-san-khau-ca-si",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20Diva%20S%C3%A2n%20Kh%E1%BA%A5u%20(Ca%20s%C4%A9)",
+      "destination": "/gpaw-diva-san-khau-ca-si",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20Diva%20S%C3%A2n%20Kh%E1%BA%A5u%20%28Ca%20s%C4%A9%29.html",
+      "destination": "/gpaw-diva-san-khau-ca-si",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20Diva%20S%C3%A2n%20Kh%E1%BA%A5u%20%28Ca%20s%C4%A9%29",
+      "destination": "/gpaw-diva-san-khau-ca-si",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20-%20G%E1%BA%A5u%20Mochi%20(Th%C3%BA%20nh%E1%BB%93i%20b%C3%B4ng).html",
       "destination": "/gpaw-gau-mochi-thu-nhoi-bong",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Gấu Mochi (Thú nhồi bông)",
+      "source": "/Gpaw%20-%20G%E1%BA%A5u%20Mochi%20(Th%C3%BA%20nh%E1%BB%93i%20b%C3%B4ng)",
       "destination": "/gpaw-gau-mochi-thu-nhoi-bong",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Gấu Mochi (Thú nhồi bông).html",
+      "source": "/Gpaw%20-%20G%E1%BA%A5u%20Mochi%20%28Th%C3%BA%20nh%E1%BB%93i%20b%C3%B4ng%29.html",
       "destination": "/gpaw-gau-mochi-thu-nhoi-bong",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Gấu Mochi (Thú nhồi bông)",
+      "source": "/Gpaw%20-%20G%E1%BA%A5u%20Mochi%20%28Th%C3%BA%20nh%E1%BB%93i%20b%C3%B4ng%29",
       "destination": "/gpaw-gau-mochi-thu-nhoi-bong",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Cửa hàng.html",
+      "source": "/Gpaw%20%E2%80%94%20G%E1%BA%A5u%20Mochi%20(Th%C3%BA%20nh%E1%BB%93i%20b%C3%B4ng).html",
+      "destination": "/gpaw-gau-mochi-thu-nhoi-bong",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20G%E1%BA%A5u%20Mochi%20(Th%C3%BA%20nh%E1%BB%93i%20b%C3%B4ng)",
+      "destination": "/gpaw-gau-mochi-thu-nhoi-bong",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20G%E1%BA%A5u%20Mochi%20%28Th%C3%BA%20nh%E1%BB%93i%20b%C3%B4ng%29.html",
+      "destination": "/gpaw-gau-mochi-thu-nhoi-bong",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20%E2%80%94%20G%E1%BA%A5u%20Mochi%20%28Th%C3%BA%20nh%E1%BB%93i%20b%C3%B4ng%29",
+      "destination": "/gpaw-gau-mochi-thu-nhoi-bong",
+      "permanent": true
+    },
+    {
+      "source": "/Gpaw%20-%20C%E1%BB%ADa%20h%C3%A0ng.html",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/Gpaw - Cửa hàng",
+      "source": "/Gpaw%20-%20C%E1%BB%ADa%20h%C3%A0ng",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Cửa hàng.html",
+      "source": "/Gpaw%20%E2%80%94%20C%E1%BB%ADa%20h%C3%A0ng.html",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/Gpaw — Cửa hàng",
+      "source": "/Gpaw%20%E2%80%94%20C%E1%BB%ADa%20h%C3%A0ng",
       "destination": "/",
       "permanent": true
     }

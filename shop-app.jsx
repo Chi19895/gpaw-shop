@@ -4882,7 +4882,14 @@ function AdminPanel({
 // ─────────────────────────────────────────────────────────────────────────────
 function App() {
   const active = useActiveSection(["politics", "anime", "stars", "plush"]);
-  const [currentDomain, setCurrentDomain] = useState("gpaw.vn");
+  const [currentDomain, setCurrentDomain] = useState(() => {
+    const hostname = window.location.hostname;
+    const searchParams = new URLSearchParams(window.location.search);
+    if (hostname.includes("admin") || searchParams.has("admin") || window.location.hash.includes("admin")) {
+      return "admin.gpaw.vn";
+    }
+    return "gpaw.vn";
+  });
   
   // Simulated CMS/Site settings state with default values
   const [siteSettings, setSiteSettings] = useState(() => {
@@ -5341,31 +5348,11 @@ function App() {
 
   return (
     <>
-      {/* ────────────────── Browser Simulator Address Bar ────────────────── */}
-      <div className="browser-bar">
-        <div className="dots">
-          <div className="dot red"></div>
-          <div className="dot yellow"></div>
-          <div className="dot green"></div>
-        </div>
-        <div className="nav-btns">
-          <span title="gpaw.vn" onClick={() => setCurrentDomain("gpaw.vn")}>↩</span>
-          <span title="admin.gpaw.vn" onClick={() => setCurrentDomain("admin.gpaw.vn")}>↪</span>
-        </div>
-        <div className="address-input-wrapper">
-          <span className="lock">🔒</span>
-          <span>https://</span>
-          <span className="domain-tag">{currentDomain}</span>
-          <span>/storefront/shop</span>
-        </div>
-        
-        <button
-          className="admin-toggle-btn"
-          onClick={() => setCurrentDomain(currentDomain === "gpaw.vn" ? "admin.gpaw.vn" : "gpaw.vn")}
-        >
-          {currentDomain === "gpaw.vn" ? "Mở Bảng Admin" : "Quay về Cửa hàng"}
-        </button>
-      </div>
+      {/* Dynamic Style Overrides to remove browser simulator bar spacing */}
+      <style>{`
+        body { padding-top: 0 !important; }
+        .topnav { top: 0 !important; }
+      `}</style>
 
       {/* ────────────────── App Domains rendering ────────────────── */}
       {currentDomain === "gpaw.vn" ? (

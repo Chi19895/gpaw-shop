@@ -78,26 +78,62 @@ const PawIcon = ({ size = 20, color = "#b3242d" }) => (
 );
 
 // ── Background Paw prints watermarks scattered randomly ────────────────────
-const BackgroundPaws = ({ count = 15, theme = "light" }) => {
-  const [paws] = React.useState(() => {
+const BackgroundPaws = ({ count = 40 }) => {
+  const getColorsForPosition = (topPercent) => {
+    // 0% - 25% (Politics): Light theme
+    // 25% - 50% (Anime): Hot pink background, needs white/yellow
+    // 50% - 75% (Stars): Dark navy background, needs gold/white
+    // 75% - 100% (Plush): Peach background, needs navy/red
+    if (topPercent >= 23 && topPercent < 77) {
+      // Dark theme colors (Gold/White)
+      return ["rgba(255,211,77,0.18)", "rgba(255,255,255,0.14)"];
+    } else {
+      // Light theme colors (Red/Navy)
+      return ["rgba(179,36,45,0.14)", "rgba(22,33,58,0.18)"];
+    }
+  };
+
+  const generateSinglePaw = (id) => {
+    const topVal = Math.random() * 92 + 4; // 4% to 96% scroll height
+    const colors = getColorsForPosition(topVal);
+    return {
+      id,
+      top: `${topVal}%`,
+      left: `${Math.random() * 88 + 6}%`,
+      size: Math.floor(Math.random() * 60 + 20), // 20px to 80px scale
+      rotation: Math.floor(Math.random() * 360),
+      color: colors[Math.floor(Math.random() * colors.length)],
+      delay: `${Math.random() * -8}s` // initial stagger delay
+    };
+  };
+
+  const [paws, setPaws] = React.useState(() => {
     const list = [];
-    const colors = theme === "dark"
-      ? ["rgba(255,211,77,0.16)", "rgba(255,255,255,0.12)"] // doubled gold/white for dark themes
-      : ["rgba(179,36,45,0.12)", "rgba(22,33,58,0.16)"]; // doubled red/navy for light themes
-      
     for (let i = 0; i < count; i++) {
-      list.push({
-        id: i,
-        top: `${Math.random() * 85 + 7}%`,
-        left: `${Math.random() * 90 + 5}%`,
-        size: Math.floor(Math.random() * 60 + 20), // 20px to 80px (wider scale variation)
-        rotation: Math.floor(Math.random() * 360),
-        color: colors[i % colors.length],
-        delay: `${Math.random() * -8}s` // randomized negative animation delay
-      });
+      list.push(generateSinglePaw(i));
     }
     return list;
   });
+
+  const handleAnimationIteration = (id) => {
+    setPaws(prev => prev.map(paw => {
+      if (paw.id === id) {
+        // Move to a new random location when faded out, avoiding 10s static positions
+        const newTop = Math.random() * 92 + 4;
+        const colors = getColorsForPosition(newTop);
+        return {
+          ...paw,
+          top: `${newTop}%`,
+          left: `${Math.random() * 88 + 6}%`,
+          size: Math.floor(Math.random() * 60 + 20),
+          rotation: Math.floor(Math.random() * 360),
+          color: colors[Math.floor(Math.random() * colors.length)],
+          delay: '0s' // clear negative delay for smooth cycling
+        };
+      }
+      return paw;
+    }));
+  };
 
   return (
     <div className="bg-paws-container" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }}>
@@ -105,6 +141,7 @@ const BackgroundPaws = ({ count = 15, theme = "light" }) => {
         <div
           key={paw.id}
           className="bg-paw-item"
+          onAnimationIteration={() => handleAnimationIteration(paw.id)}
           style={{
             position: "absolute",
             top: paw.top,
@@ -782,7 +819,6 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
       className={"world w-anime" + (inView ? " in" : "")}
       data-screen-label="02 Anime"
     >
-      <BackgroundPaws count={10} theme="dark" />
       {sakura.map((s, i) => (
         <span key={i} className="sakura" style={{ left: s.left, top: "-20px", "--delay": s.delay, "--dur": s.dur }}>
           <svg width={s.size} height={s.size} viewBox="0 0 20 20" style={{ transform: `rotate(${s.rot}deg)` }}>
@@ -1039,7 +1075,6 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
       className={"world w-stars" + (inView ? " in" : "")}
       data-screen-label="03 Ca sĩ · Diễn viên"
     >
-      <BackgroundPaws count={10} theme="dark" />
       {twinkles.map((t, i) => (
         <span key={i} className="twinkle" style={{ top: t.top, left: t.left, "--delay": t.delay, fontSize: t.size }}>✦</span>
       ))}
@@ -1287,7 +1322,6 @@ function Plush({ catalog, onSelectProduct, siteSettings }) {
       className={"world w-plush" + (inView ? " in" : "")}
       data-screen-label="04 Thú nhồi bông"
     >
-      <BackgroundPaws count={10} theme="light" />
       <div className="hearts">
         {hearts.map((h, i) => (
           <span key={i} style={{ left: h.left, bottom: "-30px", "--delay": h.delay, "--dur": h.dur, fontSize: h.size }}>♥</span>
@@ -5423,7 +5457,7 @@ function App() {
     }
   }, [selectedProduct, catalog, siteSettings]);
 
-  // Initial page load loader timer & Global scratch click listener
+  // Initial page load loader timer, Global scratch click, & Mouse Trail listener
   useEffect(() => {
     // 1. Initial page load timeout
     const loadTimer = setTimeout(() => {
@@ -5539,11 +5573,70 @@ function App() {
       }, 550);
     };
 
+    // 4. Tiny Paw Mouse Trail effect
+    let lastX = 0;
+    let lastY = 0;
+    const minDistance = 28; // Spawns a tiny trail paw every 28px of cursor movement
+
+    const handleMouseMove = (e) => {
+      const dist = Math.hypot(e.pageX - lastX, e.pageY - lastY);
+      if (dist < minDistance) return;
+
+      lastX = e.pageX;
+      lastY = e.pageY;
+
+      const trail = document.createElement("div");
+      
+      // Randomize small size (9px to 14px) and rotation angle
+      const size = Math.floor(Math.random() * 5 + 9);
+      const rotation = Math.floor(Math.random() * 40 - 20);
+      
+      trail.style.position = "absolute";
+      trail.style.left = `${e.pageX}px`;
+      trail.style.top = `${e.pageY}px`;
+      trail.style.width = `${size}px`;
+      trail.style.height = `${size}px`;
+      trail.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(1.1)`;
+      trail.style.pointerEvents = "none";
+      trail.style.zIndex = "999998"; // just below the click claw mark zIndex
+      trail.style.opacity = "0.75"; // initial transparency for soft trail
+
+      // Alternate color between red brand and gold brand
+      const isGold = Math.random() > 0.5;
+      const color = isGold ? "#ffd34d" : "#b3242d";
+
+      // Draw tiny paw SVG
+      trail.innerHTML = `
+        <svg viewBox="0 0 100 100" width="100%" height="100%" style="overflow: visible; filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.35));">
+          <path d="M50 48C33 48 18 62 18 78C18 85 22 91 29 95C36 99 43 101 50 101C57 101 64 99 71 95C78 91 82 85 82 78C82 62 67 48 50 48Z" fill="${color}"/>
+          <ellipse cx="18" cy="36" rx="12" ry="17" transform="rotate(-22 18 36)" fill="${color}"/>
+          <ellipse cx="37" cy="24" rx="11" ry="16" transform="rotate(-8 37 24)" fill="${color}"/>
+          <ellipse cx="63" cy="24" rx="11" ry="16" transform="rotate(8 63 24)" fill="${color}"/>
+          <ellipse cx="82" cy="36" rx="12" ry="17" transform="rotate(22 82 36)" fill="${color}"/>
+        </svg>
+      `;
+
+      document.body.appendChild(trail);
+
+      // Trigger transition to scale down and fade away smoothly
+      requestAnimationFrame(() => {
+        trail.style.transition = "transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease-out";
+        trail.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(0.35)`;
+        trail.style.opacity = "0";
+      });
+
+      setTimeout(() => {
+        trail.remove();
+      }, 600);
+    };
+
     window.addEventListener("click", handleGlobalClick);
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       clearTimeout(loadTimer);
       window.removeEventListener("click", handleGlobalClick);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -5959,12 +6052,13 @@ function App() {
               siteSettings={siteSettings}
             />
           ) : (
-            <>
+            <div style={{ position: "relative" }}>
+              <BackgroundPaws count={50} />
               <Politics catalog={catalog} onSelectProduct={openProductDetail} onOpenAuth={setAuthModal} siteSettings={siteSettings} />
               <Anime catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
               <Stars catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
               <Plush catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
-            </>
+            </div>
           )}
           <Complaint />
           <FloatContact siteSettings={siteSettings} />

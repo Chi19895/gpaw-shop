@@ -1708,6 +1708,8 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
 }
 
 function CheckoutForm({ item, currentUser, vouchers, onClose, onPlaceOrder }) {
+  // Submitting state for serverless API
+  const [submitting, setSubmitting] = useState(false);
   // Address state
   const [province, setProvince] = useState("");
   const [ward, setWard] = useState("");
@@ -1759,8 +1761,9 @@ function CheckoutForm({ item, currentUser, vouchers, onClose, onPlaceOrder }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return;
     if (!province) { alert("Vui lòng chọn Tỉnh/Thành phố!"); return; }
     if (!address.trim()) { alert("Vui lòng nhập địa chỉ chi tiết!"); return; }
     if (!phone) { alert("Vui lòng nhập số điện thoại!"); return; }
@@ -1770,7 +1773,8 @@ function CheckoutForm({ item, currentUser, vouchers, onClose, onPlaceOrder }) {
     const wardName = ward || "";
     const fullAddress = `${address}, ${wardName}${wardName ? ", " : ""}${provinceName}`;
 
-    onPlaceOrder({
+    setSubmitting(true);
+    const res = await onPlaceOrder({
       product: item.product,
       size: item.size,
       qty: item.qty,
@@ -1784,7 +1788,14 @@ function CheckoutForm({ item, currentUser, vouchers, onClose, onPlaceOrder }) {
       fullAddress,
       appliedVoucher,
       pawUsed: Math.min(pawInput, pawBalance),
+      customerName: currentUser ? currentUser.name : "Khách vãng lai",
+      customerPhone: phone,
+      customerAddress: fullAddress
     });
+
+    if (res && !res.success) {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -1941,7 +1952,9 @@ function CheckoutForm({ item, currentUser, vouchers, onClose, onPlaceOrder }) {
             </div>
           </div>
 
-          <button type="submit" className="btn-place-order">ĐẶT HÀNG</button>
+          <button type="submit" className="btn-place-order" disabled={submitting}>
+            {submitting ? "ĐANG XỬ LÝ..." : "ĐẶT HÀNG"}
+          </button>
         </form>
       </div>
     </div>
@@ -5110,54 +5123,77 @@ function App() {
     // Alert is handled inside ProductDetail component
   };
 
-  const handlePlaceOrder = (orderData) => {
-    const newOrderId = orders.length > 0 ? Math.max(...orders.map(o => o.id)) + 1 : 100;
-    const dateStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
-    
-    const newOrder = {
-      id: newOrderId,
-      customerEmail: currentUser ? currentUser.email : "guest@gpaw.vn",
-      customerName: currentUser ? currentUser.name : "Khách vãng lai",
-      datetime: dateStr,
-      details: `${orderData.product.name} (${orderData.size.label}) × ${orderData.qty}`,
-      value: fmtPrice(orderData.total),
-      tier: currentUser ? currentUser.tier : "Đồng",
-      status: "Processing"
-    };
+  const handlePlaceOrder = async (orderData) => {
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+      });
 
-    setOrders((prev) => [newOrder, ...prev]);
+      const result = await response.json();
 
-    const basePawReward = Math.ceil(orderData.total / 100000);
-    const bonusPawReward = orderData.payMethod === "transfer" ? 10 : 0;
-    const totalPawReward = basePawReward + bonusPawReward;
+      if (!result.success) {
+        throw new Error(result.error || 'Giao dịch qua API thất bại.');
+      }
 
-    if (currentUser) {
-      const netPointsChange = totalPawReward - orderData.pawUsed;
-      const updatedPoints = Math.max(0, currentUser.points + netPointsChange);
+      // Convert order ID returned from serverless (could be PAN-XXXX or dynamic)
+      const finalOrderId = result.orderId;
+      const dateStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
       
-      setCustomers((prev) =>
-        prev.map((c) => {
-          if (c.id === currentUser.id) {
-            return { ...c, points: updatedPoints };
-          }
-          return c;
-        })
-      );
-      setCurrentUser((prev) => ({ ...prev, points: updatedPoints }));
-    }
+      const newOrder = {
+        id: finalOrderId,
+        customerEmail: currentUser ? currentUser.email : "guest@gpaw.vn",
+        customerName: currentUser ? currentUser.name : "Khách vãng lai",
+        datetime: dateStr,
+        details: `${orderData.product.name} (${orderData.size.label}) × ${orderData.qty}`,
+        value: fmtPrice(orderData.total),
+        tier: currentUser ? currentUser.tier : "Đồng",
+        status: "Processing"
+      };
 
-    setOrderResult({
-      orderId: `ORD${newOrderId}`,
-      total: orderData.total,
-      payMethod: orderData.payMethod,
-      pawReward: totalPawReward
-    });
+      setOrders((prev) => [newOrder, ...prev]);
 
-    setCheckoutItem(null);
+      const basePawReward = Math.ceil(orderData.total / 100000);
+      const bonusPawReward = orderData.payMethod === "transfer" ? 10 : 0;
+      const totalPawReward = basePawReward + bonusPawReward;
 
-    if (window.gpawPing) {
-      window.gpawPing(1000, 150);
-      setTimeout(() => { if (window.gpawPing) window.gpawPing(1300, 250); }, 150);
+      if (currentUser) {
+        const netPointsChange = totalPawReward - orderData.pawUsed;
+        const updatedPoints = Math.max(0, currentUser.points + netPointsChange);
+        
+        setCustomers((prev) =>
+          prev.map((c) => {
+            if (c.id === currentUser.id) {
+              return { ...c, points: updatedPoints };
+            }
+            return c;
+          })
+        );
+        setCurrentUser((prev) => ({ ...prev, points: updatedPoints }));
+      }
+
+      setOrderResult({
+        orderId: finalOrderId.toString().startsWith('PAN') ? finalOrderId : `ORD${finalOrderId}`,
+        total: orderData.total,
+        payMethod: orderData.payMethod,
+        pawReward: totalPawReward
+      });
+
+      setCheckoutItem(null);
+
+      if (window.gpawPing) {
+        window.gpawPing(1000, 150);
+        setTimeout(() => { if (window.gpawPing) window.gpawPing(1300, 250); }, 150);
+      }
+      
+      return { success: true };
+    } catch (err) {
+      console.error("Lỗi gửi đơn hàng:", err);
+      alert(`Đã xảy ra lỗi khi tạo đơn hàng: ${err.message}. Vui lòng thử lại!`);
+      return { success: false, error: err.message };
     }
   };
 

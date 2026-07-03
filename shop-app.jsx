@@ -481,7 +481,16 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings }) {
                 <span>Hồ sơ <b>No. {String(displayActive + 1).padStart(3, "0")} / {String(cards.length).padStart(3, "0")}</b></span>
                 <span>Lật trang tự động</span>
               </div>
-              <a href={catalogItem?.url || "#"} className="feat-flip">
+              <a
+                href={catalogItem?.url || "#"}
+                onClick={(e) => {
+                  if (!catalogItem || !catalogItem.url) {
+                    e.preventDefault();
+                    handleProductClick(featured);
+                  }
+                }}
+                className="feat-flip"
+              >
                 <span className={"tag" + (featured.tagColor === "red" ? " red" : "")}>{featured.tag}</span>
                 {featured.real && (
                   <span className="stamp">Phát hành<br /><b>Giới hạn</b></span>
@@ -691,7 +700,7 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
               {/* Magazine cover frame with overlaid text like SOUL magazine */}
               <a
                 href={catalogItem?.url || "#"}
-                onClick={(e) => { if (!catalogItem) { e.preventDefault(); handleProductClick(featured); } }}
+                onClick={(e) => { if (!catalogItem || !catalogItem.url) { e.preventDefault(); handleProductClick(featured); } }}
                 style={{ textDecoration: "none", color: "inherit", display: "block" }}
               >
                 <div className="frame manga-cover-frame" style={{ position: "relative" }}>
@@ -904,7 +913,7 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
 
             <a
               href={catalogItem?.url || "#"}
-              onClick={(e) => { if (!catalogItem) { e.preventDefault(); handleProductClick(featured); } }}
+              onClick={(e) => { if (!catalogItem || !catalogItem.url) { e.preventDefault(); handleProductClick(featured); } }}
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
             >
               <div className="elle-cover-frame" style={{ position: "relative" }}>
@@ -1100,7 +1109,7 @@ function Plush({ catalog, onSelectProduct, siteSettings }) {
 
               <a
                 href={catalogItem?.url || "#"}
-                onClick={(e) => { if (!catalogItem) { e.preventDefault(); handleProductClick(featured); } }}
+                onClick={(e) => { if (!catalogItem || !catalogItem.url) { e.preventDefault(); handleProductClick(featured); } }}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <div className="frame" style={{ background: featured.c.bg, position: "relative" }}>

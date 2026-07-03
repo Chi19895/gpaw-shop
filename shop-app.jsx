@@ -136,7 +136,7 @@ const BackgroundPaws = ({ count = 40 }) => {
   };
 
   return (
-    <div className="bg-paws-container" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }}>
+    <div className="bg-paws-container" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1, overflow: "hidden" }}>
       {paws.map(paw => (
         <div
           key={paw.id}

@@ -211,7 +211,7 @@ const INITIAL_VOUCHERS = [
 // ── Product Catalog — centralized product data ───────────────────────────
 const PRODUCT_CATALOG = [
   { id: "p001", name: "Gối ôm Donal Trump", category: "politics", img: "assets/pillow-front.png",
-    url: "Gpaw — Gối ôm Donal Trump.html",
+    url: "gpaw-goi-om-donald-trump.html",
     images: ["assets/pillow-front.png", "assets/pillow-hero.png"],
     sizes: [
       { label: "80cm", listedPrice: 380000, salePrice: 320000 },
@@ -243,7 +243,7 @@ const PRODUCT_CATALOG = [
     specs: "", headline: "ẤN BẢN ĐẶC BIỆT CHỈ CÒN ĐƯỢC CHĂM SÓC BỞI LÒNG TIN", tag: "Sắp ra mắt", available: false, isBestSeller: false, isOnSale: false },
   
   { id: "a001", name: "Gối ôm Senpai School", category: "anime", img: "assets/pillow-front.png",
-    url: "Gpaw - Senpai School (Anime).html",
+    url: "gpaw-senpai-school-anime.html",
     images: ["assets/pillow-front.png", "assets/pillow-hero.png"],
     sizes: [
       { label: "80cm", listedPrice: 360000, salePrice: 320000 },
@@ -268,7 +268,7 @@ const PRODUCT_CATALOG = [
     specs: "", headline: "GỐI ÔM BIẾT KÊU NYA~ SƯỞI ẤM ĐÊM ĐÔNG CÔ ĐƠN!", tag: "Sắp ra mắt", available: false, isBestSeller: false, isOnSale: false },
 
   { id: "s001", name: "Gối ôm Diva Sân Khấu", category: "stars", img: null,
-    url: "Gpaw - Diva Sân Khấu (Ca sĩ).html",
+    url: "gpaw-diva-san-khau-ca-si.html",
     images: [],
     sizes: [
       { label: "80cm", listedPrice: 400000, salePrice: 350000 },
@@ -293,7 +293,7 @@ const PRODUCT_CATALOG = [
     specs: "", headline: "CƠN LỐC ROCK & ROLL ĐÁNH THỨC MỌI GIÁC QUAN VÀ GIẤC MƠ ÊM ÁI!", tag: "Sắp ra mắt", available: false, isBestSeller: false, isOnSale: false },
 
   { id: "pl001", name: "Gối ôm Gấu Mochi", category: "plush", img: null,
-    url: "Gpaw - Gấu Mochi (Thú nhồi bông).html",
+    url: "gpaw-gau-mochi-thu-nhoi-bong.html",
     images: [],
     sizes: [
       { label: "40cm", listedPrice: 280000, salePrice: 220000 },
@@ -377,7 +377,7 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings }) {
 
   const cards = [
     { name: "Donal Trump",    en: "Donal Trump",    tag: "Đang bán",    tagColor: "red", price: "320.000đ", was: "420.000đ",
-      href: "Gpaw — Gối ôm Donal Trump.html", real: true, img: "assets/pillow-front.png",
+      href: "gpaw-goi-om-donald-trump.html", real: true, img: "assets/pillow-front.png",
       byline: "Ảnh: Gpaw Studio · No. 047", quote: "Một người bạn nguyên thủ — đảm bảo bốn năm bảo hành.", status: "Đã ra mắt · Thu 2025",
       headline: "TRUMP PHÁT NGÔN NÓNG: 'TÔI BẢO HÀNH 4 NĂM CHO PHÒNG NGỦ CỦA BẠN!'" },
     { name: "Vladimir Putin", en: "Vladimir Putin", tag: "Đặt trước", price: "Pre-order",
@@ -590,7 +590,7 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
   const [displayActive, setDisplayActive] = useState(0);
 
   const cards = [
-    { name: "Senpai School", en: "Schoolboy senpai", pow: "ふぁ!", href: "Gpaw — Senpai School (Anime).html", tag: "Đặt trước", real: true, img: "assets/pillow-front.png",
+    { name: "Senpai School", en: "Schoolboy senpai", pow: "ふぁ!", href: "gpaw-senpai-school-anime.html", tag: "Đặt trước", real: true, img: "assets/pillow-front.png",
       headline: "SENPAI SẼ ÔM BẠN ĐẾN HẾT TIẾT HỌC! TRẬN CHIẾN CUỐI CÙNG BẮT ĐẦU!" },
     { name: "Mahō Shōjo",    en: "Magical girl",     pow: "✦",    tag: "Sắp ra mắt",
       headline: "SỨC MẠNH MA THUẬT BIẾN HÌNH THÀNH ÊM ÁI SIÊU HẠNG!" },
@@ -802,7 +802,7 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
   const [transitioning, setTransitioning] = useState(false);
 
   const cards = [
-    { name: "Diva Sân Khấu",  en: "Stage Diva",     issue: "Issue 01", season: "Spring 2026", href: "Gpaw — Diva Sân Khấu (Ca sĩ).html", real: true,
+    { name: "Diva Sân Khấu",  en: "Stage Diva",     issue: "Issue 01", season: "Spring 2026", href: "gpaw-diva-san-khau-ca-si.html", real: true,
       cover: "STYLE & SOUL", pullQuote: "Giữa triệu ánh đèn sân khấu, tôi vẫn cần một nơi chốn bình yên để đặt đầu.",
       headline: "DIVA TIẾT LỘ: 'GIỮA HÀO QUANG VÀ SỰ CÔ ĐƠN, TÔI CHỌN CHIẾC GỐI NÀY!'",
       subline: "Phỏng vấn độc quyền về thói quen chăm sóc bản thân của ngôi sao hàng đầu" },
@@ -1007,7 +1007,7 @@ function Plush({ catalog, onSelectProduct, siteSettings }) {
   const [displayActive, setDisplayActive] = useState(0);
 
   const cards = [
-    { name: "Gấu Mochi",   en: "mochi the bear",   icon: SilPlushBear,  c: { bg: "#ffe2b3", shadow: "#f6c8a8" }, href: "Gpaw — Gấu Mochi (Thú nhồi bông).html", real: true,
+    { name: "Gấu Mochi",   en: "mochi the bear",   icon: SilPlushBear,  c: { bg: "#ffe2b3", shadow: "#f6c8a8" }, href: "gpaw-gau-mochi-thu-nhoi-bong.html", real: true,
       headline: "GẤU MOCHI THÚ NHẬN: 'TÔI MỀM VÀ ÊM ẤM HƠN CRUSH CỦA BẠN GẤP 10 LẦN!'" },
     { name: "Thỏ Nougat",  en: "nougat the bunny", icon: SilPlushBunny, c: { bg: "#f6d5e3", shadow: "#e6b8d2" },
       headline: "VỊ NGỌT KẸO BÔNG THỎ NOUGAT: NGƯỜI BẠN TAI DÀI ÔM ẤM MỖI ĐÊM ĐÔNG CẬN KỀ!" },
@@ -1527,9 +1527,9 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
       <div className="product-detail-inner">
         {/* Breadcrumbs */}
         <div className="product-breadcrumb">
-          <a href="Gpaw - Cửa hàng.html">Trang chủ</a>
+          <a href="index.html">Trang chủ</a>
           <span className="sep">/</span>
-          <a href={`Gpaw - Cửa hàng.html#${product.category}`}>{categoryNameMap[product.category] || product.category}</a>
+          <a href={`index.html#${product.category}`}>{categoryNameMap[product.category] || product.category}</a>
           <span className="sep">/</span>
           <span className="current">{product.name}</span>
         </div>
@@ -4981,11 +4981,11 @@ function App() {
 
   // URL routing for multi-page details page
   const getActiveProductFromUrl = (currentCatalog) => {
-    const path = decodeURIComponent(window.location.pathname);
-    if (path.includes("Trump")) return currentCatalog.find(p => p.id === "p001");
-    if (path.includes("Senpai")) return currentCatalog.find(p => p.id === "a001");
-    if (path.includes("Diva")) return currentCatalog.find(p => p.id === "s001");
-    if (path.includes("Mochi")) return currentCatalog.find(p => p.id === "pl001");
+    const path = decodeURIComponent(window.location.pathname).toLowerCase();
+    if (path.includes("trump") || path.includes("donald-trump")) return currentCatalog.find(p => p.id === "p001");
+    if (path.includes("senpai") || path.includes("senpai-school")) return currentCatalog.find(p => p.id === "a001");
+    if (path.includes("diva") || path.includes("diva-san-khau")) return currentCatalog.find(p => p.id === "s001");
+    if (path.includes("mochi") || path.includes("gau-mochi")) return currentCatalog.find(p => p.id === "pl001");
     return null;
   };
 
@@ -5384,9 +5384,9 @@ function App() {
                 }
               } else {
                 if (id) {
-                  window.location.href = "Gpaw - Cửa hàng.html#" + id;
+                  window.location.href = "index.html#" + id;
                 } else {
-                  window.location.href = "Gpaw - Cửa hàng.html";
+                  window.location.href = "index.html";
                 }
               }
             }}
@@ -5426,9 +5426,14 @@ function App() {
               orderResult={orderResult}
               onContinue={() => {
                 setOrderResult(null);
-                const path = decodeURIComponent(window.location.pathname);
-                if (path.includes("Trump") || path.includes("Senpai") || path.includes("Diva") || path.includes("Mochi")) {
-                  window.location.href = "Gpaw - Cửa hàng.html";
+                const path = decodeURIComponent(window.location.pathname).toLowerCase();
+                if (
+                  path.includes("trump") || path.includes("donald-trump") ||
+                  path.includes("senpai") || path.includes("senpai-school") ||
+                  path.includes("diva") || path.includes("diva-san-khau") ||
+                  path.includes("mochi") || path.includes("gau-mochi")
+                ) {
+                  window.location.href = "index.html";
                 }
               }}
               onTrackOrders={() => {

@@ -1336,7 +1336,10 @@ function TopNav({ activeTheme, currentUser, onOpenAuth, onLogout, onOpenVouchers
   return (
     <div className={"topnav theme-" + activeTheme} data-screen-label="00 Top nav">
       <div className="wrap">
-        <a href="#top" className="logo" style={{ textDecoration: "none", color: "inherit" }} onClick={(e) => { e.preventDefault(); onNavClick && onNavClick(null); }}>{siteSettings?.brandName || "GPAW"}</a>
+        <a href="#top" className="logo" style={{ textDecoration: "none", color: "inherit", display: "inline-flex", alignItems: "center", gap: "6px" }} onClick={(e) => { e.preventDefault(); onNavClick && onNavClick(null); }}>
+          <PawIcon size={20} color={pawColor} />
+          <span>{siteSettings?.brandName || "GPAW"}</span>
+        </a>
         <nav>
           {items.map((it) => (
             <a
@@ -5586,6 +5589,7 @@ function App() {
       <style>{`
         body { padding-top: 0 !important; }
         .topnav { top: 0 !important; }
+        .topnav .logo::before, .topnav .logo::after { content: none !important; }
         
         /* Anime Universe news/footer overrides */
         .w-anime .paper-news-section { border-color: #000; }

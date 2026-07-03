@@ -5582,10 +5582,43 @@ function App() {
 
   return (
     <>
-      {/* Dynamic Style Overrides to remove browser simulator bar spacing */}
+      {/* Dynamic Style Overrides to remove browser simulator bar spacing and style news/footers */}
       <style>{`
         body { padding-top: 0 !important; }
         .topnav { top: 0 !important; }
+        
+        /* Anime Universe news/footer overrides */
+        .w-anime .paper-news-section { border-color: #000; }
+        .w-anime .paper-news-section h4 { color: #ff3a78; font-family: "Bagel Fat One", sans-serif; font-size: 15px; }
+        .w-anime .news-item { border-color: #000; }
+        .w-anime .news-item h5 { color: #000; font-family: "Be Vietnam Pro", sans-serif; font-weight: 800; }
+        .w-anime .news-item p { color: #333; }
+        .w-anime .paper-foot { border-color: #000; }
+        .w-anime .paper-foot .col h5 { color: #ff3a78; font-family: "Bagel Fat One", sans-serif; font-size: 12px; }
+        .w-anime .paper-foot .col p { color: #000; }
+        .w-anime .paper-foot .col p:first-of-type::first-letter { color: #ff4c94; font-family: "Bagel Fat One", sans-serif; }
+
+        /* Stars Universe overrides (Premium Glossy Dark theme) */
+        .w-stars .paper-news-section { border-color: rgba(255,255,255,0.15); }
+        .w-stars .paper-news-section h4 { color: #ffd34d !important; font-family: "Bodoni Moda", "Playfair Display", serif; font-style: italic; font-size: 18px; letter-spacing: 0.15em; font-weight: 700; }
+        .w-stars .news-item { border-color: #ff3eb8; }
+        .w-stars .news-item h5 { color: #fff; font-family: "Bodoni Moda", "Playfair Display", serif; font-weight: 600; font-style: italic; font-size: 17px; }
+        .w-stars .news-item p { color: rgba(255,255,255,0.7); }
+        .w-stars .paper-foot { border-color: rgba(255,255,255,0.15); }
+        .w-stars .paper-foot .col h5 { color: #ff3eb8; font-family: "Bodoni Moda", "Playfair Display", serif; font-weight: 600; letter-spacing: 0.15em; font-size: 13px; text-transform: uppercase; }
+        .w-stars .paper-foot .col p { color: rgba(255,255,255,0.8); font-family: var(--display); font-weight: 300; font-size: 14.5px; line-height: 1.6; text-align: justify; }
+        .w-stars .paper-foot .col p:first-of-type::first-letter { color: #ffd34d; font-family: "Bodoni Moda", "Playfair Display", serif; font-weight: 700; font-style: italic; font-size: 46px; }
+
+        /* Plush Universe overrides */
+        .w-plush .paper-news-section { border-color: #ff9eb1; }
+        .w-plush .paper-news-section h4 { color: #a85e72; font-family: "Lora", serif; font-size: 16px; }
+        .w-plush .news-item { border-color: #ff9eb1; }
+        .w-plush .news-item h5 { color: #2a1c14; font-family: "Lora", serif; font-weight: 700; }
+        .w-plush .news-item p { color: #4a3c34; }
+        .w-plush .paper-foot { border-color: #ff9eb1; }
+        .w-plush .paper-foot .col h5 { color: #a85e72; font-family: "Lora", serif; font-size: 12px; }
+        .w-plush .paper-foot .col p { color: #2a1c14; }
+        .w-plush .paper-foot .col p:first-of-type::first-letter { color: #ff9eb1; font-family: "Lora", serif; }
       `}</style>
 
       {/* ────────────────── App Domains rendering ────────────────── */}

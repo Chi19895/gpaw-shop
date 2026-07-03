@@ -5592,6 +5592,12 @@ function App() {
         .topnav .logo::before, .topnav .logo::after { content: none !important; }
         
         /* Anime Universe news/footer overrides */
+        .w-anime .paper-news-section,
+        .w-anime .paper-foot {
+          padding-left: 20px;
+          padding-right: 20px;
+          box-sizing: border-box;
+        }
         .w-anime .paper-news-section { border-color: #000; }
         .w-anime .paper-news-section h4 { color: #ff3a78; font-family: "Bagel Fat One", sans-serif; font-size: 15px; }
         .w-anime .news-item { border-color: #000; }
@@ -5607,6 +5613,9 @@ function App() {
         .w-stars .paper-foot {
           grid-column: 1 / -1;
           width: 100%;
+          padding-left: 24px;
+          padding-right: 24px;
+          box-sizing: border-box;
         }
         .w-stars .paper-news-section {
           border-color: rgba(255,255,255,0.15);
@@ -5625,6 +5634,12 @@ function App() {
         .w-stars .paper-foot .col p:first-of-type::first-letter { color: #ffd34d; font-family: "Bodoni Moda", "Playfair Display", serif; font-weight: 700; font-style: italic; font-size: 46px; }
 
         /* Plush Universe overrides */
+        .w-plush .paper-news-section,
+        .w-plush .paper-foot {
+          padding-left: 20px;
+          padding-right: 20px;
+          box-sizing: border-box;
+        }
         .w-plush .paper-news-section { border-color: #ff9eb1; }
         .w-plush .paper-news-section h4 { color: #a85e72; font-family: "Lora", serif; font-size: 16px; }
         .w-plush .news-item { border-color: #ff9eb1; }

@@ -786,6 +786,48 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
               <div className="t-progress" key={active} style={{ background: "rgba(0,0,0,0.1)" }}></div>
             </div>
           </div>
+
+          {/* Breaking News Feed Section */}
+          {(() => {
+            const animeNews = (siteSettings?.newsList || []).filter(news => 
+              news.subCategory === "tinb" || 
+              news.category.toUpperCase().includes("ANIME") || 
+              news.category.toUpperCase().includes("MANGA")
+            );
+            const displayNews = animeNews.length > 0 ? animeNews : [
+              { date: "29/05/2026", category: "MANGA WEEKLY", title: "SENPAI SCHOOL VOL. 1 CHÍNH THỨC PHÁT HÀNH", summary: "Tập đầu tiên của vũ trụ Anime đã chính thức cập bến kệ hàng Gpaw, mang lại những trang vẽ tay sắc nét trên chất vải mát lạnh." },
+              { date: "28/05/2026", category: "REVIEW", title: "CẢM NHẬN KHÁCH HÀNG: ÊM HƠN CẢ KỲ VỌNG", summary: "Cộng đồng otaku tại Việt Nam đánh giá cao khả năng giữ phom của dòng gối mới, thích hợp cả khi đọc truyện lẫn ôm ngủ." }
+            ];
+            return (
+              <div className="paper-news-section">
+                <h4>📰 Bản tin Shonen Weekly (Manga & Figure)</h4>
+                <div className="news-grid">
+                  {displayNews.map((news, index) => (
+                    <div key={index} className="news-item">
+                      <span className="date-cat">{news.date} · {news.category}</span>
+                      <h5>{news.title}</h5>
+                      <p>{news.summary}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
+
+          <div className="paper-foot">
+            <div className="col">
+              <h5>Tôn chỉ nét vẽ</h5>
+              <p>Hệ thống nét vẽ tay thủ công được chuyển thể 100% sang dạng in kỹ thuật số 3D độ nét cực cao, tái hiện hoàn hảo thần thái 2D của các nhân vật Anime yêu thích.</p>
+            </div>
+            <div className="col">
+              <h5>Tiến độ dự án</h5>
+              <p>Tập 1 Senpai School đã chính thức gia nhập kệ hàng. Tập 2 Mahō Shōjo và Tập 3 Tsundere đang hoàn thiện khâu phối màu và chuẩn bị in test mẫu đầu tiên.</p>
+            </div>
+            <div className="col">
+              <h5>Lưu ý độc giả</h5>
+              <p>Sản phẩm được thiết kế độc quyền phục vụ văn hóa Otaku và các nhà sưu tầm Manga/Anime. Đảm bảo bản quyền thiết kế tinh xảo từ Gpaw Atelier.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -991,6 +1033,50 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
               <div className="elle-progress-fill" key={active}></div>
             </div>
           </div>
+
+          {/* Breaking News Feed Section */}
+          {(() => {
+            const starsNews = (siteSettings?.newsList || []).filter(news => 
+              news.subCategory === "tinc" || 
+              news.category.toUpperCase().includes("STARS") || 
+              news.category.toUpperCase().includes("CA SĨ") || 
+              news.category.toUpperCase().includes("IDOL") || 
+              news.category.toUpperCase().includes("CELEB")
+            );
+            const displayNews = starsNews.length > 0 ? starsNews : [
+              { date: "29/05/2026", category: "CONCERT TOUR", title: "DIVA SÂN KHẤU KHỞI ĐỘNG TOUR DIỄN PHÒNG NGỦ", summary: "Thiết kế gối ôm lấy cảm hứng từ trang phục concert lấp lánh của các Diva huyền thoại chính thức mở cổng đặt hàng." },
+              { date: "28/05/2026", category: "STYLE NEWS", title: "CẢM HỨNG TỪ ÁNH HÀO QUANG VÀ SỰ ÊM ÁI", summary: "Sản phẩm không chỉ là chiếc gối ôm, mà còn là một tác phẩm thời trang làm nổi bật gu thẩm mỹ của căn phòng bạn." }
+            ];
+            return (
+              <div className="paper-news-section">
+                <h4>📰 Tạp chí Showbiz Arena (Celeb & Gossip)</h4>
+                <div className="news-grid">
+                  {displayNews.map((news, index) => (
+                    <div key={index} className="news-item">
+                      <span className="date-cat">{news.date} · {news.category}</span>
+                      <h5>{news.title}</h5>
+                      <p>{news.summary}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
+
+          <div className="paper-foot">
+            <div className="col">
+              <h5>Phong cách thiết kế</h5>
+              <p>Lấy cảm hứng từ thời trang cao cấp và ánh sáng sân khấu, mỗi chiếc gối là một tác phẩm thời trang làm nổi bật gu thẩm mỹ hiện đại của không gian sống.</p>
+            </div>
+            <div className="col">
+              <h5>Lịch biểu diễn</h5>
+              <p>Diva Sân Khấu đã khởi động Tour diễn phòng ngủ. Rapper Kính Đen và Idol Mic Hồng đang trong quá trình ghi âm mẫu và sẽ sớm được mở bán pre-order.</p>
+            </div>
+            <div className="col">
+              <h5>Lời khuyên Stylist</h5>
+              <p>Chất liệu lụa satin mát kháng khuẩn không chỉ bảo vệ làn da của bạn mà còn giữ nếp tóc hoàn hảo sau mỗi đêm diễn dài đầy năng lượng.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1177,6 +1263,49 @@ function Plush({ catalog, onSelectProduct, siteSettings }) {
                 );
               })}
               <div className="t-progress" key={active} style={{ background: "rgba(168,94,114,0.15)" }}></div>
+            </div>
+          </div>
+
+          {/* Breaking News Feed Section */}
+          {(() => {
+            const plushNews = (siteSettings?.newsList || []).filter(news => 
+              news.category.toUpperCase().includes("PLUSH") || 
+              news.category.toUpperCase().includes("THÚ BÔNG") || 
+              news.category.toUpperCase().includes("MOCHI") || 
+              news.category.toUpperCase().includes("CUTE")
+            );
+            const displayNews = plushNews.length > 0 ? plushNews : [
+              { date: "29/05/2026", category: "CUTE CLUB", title: "BÉ GẤU MOCHI BÁN CHẠY NHẤT TUẦN NÀY", summary: "Phiên bản gấu Mochi co giãn 4 chiều mềm mịn đã chiếm trọn trái tim của hàng nghìn khách hàng nhí và cả người lớn." },
+              { date: "28/05/2026", category: "CARE TIPS", title: "CÁCH GIỮ RUỘT BÔNG LUÔN TƠI XỐP NHƯ MỚI", summary: "Chỉ cần phơi ruột gối dưới nắng nhẹ từ 2-3 giờ mỗi tháng sẽ giúp bông silicon 3D phồng mịn đàn hồi trọn đời." }
+            ];
+            return (
+              <div className="paper-news-section">
+                <h4>📰 Bản tin Cute & Cozy (Pet & Plushie)</h4>
+                <div className="news-grid">
+                  {displayNews.map((news, index) => (
+                    <div key={index} className="news-item">
+                      <span className="date-cat">{news.date} · {news.category}</span>
+                      <h5>{news.title}</h5>
+                      <p>{news.summary}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
+
+          <div className="paper-foot">
+            <div className="col">
+              <h5>Triết lý mềm mại</h5>
+              <p>Bông microfiber silicon siêu mịn được nhồi căng phồng tối đa, kết hợp vải co giãn 4 chiều siêu mát, mang lại cảm giác ôm ấm áp như những cái ôm từ thú cưng của bạn.</p>
+            </div>
+            <div className="col">
+              <h5>Nhật ký xưởng may</h5>
+              <p>Gấu Mochi đang là gương mặt bán chạy nhất tuần này. Bé Mèo Ú và Thỏ Tai Dài đang được tạo phom dáng tai thỏ và mặt tròn, hứa hẹn cực kỳ ôm chân.</p>
+            </div>
+            <div className="col">
+              <h5>Tuyên bố nâng niu</h5>
+              <p>Sản phẩm an toàn 100% cho da nhạy cảm và trẻ em. Được sản xuất và kiểm duyệt nghiêm ngặt chống rụng lông hoặc xẹp bông trọn đời.</p>
             </div>
           </div>
         </div>

@@ -77,6 +77,50 @@ const PawIcon = ({ size = 20, color = "#b3242d" }) => (
   </svg>
 );
 
+// ── Background Paw prints watermarks scattered randomly ────────────────────
+const BackgroundPaws = ({ count = 8, theme = "light" }) => {
+  const [paws] = React.useState(() => {
+    const list = [];
+    const colors = theme === "dark"
+      ? ["rgba(255,211,77,0.016)", "rgba(255,255,255,0.012)"] // extremely faint gold/white for dark themes
+      : ["rgba(179,36,45,0.014)", "rgba(22,33,58,0.018)"]; // extremely faint red/navy for light themes
+      
+    for (let i = 0; i < count; i++) {
+      list.push({
+        id: i,
+        top: `${Math.random() * 85 + 7}%`,
+        left: `${Math.random() * 90 + 5}%`,
+        size: Math.floor(Math.random() * 40 + 20), // 20px to 60px
+        rotation: Math.floor(Math.random() * 360),
+        color: colors[i % colors.length]
+      });
+    }
+    return list;
+  });
+
+  return (
+    <div className="bg-paws-container" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }}>
+      {paws.map(paw => (
+        <div
+          key={paw.id}
+          style={{
+            position: "absolute",
+            top: paw.top,
+            left: paw.left,
+            width: paw.size,
+            height: paw.size,
+            transform: `rotate(${paw.rotation}deg)`,
+            color: paw.color,
+            pointerEvents: "none"
+          }}
+        >
+          <PawIcon size={paw.size} color="currentColor" />
+        </div>
+      ))}
+    </div>
+  );
+};
+
 // ── Generic head+shoulders silhouette ─────────────────────────────────────
 const SilPolitics = ({ color = "currentColor" }) => (
   <svg viewBox="0 0 120 160" fill={color}>
@@ -669,6 +713,7 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
       className={"world w-anime" + (inView ? " in" : "")}
       data-screen-label="02 Anime"
     >
+      <BackgroundPaws count={10} theme="dark" />
       {sakura.map((s, i) => (
         <span key={i} className="sakura" style={{ left: s.left, top: "-20px", "--delay": s.delay, "--dur": s.dur }}>
           <svg width={s.size} height={s.size} viewBox="0 0 20 20" style={{ transform: `rotate(${s.rot}deg)` }}>
@@ -925,6 +970,7 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
       className={"world w-stars" + (inView ? " in" : "")}
       data-screen-label="03 Ca sĩ · Diễn viên"
     >
+      <BackgroundPaws count={10} theme="dark" />
       {twinkles.map((t, i) => (
         <span key={i} className="twinkle" style={{ top: t.top, left: t.left, "--delay": t.delay, fontSize: t.size }}>✦</span>
       ))}
@@ -1172,6 +1218,7 @@ function Plush({ catalog, onSelectProduct, siteSettings }) {
       className={"world w-plush" + (inView ? " in" : "")}
       data-screen-label="04 Thú nhồi bông"
     >
+      <BackgroundPaws count={10} theme="light" />
       <div className="hearts">
         {hearts.map((h, i) => (
           <span key={i} style={{ left: h.left, bottom: "-30px", "--delay": h.delay, "--dur": h.dur, fontSize: h.size }}>♥</span>

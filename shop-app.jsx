@@ -2551,6 +2551,10 @@ function AdminPanel({
   const [zaloL, setZaloL] = useState(siteSettings.zaloLink || "");
   const [messengerL, setMessengerL] = useState(siteSettings.messengerLink || "");
   const [brandN, setBrandN] = useState(siteSettings.brandName || "");
+  const [bankId, setBankId] = useState(siteSettings.bankId || "MBBank");
+  const [bankAccount, setBankAccount] = useState(siteSettings.bankAccount || "1636058622");
+  const [bankAccountName, setBankAccountName] = useState(siteSettings.bankAccountName || "CONG TY GPAW ATELIER");
+  const [cassoKey, setCassoKey] = useState(siteSettings.cassoKey || "");
 
   // Subpage detail texts states
   const [commit1Title, setCommit1Title] = useState(siteSettings.commit1Title || "Cotton lụa kháng khuẩn");
@@ -2591,6 +2595,10 @@ function AdminPanel({
     setZaloL(siteSettings.zaloLink || "");
     setMessengerL(siteSettings.messengerLink || "");
     setBrandN(siteSettings.brandName || "");
+    setBankId(siteSettings.bankId || "MBBank");
+    setBankAccount(siteSettings.bankAccount || "1636058622");
+    setBankAccountName(siteSettings.bankAccountName || "CONG TY GPAW ATELIER");
+    setCassoKey(siteSettings.cassoKey || "");
     
     // Sync subpage states
     setCommit1Title(siteSettings.commit1Title || "Cotton lụa kháng khuẩn");
@@ -2634,6 +2642,10 @@ function AdminPanel({
       zaloLink: zaloL,
       messengerLink: messengerL,
       brandName: brandN,
+      bankId,
+      bankAccount,
+      bankAccountName,
+      cassoKey,
       commit1Title,
       commit1Desc,
       commit2Title,
@@ -3056,7 +3068,8 @@ function AdminPanel({
                   { id: "stars", vi: "Vũ trụ Ca sĩ (Slogan)" },
                   { id: "plush", vi: "Vũ trụ Thú bông (Slogan)" },
                   { id: "footer", vi: "Footer & Chân trang" },
-                  { id: "subpage", vi: "Trang phụ - Chi tiết gối" }
+                  { id: "subpage", vi: "Trang phụ - Chi tiết gối" },
+                  { id: "payment", vi: "💳 QR & Casso API" }
                 ].map(sec => (
                   <button
                     key={sec.id}
@@ -3954,6 +3967,46 @@ function AdminPanel({
                         <label>Mô tả Chính sách 3</label>
                         <textarea rows="2" value={policyDesc3} onChange={(e) => setPolicyDesc3(e.target.value)} style={{ width: '100%', background: '#1e1a18', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', padding: '10px', borderRadius: '5px', fontSize: '13px', outline: 'none', fontFamily: 'var(--body)' }}></textarea>
                       </div>
+                    </div>
+                  </>
+                )}
+
+                {selectedTextSec === "payment" && (
+                  <>
+                    <h3>💳 Cấu hình Thanh toán & QR Ngân hàng</h3>
+                    <p style={{ fontSize: "12.5px", color: "#b3b3b3", marginBottom: "20px", lineHeight: "1.5" }}>
+                      Cấu hình tài khoản ngân hàng của shop để tự động hiển thị mã VietQR khi khách thanh toán chuyển khoản, và tích hợp mã bảo mật Casso để tự động phát hiện khách chuyển khoản thành công.
+                    </p>
+                    <div className="form-group" style={{ marginBottom: "14px" }}>
+                      <label>Ngân hàng nhận tiền (Mã VietQR)</label>
+                      <select value={bankId} onChange={(e) => setBankId(e.target.value)} required style={{ width: '100%', height: '36px', background: '#1e1a18', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', padding: '0 10px', borderRadius: '5px' }}>
+                        <option value="MBBank">MB Bank (Military Bank)</option>
+                        <option value="Vietcombank">Vietcombank (VCB)</option>
+                        <option value="Techcombank">Techcombank (TCB)</option>
+                        <option value="VietinBank">VietinBank</option>
+                        <option value="BIDV">BIDV</option>
+                        <option value="ACB">ACB</option>
+                        <option value="VPBank">VPBank</option>
+                        <option value="Sacombank">Sacombank</option>
+                        <option value="TPBank">TPBank</option>
+                        <option value="HDBank">HDBank</option>
+                        <option value="VIB">VIB</option>
+                        <option value="MSB">MSB</option>
+                      </select>
+                      <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "4px" }}>Chọn ngân hàng để sinh mã QR chuẩn xác.</span>
+                    </div>
+                    <div className="form-group" style={{ marginBottom: "14px" }}>
+                      <label>Số tài khoản ngân hàng</label>
+                      <input type="text" value={bankAccount} onChange={(e) => setBankAccount(e.target.value)} placeholder="Nhập số tài khoản..." required />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: "14px" }}>
+                      <label>Tên chủ tài khoản (Viết hoa không dấu)</label>
+                      <input type="text" value={bankAccountName} onChange={(e) => setBankAccountName(e.target.value)} placeholder="Ví dụ: NGUYEN VAN A" required />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: "14px" }}>
+                      <label>Casso API Key (Đọc số dư chuyển khoản tự động)</label>
+                      <input type="password" value={cassoKey} onChange={(e) => setCassoKey(e.target.value)} placeholder="Nhập API Key từ Casso.vn..." />
+                      <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "4px" }}>Để trống nếu muốn sử dụng Chế độ giả lập (Simulation Mode) để test thử.</span>
                     </div>
                   </>
                 )}
@@ -5024,6 +5077,7 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(() => getActiveProductFromUrl(catalog));
   const [checkoutItem, setCheckoutItem] = useState(null);
   const [orderResult, setOrderResult] = useState(null);
+  const [activePaymentOrder, setActivePaymentOrder] = useState(null);
   const [showFreeshipToast, setShowFreeshipToast] = useState(false);
 
   // Sync state to localStorage
@@ -5196,12 +5250,20 @@ function App() {
         setCurrentUser((prev) => ({ ...prev, points: updatedPoints }));
       }
 
-      setOrderResult({
-        orderId: finalOrderId.toString().startsWith('PAN') ? finalOrderId : `ORD${finalOrderId}`,
-        total: orderData.total,
-        payMethod: orderData.payMethod,
-        pawReward: totalPawReward
-      });
+      if (orderData.payMethod === "transfer") {
+        setActivePaymentOrder({
+          orderId: finalOrderId.toString().startsWith('PAN') ? finalOrderId : `ORD${finalOrderId}`,
+          total: orderData.total,
+          pawReward: totalPawReward
+        });
+      } else {
+        setOrderResult({
+          orderId: finalOrderId.toString().startsWith('PAN') ? finalOrderId : `ORD${finalOrderId}`,
+          total: orderData.total,
+          payMethod: orderData.payMethod,
+          pawReward: totalPawReward
+        });
+      }
 
       setCheckoutItem(null);
 
@@ -5216,6 +5278,28 @@ function App() {
       alert(`Đã xảy ra lỗi khi tạo đơn hàng: ${err.message}. Vui lòng thử lại!`);
       return { success: false, error: err.message };
     }
+  };
+
+  const handlePaymentSuccess = (mode) => {
+    alert(mode === "simulation" ? "Mô phỏng thanh toán thành công!" : "Xác nhận chuyển khoản thành công!");
+    
+    // Update local order status
+    setOrders(prev => prev.map(o => {
+      if (o.id === activePaymentOrder.orderId) {
+        return { ...o, status: "Paid" };
+      }
+      return o;
+    }));
+
+    // Trigger success popup
+    setOrderResult({
+      orderId: activePaymentOrder.orderId,
+      total: activePaymentOrder.total,
+      payMethod: "transfer",
+      pawReward: activePaymentOrder.pawReward
+    });
+
+    setActivePaymentOrder(null);
   };
 
   useEffect(() => {
@@ -5430,6 +5514,15 @@ function App() {
               vouchers={vouchers}
               onClose={() => setCheckoutItem(null)}
               onPlaceOrder={handlePlaceOrder}
+            />
+          )}
+
+          {activePaymentOrder && (
+            <PaymentQRForm
+              activePaymentOrder={activePaymentOrder}
+              siteSettings={siteSettings}
+              onPaymentSuccess={handlePaymentSuccess}
+              onClose={() => setActivePaymentOrder(null)}
             />
           )}
 
@@ -5717,6 +5810,178 @@ function App() {
         </div>
       )}
     </>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VietQR Payment and Polling Modal
+// ─────────────────────────────────────────────────────────────────────────────
+function PaymentQRForm({ activePaymentOrder, siteSettings, onPaymentSuccess, onClose }) {
+  const [checking, setChecking] = React.useState(false);
+  const [secondsLeft, setSecondsLeft] = React.useState(120); // 2 minutes visual countdown
+  const [isSim, setIsSim] = React.useState(false);
+
+  const bankId = siteSettings.bankId || "MBBank";
+  const bankAccount = siteSettings.bankAccount || "1636058622";
+  const bankAccountName = siteSettings.bankAccountName || "CONG TY GPAW ATELIER";
+  const cassoKey = siteSettings.cassoKey || "";
+
+  // Dynamic VietQR code generation
+  // Content format: GPAW <orderId without dashes>
+  const cleanId = activePaymentOrder.orderId.replace(/[^a-zA-Z0-9]/g, "");
+  const addInfo = `GPAW ${cleanId}`;
+  const qrUrl = `https://img.vietqr.io/image/${bankId}-${bankAccount}-compact.png?amount=${activePaymentOrder.total}&addInfo=${encodeURIComponent(addInfo)}&accountName=${encodeURIComponent(bankAccountName)}`;
+
+  React.useEffect(() => {
+    let intervalId;
+    let countdownId;
+
+    // Polling function
+    const checkPayment = async () => {
+      setChecking(true);
+      try {
+        const url = `/api/payment-check?orderId=${activePaymentOrder.orderId}&amount=${activePaymentOrder.total}&cassoKey=${encodeURIComponent(cassoKey)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        
+        if (data.success) {
+          setIsSim(data.mode === "simulation");
+          if (data.paid) {
+            clearInterval(intervalId);
+            clearInterval(countdownId);
+            onPaymentSuccess(data.mode);
+          }
+        }
+      } catch (err) {
+        console.error("Lỗi kiểm tra chuyển khoản:", err);
+      } finally {
+        setChecking(false);
+      }
+    };
+
+    // Countdown timer
+    countdownId = setInterval(() => {
+      setSecondsLeft(prev => {
+        if (prev <= 1) {
+          return 120; // reset
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    // Poll casso API every 4 seconds
+    intervalId = setInterval(checkPayment, 4000);
+    checkPayment(); // run once immediately
+
+    return () => {
+      clearInterval(intervalId);
+      clearInterval(countdownId);
+    };
+  }, [activePaymentOrder, cassoKey]);
+
+  const handleSimulateSuccess = async () => {
+    try {
+      const url = `/api/payment-check?orderId=${activePaymentOrder.orderId}&amount=${activePaymentOrder.total}&simulate=success`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.success && data.paid) {
+        onPaymentSuccess("simulation");
+      }
+    } catch (err) {
+      alert("Lỗi giả lập thanh toán: " + err.message);
+    }
+  };
+
+  return (
+    <div className="payment-qr-overlay" onClick={onClose}>
+      <style>{`
+        .payment-qr-overlay {
+          position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+          backdrop-filter: blur(6px); z-index: 2800;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .payment-qr-modal {
+          background: #faf7f2; border: 2.5px solid #16213a;
+          border-radius: 12px; width: 100%; max-width: 450px;
+          padding: 24px; box-shadow: 8px 8px 0 #16213a;
+          position: relative; text-align: center;
+          color: #16213a;
+        }
+        .payment-qr-modal h3 {
+          font-family: var(--display-serif); font-size: 22px; font-weight: 800;
+          color: #16213a; margin-top: 0; margin-bottom: 8px;
+        }
+        .qr-img-wrapper {
+          background: #fff; border: 1.5px solid #16213a;
+          padding: 12px; margin: 16px auto; width: 220px; height: 220px;
+          display: flex; align-items: center; justify-content: center;
+          box-shadow: 4px 4px 0 rgba(0,0,0,0.08);
+        }
+        .qr-img-wrapper img { width: 100%; height: 100%; object-fit: contain; }
+        .payment-details {
+          background: #fff; border: 1px solid rgba(22,33,58,0.12);
+          padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;
+          text-align: left; font-size: 13px; color: #16213a;
+        }
+        .payment-details p { margin: 6px 0; display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(0,0,0,0.05); padding-bottom: 4px; }
+        .payment-details p:last-child { border-bottom: none; }
+        .payment-details b { color: #b3242d; }
+        .polling-status {
+          font-family: var(--mono); font-size: 11px; color: #666;
+          display: flex; align-items: center; justify-content: center; gap: 8px;
+          margin-bottom: 16px;
+        }
+        .payment-close-btn {
+          background: transparent; border: 1px solid #16213a;
+          color: #16213a; padding: 8px 16px; border-radius: 6px;
+          cursor: pointer; font-family: var(--mono); font-size: 11px;
+          text-transform: uppercase; font-weight: 600;
+          margin-top: 10px; width: 100%;
+        }
+        .payment-close-btn:hover { background: rgba(0,0,0,0.04); }
+        .simulate-pay-btn {
+          background: #27c93f; color: #fff; border: 1px solid #1b9e2f;
+          padding: 8px 16px; border-radius: 6px; cursor: pointer;
+          font-family: var(--mono); font-size: 11px; font-weight: 700;
+          text-transform: uppercase; margin-bottom: 8px; width: 100%;
+        }
+        .simulate-pay-btn:hover { background: #21a834; }
+      `}</style>
+      <div className="payment-qr-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="product-detail-close" onClick={onClose} style={{ top: "12px", right: "12px" }}>✕</button>
+        <h3>Quét Mã Chuyển Khoản</h3>
+        <p style={{ fontSize: "12.5px", color: "#555", margin: "0 0 10px" }}>
+          Sử dụng ứng dụng ngân hàng của bạn quét mã VietQR để thanh toán đơn hàng.
+        </p>
+
+        <div className="qr-img-wrapper">
+          <img src={qrUrl} alt="VietQR Payment Code" />
+        </div>
+
+        <div className="payment-details">
+          <p><span>Ngân hàng:</span> <strong>{bankId}</strong></p>
+          <p><span>Số tài khoản:</span> <strong>{bankAccount}</strong></p>
+          <p><span>Chủ tài khoản:</span> <strong>{bankAccountName}</strong></p>
+          <p><span>Số tiền:</span> <b>{activePaymentOrder.total.toLocaleString()}đ</b></p>
+          <p><span>Nội dung CK:</span> <strong style={{ color: "#b3242d", background: "#ffe6e6", padding: "2px 6px", borderRadius: "4px" }}>{addInfo}</strong></p>
+        </div>
+
+        <div className="polling-status">
+          <span className="dot-loading" style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#b3242d", display: "inline-block", animation: "bob 1.5s infinite" }}></span>
+          <span>Đang quét giao dịch ngân hàng... ({secondsLeft}s)</span>
+        </div>
+
+        {!cassoKey && (
+          <button className="simulate-pay-btn" onClick={handleSimulateSuccess}>
+            ⚡ Giả lập chuyển tiền thành công (Sandbox)
+          </button>
+        )}
+
+        <button className="payment-close-btn" onClick={onClose}>
+          Quay lại giỏ hàng
+        </button>
+      </div>
+    </div>
   );
 }
 

@@ -1338,7 +1338,7 @@ function TopNav({ activeTheme, currentUser, onOpenAuth, onLogout, onOpenVouchers
       <div className="wrap">
         <a href="#top" className="logo" style={{ textDecoration: "none", color: "inherit", display: "inline-flex", alignItems: "center", gap: "6px" }} onClick={(e) => { e.preventDefault(); onNavClick && onNavClick(null); }}>
           <PawIcon size={20} color={pawColor} />
-          <span>{siteSettings?.brandName || "GPAW"}</span>
+          <span>GPAW</span>
         </a>
         <nav>
           {items.map((it) => (

@@ -5599,12 +5599,23 @@ function App() {
         .w-anime .paper-foot .col p:first-of-type::first-letter { color: #ff4c94; font-family: "Bagel Fat One", sans-serif; }
 
         /* Stars Universe overrides (Premium Glossy Dark theme) */
-        .w-stars .paper-news-section { border-color: rgba(255,255,255,0.15); }
+        .w-stars .paper-news-section,
+        .w-stars .paper-foot {
+          grid-column: 1 / -1;
+          width: 100%;
+        }
+        .w-stars .paper-news-section {
+          border-color: rgba(255,255,255,0.15);
+          margin-top: 50px;
+          padding-top: 30px;
+          border-top: 1px solid rgba(255,255,255,0.15);
+          border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
         .w-stars .paper-news-section h4 { color: #ffd34d !important; font-family: "Bodoni Moda", "Playfair Display", serif; font-style: italic; font-size: 18px; letter-spacing: 0.15em; font-weight: 700; }
         .w-stars .news-item { border-color: #ff3eb8; }
         .w-stars .news-item h5 { color: #fff; font-family: "Bodoni Moda", "Playfair Display", serif; font-weight: 600; font-style: italic; font-size: 17px; }
         .w-stars .news-item p { color: rgba(255,255,255,0.7); }
-        .w-stars .paper-foot { border-color: rgba(255,255,255,0.15); }
+        .w-stars .paper-foot { border-color: rgba(255,255,255,0.15); margin-top: 30px; padding-top: 20px; }
         .w-stars .paper-foot .col h5 { color: #ff3eb8; font-family: "Bodoni Moda", "Playfair Display", serif; font-weight: 600; letter-spacing: 0.15em; font-size: 13px; text-transform: uppercase; }
         .w-stars .paper-foot .col p { color: rgba(255,255,255,0.8); font-family: var(--display); font-weight: 300; font-size: 14.5px; line-height: 1.6; text-align: justify; }
         .w-stars .paper-foot .col p:first-of-type::first-letter { color: #ffd34d; font-family: "Bodoni Moda", "Playfair Display", serif; font-weight: 700; font-style: italic; font-size: 46px; }

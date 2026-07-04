@@ -4778,8 +4778,15 @@ function AdminPanel({
                         <span style={{ fontSize: 10, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", display: "block", marginBottom: 10, fontFamily: "var(--mono)" }}>Thông số kỹ thuật</span>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                           <div className="form-group">
-                            <label>Kích thước</label>
-                            <input type="text" value={prodSpecSize} onChange={(e) => setProdSpecSize(e.target.value)} placeholder="VD: 80cm - 150cm" />
+                            <label>Kích thước (Dùng để lọc)</label>
+                            <select value={prodSpecSize} onChange={(e) => setProdSpecSize(e.target.value)} style={{ width: "100%", height: 38, background: "#1e1a18", color: "#fff", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 5, padding: "0 10px", outline: "none", fontSize: 13, fontFamily: "var(--body)" }}>
+                              <option value="80cm">80cm (Chính trị / Ca sĩ)</option>
+                              <option value="40cm">40cm (Thú bông)</option>
+                              <option value="60cm">60cm (Thú bông / Anime)</option>
+                              <option value="100cm">100cm (Anime / Ca sĩ)</option>
+                              <option value="120cm">120cm (Đa số vũ trụ)</option>
+                              <option value="150cm">150cm (Chính trị / Ca sĩ)</option>
+                            </select>
                           </div>
                           <div className="form-group">
                             <label>Cân nặng</label>
@@ -4790,8 +4797,13 @@ function AdminPanel({
                             <input type="text" value={prodSpecFill} onChange={(e) => setProdSpecFill(e.target.value)} placeholder="VD: Bông silicon 3D chống xẹp" />
                           </div>
                           <div className="form-group">
-                            <label>Chất liệu vỏ gối</label>
-                            <input type="text" value={prodSpecCover} onChange={(e) => setProdSpecCover(e.target.value)} placeholder="VD: Vải cotton lụa 100%" />
+                            <label>Chất liệu vỏ gối (Dùng để lọc)</label>
+                            <select value={prodSpecCover} onChange={(e) => setProdSpecCover(e.target.value)} style={{ width: "100%", height: 38, background: "#1e1a18", color: "#fff", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 5, padding: "0 10px", outline: "none", fontSize: 13, fontFamily: "var(--body)" }}>
+                              <option value="Vải cotton lụa 100%">Cotton lụa (Chính trị)</option>
+                              <option value="Vải satin cao cấp">Vải satin (Ca sĩ)</option>
+                              <option value="Vải polyester mềm mại">Polyester (Anime)</option>
+                              <option value="Vải nhung minky">Nhung minky (Thú bông)</option>
+                            </select>
                           </div>
                         </div>
                         <div className="form-group" style={{ marginTop: 10 }}>

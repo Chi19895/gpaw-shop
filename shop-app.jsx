@@ -1128,7 +1128,8 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
               onClick={(e) => { e.preventDefault(); handleProductClick(featured); }}
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
             >
-              <div className={"elle-cover-frame" + (transitioning ? " elle-fade-out" : " elle-fade-in")} style={{ position: "relative" }}>
+              <div className="elle-cover-frame page-flip-container" style={{ position: "relative" }}>
+                <div className={"page-curl" + (transitioning ? " active" : "")}></div>
                 {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
                   <div className="product-badge-container" style={{ top: '8px', right: '8px' }}>
                     <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -1141,7 +1142,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
             </a>
 
             {/* Pull quote */}
-            <div className={"elle-pull-quote" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>
+            <div className="elle-pull-quote" style={{ transition: 'opacity 0.3s ease', opacity: transitioning ? 0 : 1 }}>
               <svg width="20" height="14" viewBox="0 0 30 24" fill="currentColor" style={{ opacity: .45, marginBottom: 5, display: 'block' }}>
                 <path d="M0 24V14.4C0 10.32.96 6.96 2.88 4.32 4.8 1.44 7.68 0 11.52 0l1.44 2.16c-2.4.48-4.32 1.8-5.76 3.96-1.44 2.16-2.16 4.56-2.16 7.2H12V24H0zm16.32 0V14.4c0-4.08.96-7.44 2.88-10.08C21.12 1.44 24 0 27.84 0l1.44 2.16c-2.4.48-4.32 1.8-5.76 3.96-1.44 2.16-2.16 4.56-2.16 7.2H28.32V24H16.32z" />
               </svg>

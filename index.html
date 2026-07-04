@@ -412,6 +412,27 @@
     }
   }
 
+  /* Dark variant of page-curl for dark backgrounds (Stars section) */
+  .page-curl-dark {
+    background: linear-gradient(to left,
+      rgba(10,8,20,0) 0%,
+      rgba(10,8,20,0.85) 50%,
+      rgba(255,62,184,0.15) 65%,
+      rgba(10,8,20,0.95) 72%,
+      rgba(255,255,255,0.04) 80%,
+      rgba(10,8,20,0) 100%
+    ) !important;
+    filter: drop-shadow(-10px 0 20px rgba(0,0,0,0.6)) !important;
+  }
+
+  /* More containers inside grids should span full width */
+  .paper-more-container,
+  .manga-more-container,
+  .elle-more-container,
+  .cozy-more-container {
+    grid-column: 1 / -1;
+  }
+
   /* ════════════════════════════════════════════════════════════════════
      ❶ POLITICS — newspaper editorial style
      ════════════════════════════════════════════════════════════════════ */

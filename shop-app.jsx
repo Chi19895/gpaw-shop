@@ -923,7 +923,7 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
             </div>
           </div>
 
-          <div className="paper-more-container" style={{ margin: "24px 0", textAlign: "center" }}>
+          <div className="paper-more-container" style={{ margin: "24px auto", textAlign: "center", width: "100%", clear: "both" }}>
             <button
               type="button"
               className="paper-more-btn interactive"
@@ -934,39 +934,50 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
           </div>
 
           {/* Breaking News Feed Section */}
-          {siteSettings && siteSettings.newsList && siteSettings.newsList.length > 0 && (
-            <div className="paper-news-section">
-              <h4>📰 Bản tin Gpaw Times (News & Updates)</h4>
-              <div className="news-grid">
-                {siteSettings.newsList.map((news, index) => (
-                  <div 
-                    key={index} 
-                    className="news-item"
-                    onClick={() => {
-                      if (onSelectArticle) {
-                        const found = ARTICLES_DB.find(a => a.title.toUpperCase() === news.title.toUpperCase());
-                        onSelectArticle(found || {
-                          id: "dynamic-" + Date.now(),
-                          category: "politics",
-                          tag: "TIN TỨC",
-                          date: news.date || "Hôm nay",
-                          title: news.title,
-                          summary: news.summary,
-                          content: news.summary + "\n\n(Nội dung chi tiết của bài viết đang được phóng viên Gpaw Times cập nhật. Quý độc giả vui lòng quay lại sau!)",
-                          relatedProducts: [],
-                          relatedArticles: []
-                        });
-                      }
-                    }}
-                  >
-                    <span className="date-cat">{news.date} · {news.category}</span>
-                    <h5>{news.title}</h5>
-                    <p>{news.summary}</p>
-                  </div>
-                ))}
+          {(() => {
+            const politicsNews = (siteSettings?.newsList || []).filter(news => 
+              news.subCategory === "tina" || 
+              news.category.toUpperCase().includes("POLITICS") || 
+              news.category.toUpperCase().includes("CHÍNH TRỊ")
+            );
+            const displayNews = politicsNews.length > 0 ? politicsNews : [
+              { date: "29/05/2026", category: "SỰ KIỆN", title: "KHAI TRƯƠNG SHOWROOM CHÍNH THỨC TẠI SÀI GÒN", summary: "Gpaw Atelier chính thức mở cửa không gian trưng bày đầu tiên tại Quận 1, giúp quý khách hàng trải nghiệm trực tiếp độ mềm mịn từ bông silicon cao cấp." },
+              { date: "28/05/2026", category: "TIN TỨC", title: "RA MẮT CHÍNH THỨC BẢN THỬ MẪU GỐI ÔM DONALD TRUMP", summary: "Dòng gối châm biếm được vẽ tay tỉ mỉ đã hoàn thành mẫu thử nghiệm, chính thức mở cổng đặt trước số lượng giới hạn cho fan sưu tập." }
+            ];
+            return (
+              <div className="paper-news-section">
+                <h4>📰 Bản tin Gpaw Times (News & Updates)</h4>
+                <div className="news-grid">
+                  {displayNews.map((news, index) => (
+                    <div 
+                      key={index} 
+                      className="news-item"
+                      onClick={() => {
+                        if (onSelectArticle) {
+                          const found = ARTICLES_DB.find(a => a.title.toUpperCase() === news.title.toUpperCase());
+                          onSelectArticle(found || {
+                            id: "dynamic-" + Date.now(),
+                            category: "politics",
+                            tag: "TIN TỨC",
+                            date: news.date || "Hôm nay",
+                            title: news.title,
+                            summary: news.summary,
+                            content: news.summary + "\n\n(Nội dung chi tiết của bài viết đang được phóng viên Gpaw Times cập nhật. Quý độc giả vui lòng quay lại sau!)",
+                            relatedProducts: [],
+                            relatedArticles: []
+                          });
+                        }
+                      }}
+                    >
+                      <span className="date-cat">{news.date} · {news.category}</span>
+                      <h5>{news.title}</h5>
+                      <p>{news.summary}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           <div className="paper-foot">
             <div 
@@ -1219,7 +1230,7 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
             </div>
           </div>
 
-          <div className="manga-more-container" style={{ margin: "24px 0", textAlign: "center" }}>
+          <div className="manga-more-container" style={{ margin: "24px auto", textAlign: "center", width: "100%" }}>
             <button
               type="button"
               className="manga-more-btn interactive"
@@ -1445,7 +1456,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
             >
               <div className="elle-cover-frame page-flip-container" style={{ position: "relative" }}>
-                <div className={"page-curl" + (transitioning ? " active" : "")}></div>
+                <div className={"page-curl page-curl-dark" + (transitioning ? " active" : "")}></div>
                 {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
                   <div className="product-badge-container" style={{ top: '8px', right: '8px' }}>
                     <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -1521,7 +1532,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
             </div>
           </div>
 
-          <div className="elle-more-container" style={{ margin: "24px 0", textAlign: "center" }}>
+          <div className="elle-more-container" style={{ margin: "24px auto", textAlign: "center", width: "100%" }}>
             <button
               type="button"
               className="elle-more-btn interactive"
@@ -1806,7 +1817,7 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
             </div>
           </div>
 
-          <div className="cozy-more-container" style={{ margin: "24px 0", textAlign: "center" }}>
+          <div className="cozy-more-container" style={{ margin: "24px auto", textAlign: "center", width: "100%" }}>
             <button
               type="button"
               className="cozy-more-btn interactive"
@@ -7354,6 +7365,27 @@ function App() {
           border-color: #ff9eb1 !important;
           box-shadow: 0 0 25px rgba(255, 158, 177, 0.25), 0 8px 20px rgba(168, 94, 114, 0.1) !important;
           transform: translateY(-3px) scale(1.02);
+        }
+
+        /* More containers inside grids should span full width */
+        .paper-more-container,
+        .manga-more-container,
+        .elle-more-container,
+        .cozy-more-container {
+          grid-column: 1 / -1;
+        }
+
+        /* Dark variant of page-curl for dark backgrounds (Stars section) */
+        .page-curl-dark {
+          background: linear-gradient(to left,
+            rgba(10,8,20,0) 0%,
+            rgba(10,8,20,0.85) 50%,
+            rgba(255,62,184,0.15) 65%,
+            rgba(10,8,20,0.95) 72%,
+            rgba(255,255,255,0.04) 80%,
+            rgba(10,8,20,0) 100%
+          ) !important;
+          filter: drop-shadow(-10px 0 20px rgba(0,0,0,0.6)) !important;
         }
 
         /* Centered See More Buttons */

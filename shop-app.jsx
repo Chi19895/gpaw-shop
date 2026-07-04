@@ -905,7 +905,10 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
                   key={i}
                   type="button"
                   className={"thumb" + (i === active ? " active" : "")}
-                  onClick={() => setActive(i)}
+                  onClick={() => {
+                    setActive(i);
+                    handleProductClick(c);
+                  }}
                 >
                   <div className="t-frame">
                     {c.real
@@ -1213,7 +1216,10 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
                   key={i}
                   type="button"
                   className={"manga-thumb" + (i === active ? " active" : "")}
-                  onClick={() => setActive(i)}
+                  onClick={() => {
+                    setActive(i);
+                    handleProductClick(c);
+                  }}
                 >
                   <div className="t-frame">
                     {c.real ? <img src="assets/pillow-hero.png" style={{ transform: "scale(1.2)" }} alt={c.name} /> : <SilAnime />}
@@ -1509,7 +1515,11 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
                   key={i}
                   type="button"
                   className={"elle-issue-item" + (i === active ? " active" : "")}
-                  onClick={() => { setActive(i); setIsPlaying(false); }}
+                  onClick={() => {
+                    setActive(i);
+                    setIsPlaying(false);
+                    handleProductClick(c);
+                  }}
                 >
                   <div className="elle-issue-thumb">
                     <SilStar color={i === active ? "#ff3eb8" : "#555"} />
@@ -1798,7 +1808,10 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
                     key={i}
                     type="button"
                     className={"cozy-thumb" + (i === active ? " active" : "")}
-                    onClick={() => setActive(i)}
+                    onClick={() => {
+                      setActive(i);
+                      handleProductClick(c);
+                    }}
                   >
                     <div className="t-frame" style={{ background: c.c.bg + "50" }}>
                       <ThumbIcon color="#a85e72" />

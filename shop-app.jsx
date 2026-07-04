@@ -359,7 +359,237 @@ const INITIAL_VOUCHERS = [
   { code: "FREESHIP", desc: "Miễn phí vận chuyển cho đơn đầu tiên", pointsCost: 0, valueDesc: "Free Ship", type: "freeship" }
 ];
 
-// ── Product Catalog — centralized product data ───────────────────────────
+// ── Articles Database — Centralized blog and column articles ──────────────
+const ARTICLES_DB = [
+  // --- POLITICS ARTICLES ---
+  {
+    id: "politics-showroom",
+    category: "politics",
+    tag: "SỰ KIỆN",
+    date: "29/05/2026",
+    title: "KHAI TRƯƠNG SHOWROOM CHÍNH THỨC TẠI SÀI GÒN",
+    summary: "Gpaw Atelier chính thức mở cửa không gian trưng bày đầu tiên tại Quận 1, giúp quý khách hàng trải nghiệm trực tiếp độ mềm mịn từ bông silicon cao cấp.",
+    content: `Gpaw Atelier tự hào khai trương không gian trưng bày nghệ thuật gối ôm 3D đầu tiên tại trung tâm Sài Gòn.\n\nĐến với showroom của chúng tôi tại Quận 1, quý khách hàng sẽ được chiêm ngưỡng tận mắt và trải nghiệm độ mát mịn của lớp vỏ cotton lụa kháng khuẩn, cũng như độ đàn hồi tuyệt hảo của ruột bông silicon 3D được nhồi thủ công hoàn toàn.\n\nNhân dịp khai trương showroom, Gpaw xin gửi tặng hàng loạt phần quà độc quyền cùng chương trình nhân đôi điểm thưởng Paw cho mọi đơn hàng mua trực tiếp tại cửa hàng. Showroom mở cửa đón khách từ 9:00 đến 21:00 hàng ngày. Rất hân hạnh được đồng hành cùng những giấc ngủ êm ái của quý khách!`,
+    relatedProducts: ["p001", "p002"],
+    relatedArticles: ["politics-trump", "politics-cương-lĩnh"]
+  },
+  {
+    id: "politics-trump",
+    category: "politics",
+    tag: "TIN TỨC",
+    date: "28/05/2026",
+    title: "RA MẮT CHÍNH THỨC BẢN THỬ MẪU GỐI ÔM DONALD TRUMP",
+    summary: "Dòng gối châm biếm được vẽ tay tỉ mỉ đã hoàn thành mẫu thử nghiệm, chính thức mở cổng đặt trước số lượng giới hạn cho fan sưu tập.",
+    content: `Sau hơn 3 tháng vẽ phác thảo mỹ thuật và tinh chỉnh kỹ lưỡng hệ thống rập cắt, phiên bản gối ôm châm biếm chính trị Donald Trump đã chính thức hoàn thiện mẫu thử nghiệm cuối cùng.\n\nSử dụng công nghệ in chuyển nhiệt 3D tiên tiến nhất trên sợi vải lụa satin mát lạnh chống phai, chân dung trào phúng của cựu Tổng thống hiện lên với sắc thái cực kỳ sống động và đầy hài hước. Toàn bộ phần vỏ gối được trang bị khóa kéo giấu kín tinh tế.\n\nHiện tại Gpaw Atelier đã chính thức mở cổng nhận đặt hàng trước (Pre-order) cho đợt mở bán đầu tiên với số lượng sản xuất giới hạn chỉ 200 chiếc. Các đơn hàng pre-order sớm sẽ được giảm ngay 10% và miễn phí vận chuyển toàn quốc.`,
+    relatedProducts: ["p001"],
+    relatedArticles: ["politics-showroom", "politics-lịch-phát-hành"]
+  },
+  {
+    id: "politics-cương-lĩnh",
+    category: "politics",
+    tag: "CƯƠNG LĨNH SẢN PHẨM",
+    date: "27/05/2026",
+    title: "Cương lĩnh sản phẩm Gpaw Politics",
+    summary: "Hai mươi bốn phiên bản chân dung các nhà lãnh đạo đương thời, mỗi chiếc cao 80–150 cm. In 3D hai mặt, vải mịn mát, ruột polyester chống biến dạng.",
+    content: `Dòng sản phẩm Gpaw Politics hướng tới việc mang lại những nụ cười thư giãn và phong cách trang trí nội thất mang đậm tính trào phúng đương đại cho phòng ngủ của các nhà sưu tầm.\n\nChúng tôi cam kết chất lượng sản xuất khắt khe nhất:\n- Kích thước gối ôm đa dạng từ 80cm (thích hợp gác chân, tựa lưng) cho đến 120cm và 150cm (ôm ôm trọn cơ thể).\n- Vỏ gối cotton lụa mát lịm kháng khuẩn, dễ dàng tháo rời giặt sạch mà không lo phai hình in.\n- Ruột bông silicon đàn hồi đa chiều chịu lực nén cực tốt, cam kết thời gian bảo hành chống xẹp lên tới 4 năm.`,
+    relatedProducts: ["p001", "p002"],
+    relatedArticles: ["politics-lịch-phát-hành", "politics-lời-tòa-soạn"]
+  },
+  {
+    id: "politics-lịch-phát-hành",
+    category: "politics",
+    tag: "LỊCH PHÁT HÀNH",
+    date: "26/05/2026",
+    title: "Lịch phát hành vũ trụ Chính trị Gpaw",
+    summary: "Trump đã chính thức bước vào bộ sưu tập từ mùa Thu 2025. Putin — bản thử mẫu hoàn thành, mở đặt trước. Xi, Kim, Biden — đang trong xưởng.",
+    content: `Đội ngũ thiết kế tại xưởng Gpaw Atelier vẫn đang làm việc miệt mài để hoàn thiện các mẫu chân dung trào phúng của những nhà lãnh đạo thế giới tiếp theo.\n\nLộ trình ra mắt cụ thể:\n- Donald Trump: Đã chính thức mở bán thương mại từ mùa Thu 2025 và là mẫu bán chạy nhất.\n- Vladimir Putin: Đã hoàn thiện mẫu thử nghiệm thêu tay khóa kéo, đang mở cổng pre-order đặt trước.\n- Tập Cận Bình, Kim Jong Un, Joe Biden: Bản phác thảo mỹ thuật đang được duyệt và chuẩn bị đưa vào công đoạn in test trên vải.\n\nMỗi tháng xưởng sẽ cho ra mắt thêm 1 nhân vật mới để hoàn thiện trọn vẹn bộ sưu tập 24 nhà lãnh đạo đương thời.`,
+    relatedProducts: ["p001", "p002"],
+    relatedArticles: ["politics-cương-lĩnh", "politics-lời-tòa-soạn"]
+  },
+  {
+    id: "politics-lời-tòa-soạn",
+    category: "politics",
+    tag: "LỜI TÒA SOẠN",
+    date: "25/05/2026",
+    title: "Lời tòa soạn: Ôm có trách nhiệm",
+    summary: "Đây là sản phẩm mang tính giải trí — một phép châm biếm dịu dàng dành cho người yêu sưu tập. Mỗi chiếc gối là một bức chân dung, không phải một tuyên bố chính trị.",
+    content: `Tòa soạn Gpaw Times xin gửi lời chào trân trọng nhất đến các độc giả thân yêu!\n\nChúng tôi xin khẳng định toàn bộ hình vẽ chân dung và nội dung châm biếm liên quan đến các sản phẩm trong dòng Chính trị hoàn toàn chỉ mang ý nghĩa nghệ thuật giải trí, trào phúng lành mạnh.\n\nSản phẩm không đại diện cho bất kỳ hệ tư tưởng, quan điểm chính trị hay tổ chức ngoại giao nào. Hãy đón nhận sản phẩm như một tác phẩm thiết kế sáng tạo mang lại sự thư giãn tuyệt đối cho không gian nghỉ ngơi của bạn sau những giờ làm việc căng thẳng. Ôm ngủ ấm áp và chịu trách nhiệm giữ phom gối của bạn thật tốt nhé!`,
+    relatedProducts: ["p001"],
+    relatedArticles: ["politics-cương-lĩnh", "politics-lịch-phát-hành"]
+  },
+
+  // --- ANIME ARTICLES ---
+  {
+    id: "anime-senpai-release",
+    category: "anime",
+    tag: "MANGA WEEKLY",
+    date: "29/05/2026",
+    title: "SENPAI SCHOOL VOL. 1 CHÍNH THỨC PHÁT HÀNH",
+    summary: "Tập đầu tiên của vũ trụ Anime đã chính thức cập bến kệ hàng Gpaw, mang lại những trang vẽ tay sắc nét trên chất vải mát lạnh.",
+    content: `Các tín đồ Otaku thân mến, giấc mơ sở hữu một chiếc gối ôm hình Senpai lớp trên lý tưởng cuối cùng đã trở thành hiện thực!\n\nTập đầu tiên 'Senpai Schoolboy' trong bộ sưu tập gối ôm Anime của Gpaw Atelier đã chính thức cập bến kệ hàng.\n- Thiết kế: Vẽ phác thảo tay thủ công tái hiện xuất sắc từng đường nét, thần thái chuẩn 2D đầy cá tính và ngọt ngào.\n- Chất liệu: Vải bọc polyester trơn mát mịn màng, in kỹ thuật số UV sắc sảo hai mặt bền bỉ với thời gian.\n- Điểm đặc biệt: Khóa kéo giấu ẩn tinh tế tránh va quẹt cọ xát cơ thể khi ôm đi ngủ.`,
+    relatedProducts: ["a001", "a002"],
+    relatedArticles: ["anime-customer-review", "anime-tôn-chỉ-nét-vẽ"]
+  },
+  {
+    id: "anime-customer-review",
+    category: "anime",
+    tag: "REVIEW",
+    date: "28/05/2026",
+    title: "CẢM NHẬN KHÁCH HÀNG: ÊM HƠN CẢ KỲ VỌNG",
+    summary: "Cộng đồng otaku tại Việt Nam đánh giá cao khả năng giữ phom của dòng gối mới, thích hợp cả khi đọc truyện lẫn ôm ngủ.",
+    content: `Chỉ sau vài ngày đầu ra mắt dòng gối ôm Anime mới, Gpaw Atelier đã nhận được rất nhiều phản hồi ngọt ngào từ cộng đồng manga/anime Việt Nam.\n\nMột khách hàng tại Sài Gòn chia sẻ: 'Gối cực kỳ êm, chất vải sờ rất thích và mát chứ không bị bí bách như các loại gối ôm bông thường mua ngoài chợ. Đặc biệt phom gối thẳng, nhồi bông siêu căng giúp ôm đọc truyện rất thích, không lo bị cong vẹo cột sống.'\n\nSự hài lòng của độc giả chính là kim chỉ nam giúp xưởng tiếp tục đẩy nhanh tiến độ cho các mẫu thiết kế tiếp theo!`,
+    relatedProducts: ["a001"],
+    relatedArticles: ["anime-senpai-release", "anime-tiến-độ-dự-án"]
+  },
+  {
+    id: "anime-tôn-chỉ-nét-vẽ",
+    category: "anime",
+    tag: "TÔN CHỈ NẾT VẼ",
+    date: "27/05/2026",
+    title: "Tôn chỉ nét vẽ tay của Gpaw Anime",
+    summary: "Hệ thống nét vẽ tay thủ công được chuyển thể 100% sang dạng in kỹ thuật số 3D độ nét cực cao, tái hiện hoàn hảo thần thái 2D.",
+    content: `Tại Gpaw Atelier, chúng tôi coi mỗi chiếc gối ôm anime là một tác phẩm tranh vẽ 2D chuyển thể nghệ thuật.\n\nChúng tôi nói không với việc kéo giãn hình ảnh chất lượng thấp có sẵn trên mạng. Mọi mẫu thiết kế nhân vật đều được đội ngũ họa sĩ vẽ tay phác thảo từng chi tiết nét mắt, lọn tóc và bóng đổ nghệ thuật. Bản vẽ sau đó được số hóa vector độ phân giải siêu cao trước khi in UV lên chất liệu vải mát lịm, mang đến độ sắc nét hoàn hảo đến từng sợi vải.`,
+    relatedProducts: ["a001", "a002"],
+    relatedArticles: ["anime-tiến-độ-dự-án", "anime-lưu-ý-độc-giả"]
+  },
+  {
+    id: "anime-tiến-độ-dự-án",
+    category: "anime",
+    tag: "TIẾN ĐỘ DỰ ÁN",
+    date: "26/05/2026",
+    title: "Tiến độ dự án vũ trụ Anime Gpaw",
+    summary: "Tập 1 Senpai School đã chính thức gia nhập kệ hàng. Tập 2 Mahō Shōjo và Tập 3 Tsundere đang hoàn thiện khâu phối màu và chuẩn bị in test.",
+    content: `Xưởng may Gpaw Atelier xin gửi tới quý bạn đọc báo cáo tiến độ chế tác của các nhân vật tiếp theo trong vũ trụ Anime:\n- Tập 1 - Senpai Schoolboy: Đã mở bán thương mại và giao ngay toàn quốc.\n- Tập 2 - Magical Girl (Mahō Shōjo): Bản vẽ phác thảo màu đã được phê duyệt, xưởng đang may ráp khóa kéo cho sản phẩm mẫu thử nghiệm đầu tiên.\n- Tập 3 - Tsundere Girl: Đang trong khâu đi nét rập vẽ nét mặt biểu cảm trứ danh 'Baka!'.\n\nCác bạn hãy cùng chờ đón những màn biến hình và tính cách siêu dễ thương sắp đổ bộ nhé!`,
+    relatedProducts: ["a001", "a002", "a003"],
+    relatedArticles: ["anime-tôn-chỉ-nét-vẽ", "anime-lưu-ý-độc-giả"]
+  },
+  {
+    id: "anime-lưu-ý-độc-giả",
+    category: "anime",
+    tag: "LƯU Ý ĐỘC GIẢ",
+    date: "25/05/2026",
+    title: "Lưu ý độc giả khi sở hữu gối ôm Gpaw",
+    summary: "Sản phẩm được thiết kế độc quyền phục vụ văn hóa Otaku và các nhà sưu tầm Manga/Anime. Đảm bảo bản quyền thiết kế tinh xảo.",
+    content: `Để sản phẩm gối ôm anime luôn đồng hành bền bỉ và đẹp như mới, Gpaw khuyến nghị các độc giả lưu ý một số mẹo nhỏ:\n- Khi giặt: Hãy lộn ngược mặt trong vỏ gối trước khi cho vào máy giặt, chọn chế độ giặt nhẹ nước lạnh để bảo vệ hình in bền lâu nhất.\n- Phơi khô: Tránh phơi trực tiếp dưới ánh nắng gay gắt ban trưa. Nên phơi vỏ gối ở khu vực có bóng râm mát, lộng gió tự nhiên.\n- Vệ sinh ruột: Thường xuyên vỗ nhẹ ruột bông và đem phơi nắng nhẹ để bông silicon giữ độ xốp đàn hồi tròn phom tốt nhất.`,
+    relatedProducts: ["a001"],
+    relatedArticles: ["anime-tôn-chỉ-nét-vẽ", "anime-tiến-độ-dự-án"]
+  },
+
+  // --- STARS ARTICLES ---
+  {
+    id: "stars-diva-tour",
+    category: "stars",
+    tag: "SHOWBIZ WEEKLY",
+    date: "29/05/2026",
+    title: "DIVA SÂN KHẤU KHỞI ĐỘNG TOUR DIỄN PHÒNG NGỦ",
+    summary: "Thiết kế gối ôm lấy cảm hứng từ trang phục concert lấp lánh của các Diva huyền thoại chính thức mở cổng đặt hàng.",
+    content: `Vũ trụ nghệ thuật Gpaw ELLE xin hân hoan công bố sự ra mắt của Diva Sân Khấu – đại diện đầu tiên bước vào 'Tour diễn phòng ngủ' thượng lưu của bạn.\n\nSản phẩm là hiện thân của sự kiêu sa và thời trang đẳng cấp với:\n- Silhouette đen tối giản độc đáo và các chi tiết thêu viền tinh xảo bằng sợi chỉ ánh kim lấp lánh.\n- Bề mặt vỏ gối làm bằng chất lụa satin mát lạnh kháng khuẩn cực kỳ bóng mượt, mang lại sự dễ chịu tối đa cho làn da.\n- Kiểu dáng thiết kế ấn tượng như một bìa tạp chí thời trang danh giá ELLE, nâng tầm gu thẩm mỹ hiện đại cho phòng ngủ của các celeb tại gia.`,
+    relatedProducts: ["s001", "s002"],
+    relatedArticles: ["stars-styling-tips", "stars-phong-cách-thiết-kế"]
+  },
+  {
+    id: "stars-styling-tips",
+    category: "stars",
+    tag: "STYLE GUIDE",
+    date: "28/05/2026",
+    title: "CẢM HỨNG TỪ ÁNH HÀO QUANG VÀ SỰ ÊM ÁI",
+    summary: "Sản phẩm không chỉ là chiếc gối ôm, mà còn là một tác phẩm thời trang làm nổi bật gu thẩm mỹ của căn phòng bạn.",
+    content: `Chào mừng bạn đến với chuyên mục xu hướng thời trang phòng ngủ của Gpaw ELLE.\n\nChúng tôi tin rằng sự êm ái lý tưởng hoàn toàn có thể song hành cùng thiết kế thời trang xa xỉ. Chiếc gối ôm Stars ra đời để minh chứng điều đó. Sự kết hợp khéo léo giữa chất liệu lụa satin mát lịm cùng phom dáng bông nhồi silicon đàn hồi êm dịu không chỉ giúp bạn giải phóng mệt mỏi mà còn như một món đồ decor cao cấp tỏa sáng rực rỡ trong không gian sống cá tính của bạn.\n\nHãy phối gối với chăn phủ lông mịn tối màu để căn phòng mang đậm phong cách tạp chí nghệ thuật thời thượng.`,
+    relatedProducts: ["s001"],
+    relatedArticles: ["stars-diva-tour", "stars-lời-khuyên-stylist"]
+  },
+  {
+    id: "stars-phong-cách-thiết-kế",
+    category: "stars",
+    tag: "PHONG CÁCH THIẾT KẾ",
+    date: "27/05/2026",
+    title: "Triết lý phong cách thiết kế Gpaw Stars",
+    summary: "Lấy cảm hứng từ thời trang cao cấp và ánh sáng sân khấu, mỗi chiếc gối là một tác phẩm thời trang làm nổi bật gu thẩm mỹ hiện đại.",
+    content: `Mỗi sản phẩm trong bộ sưu tập Gpaw Stars là sự chắt lọc tinh tế từ nghệ thuật thiết kế thời trang cao cấp (haute couture).\n\nChúng tôi tập trung khai thác vẻ đẹp tối giản từ những hình bóng silhouette nghệ thuật, tối ưu hóa sự tương phản giữa các gam màu trơn đen, trắng ánh kim và hồng sành điệu. Từng chi tiết nhỏ như nắp khóa kéo giấu chìm hay kỹ thuật may ráp góc đều được thực hiện thủ công tỉ mỉ để tạo ra một sản phẩm trang trí phòng ngủ thanh lịch và bền bỉ vô song.`,
+    relatedProducts: ["s001", "s002"],
+    relatedArticles: ["stars-lịch-biểu-diễn", "stars-lời-khuyên-stylist"]
+  },
+  {
+    id: "stars-lịch-biểu-diễn",
+    category: "stars",
+    tag: "LỊCH BIỂU DIỄN",
+    date: "26/05/2026",
+    title: "Lịch biểu diễn và kế hoạch ra mắt của Gpaw Stars",
+    summary: "Diva Sân Khấu đã khởi động Tour diễn. Rapper Kính Đen và Idol Mic Hồng đang trong quá trình ghi âm mẫu và sẽ sớm mở bán.",
+    content: `Kế hoạch ra mắt đầy hứa hẹn của các celeb tiếp theo trong bộ sưu tập gối ôm Stars:\n- Diva Sân Khấu: Đã chính thức mở bán thương mại và trưng bày tại showroom Quận 1.\n- Rapper Kính Đen: Đang trong khâu cắt may ráp thử nghiệm chất liệu satin sọc đen huyền bí, dự kiến mở pre-order vào tuần sau.\n- Idol Mic Hồng: Bản vẽ phác thảo thêu kim tuyến đang được hiệu chỉnh ánh sáng cuối cùng.\n\nHãy theo dõi fanpage của Gpaw để không bỏ lỡ lịch ra mắt của những thần tượng đình đám này!`,
+    relatedProducts: ["s001", "s002"],
+    relatedArticles: ["stars-phong-cách-thiết-kế", "stars-lời-khuyên-stylist"]
+  },
+  {
+    id: "stars-lời-khuyên-stylist",
+    category: "stars",
+    tag: "LỜI KHUYÊN STYLIST",
+    date: "25/05/2026",
+    title: "Lời khuyên Stylist: Giữ nếp tóc và làn da trẻ trung",
+    summary: "Chất liệu lụa satin mát kháng khuẩn không chỉ bảo vệ làn da của bạn mà còn giữ nếp tóc hoàn hảo sau mỗi đêm dài đầy năng lượng.",
+    content: `Các chuyên gia làm đẹp hàng đầu luôn khuyên dùng vỏ gối hoặc gối ôm bằng lụa satin chất lượng cao bởi những lợi ích tuyệt vời cho sức khỏe và nhan sắc:\n- Giảm ma sát trên da: Tránh tạo nếp nhăn cơ học khi bạn nằm đè hoặc ôm gối, giúp duy trì làn da trẻ trung mịn màng.\n- Bảo vệ nếp tóc: Tránh cọ xát gây xơ rối, gãy rụng tóc sau khi thức dậy.\n- Kháng khuẩn mát da: Chất vải satin cao cấp của Gpaw có khả năng hút ẩm thông thoáng tốt, chống bám bụi bẩn và an toàn tuyệt đối cho da nhạy cảm.`,
+    relatedProducts: ["s001"],
+    relatedArticles: ["stars-phong-cách-thiết-kế", "stars-lịch-biểu-diễn"]
+  },
+
+  // --- PLUSH ARTICLES ---
+  {
+    id: "plush-mochi-bestseller",
+    category: "plush",
+    tag: "CUTE CLUB",
+    date: "29/05/2026",
+    title: "BÉ GẤU MOCHI BÁN CHẠY NHẤT TUẦN NÀY",
+    summary: "Phiên bản gấu Mochi co giãn 4 chiều mềm mịn đã chiếm trọn trái tim của hàng nghìn khách hàng nhí và cả người lớn.",
+    content: `Cơn sốt gối ôm gấu Mochi của Gpaw Atelier đang lan tỏa mạnh mẽ hơn bao giờ hết và vinh dự trở thành mẫu gối bán chạy nhất tuần này!\n\nĐiều gì khiến bé Gấu Mochi nhận được tình cảm yêu mến lớn như vậy?\n- Chất liệu vỏ gối: Sử dụng vải co giãn 4 chiều siêu mịn mát lạnh, sờ vào cảm giác mềm mại như lướt trên làn nước.\n- Ruột bông silicon 3D: Được nhồi căng phồng tròn trịa đàn hồi đàn đàn hồi, cho bạn cảm giác đầy đặn, chắc tay khi ôm chân hoặc gác đùi.\n- Thiết kế: Phom dáng chú gấu đáng yêu với đôi tai tròn mềm mại, thêu mặt biểu cảm ngộ nghĩnh an toàn 100% cho trẻ nhỏ.\n\nHãy ghé thăm showroom của chúng tôi để tự mình cảm nhận cái ôm ngọt ngào từ bé Gấu Mochi nhé!`,
+    relatedProducts: ["pl001", "pl002"],
+    relatedArticles: ["plush-care-tips", "plush-triết-lý-mềm-mại"]
+  },
+  {
+    id: "plush-care-tips",
+    category: "plush",
+    tag: "CARE TIPS",
+    date: "28/05/2026",
+    title: "CÁCH GIỮ RUỘT BÔNG LUÔN TƠI XỐP NHƯ MỚI",
+    summary: "Chỉ cần phơi ruột gối dưới nắng nhẹ từ 2-3 giờ mỗi tháng sẽ giúp bông silicon 3D phồng mịn đàn hồi trọn đời.",
+    content: `Sở hữu một chiếc gối ôm phồng căng tơi xốp trọn đời là điều hoàn toàn nằm trong tầm tay của bạn với những mẹo chăm sóc bông ruột gối cực kỳ đơn giản này từ Gpaw:\n- Tránh giặt ngập nước cả ruột gối: Nước và bột giặt có thể làm xơ dính các hạt bông silicon siêu mịn bên trong. Bạn chỉ cần giặt vỏ gối định kỳ.\n- Phơi nắng cơ học định kỳ: Đều đặn mỗi tháng một lần, hãy đem ruột gối phơi dưới nắng ấm nhẹ từ 2 đến 3 tiếng. Nhiệt độ và gió sẽ giải phóng hơi ẩm tích tụ, giúp bông silicon giãn nở phồng đều tự nhiên trở lại.\n- Vỗ đều tay: Sau khi phơi nắng, dùng tay vỗ nhẹ xung quanh thân gối để bông được dàn trải đều đẹp.`,
+    relatedProducts: ["pl001", "pl003"],
+    relatedArticles: ["plush-mochi-bestseller", "plush-tuyên-bố-nâng-niu"]
+  },
+  {
+    id: "plush-triết-lý-mềm-mại",
+    category: "plush",
+    tag: "TRIẾT LÝ MỀM MẠI",
+    date: "27/05/2026",
+    title: "Triết lý mềm mại từ Gpaw Plushies",
+    summary: "Bông microfiber silicon siêu mịn được nhồi căng phồng tối đa, kết hợp vải co giãn 4 chiều siêu mát, mang lại cảm giác ôm ấm áp như những cái ôm từ thú cưng của bạn.",
+    content: `Tại Gpaw Atelier, chúng tôi tin rằng sự êm ái mềm mịn không chỉ là đặc tính vật lý mà còn là liều thuốc tinh thần diệu kỳ.\n\nMỗi ngày trở về nhà sau những bộn bề học tập và làm việc, cái chạm tay mềm mát lên chiếc gối ôm Plush sẽ lập tức xoa dịu những căng thẳng của bạn. Chúng tôi nhồi căng phồng tối đa từng chiếc gối bằng loại bông silicon tốt nhất để mang lại những cái ôm đong đầy yêu thương, ấm áp như có một người bạn nhỏ trung thành luôn chờ đợi nâng niu bạn.`,
+    relatedProducts: ["pl001", "pl002", "pl003"],
+    relatedArticles: ["plush-nhật-ký-xưởng-may", "plush-tuyên-bố-nâng-niu"]
+  },
+  {
+    id: "plush-nhật-ký-xưởng-may",
+    category: "plush",
+    tag: "NHẬT KÝ XƯỞNG MAY",
+    date: "26/05/2026",
+    title: "Nhật ký xưởng may: Chế tác phom dáng gối ôm Mochi",
+    summary: "Gấu Mochi đang là gương mặt bán chạy nhất tuần này. Bé Mèo Ú và Thỏ Tai Dài đang được tạo phom dáng tai thỏ và mặt tròn, hứa hẹn cực kỳ ôm chân.",
+    content: `Chào các bạn, đây là nhật ký trực tiếp từ những nghệ nhân may tại xưởng Gpaw Sài Gòn!\n\nTuần này xưởng rộn ràng hơn hẳn để kịp hoàn thành đơn hàng cho các bé thú bông Mochi đáng yêu. Từng chi tiết bo tròn mặt, may đắp đôi tai thỏ dài ngộ nghĩnh hay việc thêu chỉ biểu cảm khuôn mặt đều đòi hỏi sự kiên nhẫn, khéo léo tối đa từ đôi bàn tay nghệ nhân.\n\nXưởng may cam kết kiểm duyệt chất lượng nghiêm ngặt từng đường kim mũi chỉ trước khi nhồi bông silicon và đóng gói gửi tới tay các khách hàng yêu quý.`,
+    relatedProducts: ["pl002", "pl003"],
+    relatedArticles: ["plush-triết-lý-mềm-mại", "plush-tuyên-bố-nâng-niu"]
+  },
+  {
+    id: "plush-tuyên-bố-nâng-niu",
+    category: "plush",
+    tag: "TUYÊN BỐ NÂNG NIU",
+    date: "25/05/2026",
+    title: "Tuyên bố nâng niu: Thân thiện với trẻ em và làn da nhạy cảm",
+    summary: "Sản phẩm an toàn 100% cho da nhạy cảm và trẻ em. Được sản xuất và kiểm duyệt nghiêm ngặt chống rụng lông hoặc xẹp bông trọn đời.",
+    content: `Sức khỏe và sự an tâm của gia đình bạn là tôn chỉ cao nhất tại Gpaw Atelier.\n\nChúng tôi long trọng cam kết:\n- 100% chất liệu bọc ngoài và bông nhồi silicon đều có chứng nhận an toàn, không chứa sợi hóa học độc hại gây ngứa ngáy hay dị ứng da, đặc biệt thân thiện tuyệt đối với làn da nhạy cảm của em bé.\n- Kết cấu vải cao cấp co giãn chống rụng lông hay phai sợi màu khi sử dụng lâu ngày.\n- Ruột gối lót chống thoát bông thông minh giúp gối luôn phồng mịn căng đều đàn hồi bền lâu theo năm tháng.`,
+    relatedProducts: ["pl001", "pl003"],
+    relatedArticles: ["plush-triết-lý-mềm-mại", "plush-nhật-ký-xưởng-may"]
+  }
+];
+
 const PRODUCT_CATALOG = [
   { id: "p001", name: "Gối ôm Donal Trump", category: "politics", img: "assets/pillow-front.png",
     url: "gpaw-goi-om-donald-trump.html",
@@ -520,7 +750,7 @@ const calcDiscountPct = (listed, sale) => Math.round((1 - sale / listed) * 100);
 // ─────────────────────────────────────────────────────────────────────────────
 // ❶ POLITICS — newspaper layout with soft page flip curl
 // ─────────────────────────────────────────────────────────────────────────────
-function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMore }) {
+function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMore, onSelectArticle }) {
   const [ref, inView] = useInView();
   const [active, setActive] = useState(0);
   const [flipping, setFlipping] = useState(false);
@@ -709,7 +939,26 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
               <h4>📰 Bản tin Gpaw Times (News & Updates)</h4>
               <div className="news-grid">
                 {siteSettings.newsList.map((news, index) => (
-                  <div key={index} className="news-item">
+                  <div 
+                    key={index} 
+                    className="news-item"
+                    onClick={() => {
+                      if (onSelectArticle) {
+                        const found = ARTICLES_DB.find(a => a.title.toUpperCase() === news.title.toUpperCase());
+                        onSelectArticle(found || {
+                          id: "dynamic-" + Date.now(),
+                          category: "politics",
+                          tag: "TIN TỨC",
+                          date: news.date || "Hôm nay",
+                          title: news.title,
+                          summary: news.summary,
+                          content: news.summary + "\n\n(Nội dung chi tiết của bài viết đang được phóng viên Gpaw Times cập nhật. Quý độc giả vui lòng quay lại sau!)",
+                          relatedProducts: [],
+                          relatedArticles: []
+                        });
+                      }
+                    }}
+                  >
                     <span className="date-cat">{news.date} · {news.category}</span>
                     <h5>{news.title}</h5>
                     <p>{news.summary}</p>
@@ -720,15 +969,39 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
           )}
 
           <div className="paper-foot">
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "politics-cương-lĩnh");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Cương lĩnh sản phẩm</h5>
               <p>Hai mươi bốn phiên bản chân dung các nhà lãnh đạo đương thời, mỗi chiếc cao 80–150 cm. In 3D hai mặt, vải mịn mát, ruột polyester chống biến dạng — đảm bảo bốn năm bảo hành, hoặc lâu hơn.</p>
             </div>
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "politics-lịch-phát-hành");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Lịch phát hành</h5>
               <p>Trump đã chính thức bước vào bộ sưu tập từ mùa Thu 2025. Putin — bản thử mẫu hoàn thành, mở đặt trước. Xi, Kim, Biden — đang trong xưởng. Mỗi tháng một nhân vật mới sẽ được "tuyên thệ".</p>
             </div>
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "politics-lời-tòa-soạn");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Lời tòa soạn</h5>
               <p>Đây là sản phẩm mang tính giải trí — một phép châm biếm dịu dàng dành cho người yêu sưu tập. Mỗi chiếc gối là một bức chân dung, không phải một tuyên bố chính trị. Hãy ôm có trách nhiệm.</p>
             </div>
@@ -742,7 +1015,7 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
 // ─────────────────────────────────────────────────────────────────────────────
 // ❷ ANIME — manga magazine layout with soft page flip curl
 // ─────────────────────────────────────────────────────────────────────────────
-function Anime({ catalog, onSelectProduct, siteSettings, onShowMore }) {
+function Anime({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArticle }) {
   const [ref, inView] = useInView();
   const [active, setActive] = useState(0);
   const [flipping, setFlipping] = useState(false);
@@ -972,7 +1245,26 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore }) {
                 <h4>📰 Bản tin Shonen Weekly (Manga & Figure)</h4>
                 <div className="news-grid">
                   {displayNews.map((news, index) => (
-                    <div key={index} className="news-item">
+                    <div 
+                      key={index} 
+                      className="news-item"
+                      onClick={() => {
+                        if (onSelectArticle) {
+                          const found = ARTICLES_DB.find(a => a.title.toUpperCase() === news.title.toUpperCase());
+                          onSelectArticle(found || {
+                            id: "dynamic-" + Date.now(),
+                            category: "anime",
+                            tag: "TIN TỨC",
+                            date: news.date || "Hôm nay",
+                            title: news.title,
+                            summary: news.summary,
+                            content: news.summary + "\n\n(Nội dung chi tiết của bài viết đang được phóng viên Shonen Weekly cập nhật. Quý độc giả vui lòng quay lại sau!)",
+                            relatedProducts: [],
+                            relatedArticles: []
+                          });
+                        }
+                      }}
+                    >
                       <span className="date-cat">{news.date} · {news.category}</span>
                       <h5>{news.title}</h5>
                       <p>{news.summary}</p>
@@ -984,15 +1276,39 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore }) {
           })()}
 
           <div className="paper-foot">
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "anime-tôn-chỉ-nét-vẽ");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Tôn chỉ nét vẽ</h5>
               <p>Hệ thống nét vẽ tay thủ công được chuyển thể 100% sang dạng in kỹ thuật số 3D độ nét cực cao, tái hiện hoàn hảo thần thái 2D của các nhân vật Anime yêu thích.</p>
             </div>
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "anime-tiến-độ-dự-án");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Tiến độ dự án</h5>
               <p>Tập 1 Senpai School đã chính thức gia nhập kệ hàng. Tập 2 Mahō Shōjo và Tập 3 Tsundere đang hoàn thiện khâu phối màu và chuẩn bị in test mẫu đầu tiên.</p>
             </div>
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "anime-lưu-ý-độc-giả");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Lưu ý độc giả</h5>
               <p>Sản phẩm được thiết kế độc quyền phục vụ văn hóa Otaku và các nhà sưu tầm Manga/Anime. Đảm bảo bản quyền thiết kế tinh xảo từ Gpaw Atelier.</p>
             </div>
@@ -1006,7 +1322,7 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // ❸ STARS — high-fashion concert layout with soft page flip curl
 // ─────────────────────────────────────────────────────────────────────────────
-function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
+function Stars({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArticle }) {
   const [ref, inView] = useInView();
   const [active, setActive] = useState(0);
   const [displayActive, setDisplayActive] = useState(0);
@@ -1233,7 +1549,26 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
                 <h4>📰 Tạp chí Showbiz Arena (Celeb & Gossip)</h4>
                 <div className="news-grid">
                   {displayNews.map((news, index) => (
-                    <div key={index} className="news-item">
+                    <div 
+                      key={index} 
+                      className="news-item"
+                      onClick={() => {
+                        if (onSelectArticle) {
+                          const found = ARTICLES_DB.find(a => a.title.toUpperCase() === news.title.toUpperCase());
+                          onSelectArticle(found || {
+                            id: "dynamic-" + Date.now(),
+                            category: "stars",
+                            tag: "TIN TỨC",
+                            date: news.date || "Hôm nay",
+                            title: news.title,
+                            summary: news.summary,
+                            content: news.summary + "\n\n(Nội dung chi tiết của bài viết đang được phóng viên Showbiz Arena cập nhật. Quý độc giả vui lòng quay lại sau!)",
+                            relatedProducts: [],
+                            relatedArticles: []
+                          });
+                        }
+                      }}
+                    >
                       <span className="date-cat">{news.date} · {news.category}</span>
                       <h5>{news.title}</h5>
                       <p>{news.summary}</p>
@@ -1245,15 +1580,39 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
           })()}
 
           <div className="paper-foot">
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "stars-phong-cách-thiết-kế");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Phong cách thiết kế</h5>
               <p>Lấy cảm hứng từ thời trang cao cấp và ánh sáng sân khấu, mỗi chiếc gối là một tác phẩm thời trang làm nổi bật gu thẩm mỹ hiện đại của không gian sống.</p>
             </div>
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "stars-lịch-biểu-diễn");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Lịch biểu diễn</h5>
               <p>Diva Sân Khấu đã khởi động Tour diễn phòng ngủ. Rapper Kính Đen và Idol Mic Hồng đang trong quá trình ghi âm mẫu và sẽ sớm được mở bán pre-order.</p>
             </div>
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "stars-lời-khuyên-stylist");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Lời khuyên Stylist</h5>
               <p>Chất liệu lụa satin mát kháng khuẩn không chỉ bảo vệ làn da của bạn mà còn giữ nếp tóc hoàn hảo sau mỗi đêm diễn dài đầy năng lượng.</p>
             </div>
@@ -1267,7 +1626,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // ❹ PLUSH — cozy pastel lifestyle layout with soft page flip curl
 // ─────────────────────────────────────────────────────────────────────────────
-function Plush({ catalog, onSelectProduct, siteSettings, onShowMore }) {
+function Plush({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArticle }) {
   const [ref, inView] = useInView();
   const [active, setActive] = useState(0);
   const [flipping, setFlipping] = useState(false);
@@ -1474,7 +1833,26 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore }) {
                 <h4>📰 Bản tin Cute & Cozy (Pet & Plushie)</h4>
                 <div className="news-grid">
                   {displayNews.map((news, index) => (
-                    <div key={index} className="news-item">
+                    <div 
+                      key={index} 
+                      className="news-item"
+                      onClick={() => {
+                        if (onSelectArticle) {
+                          const found = ARTICLES_DB.find(a => a.title.toUpperCase() === news.title.toUpperCase());
+                          onSelectArticle(found || {
+                            id: "dynamic-" + Date.now(),
+                            category: "plush",
+                            tag: "TIN TỨC",
+                            date: news.date || "Hôm nay",
+                            title: news.title,
+                            summary: news.summary,
+                            content: news.summary + "\n\n(Nội dung chi tiết của bài viết đang được phóng viên Cute & Cozy cập nhật. Quý độc giả vui lòng quay lại sau!)",
+                            relatedProducts: [],
+                            relatedArticles: []
+                          });
+                        }
+                      }}
+                    >
                       <span className="date-cat">{news.date} · {news.category}</span>
                       <h5>{news.title}</h5>
                       <p>{news.summary}</p>
@@ -1486,15 +1864,39 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore }) {
           })()}
 
           <div className="paper-foot">
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "plush-triết-lý-mềm-mại");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Triết lý mềm mại</h5>
               <p>Bông microfiber silicon siêu mịn được nhồi căng phồng tối đa, kết hợp vải co giãn 4 chiều siêu mát, mang lại cảm giác ôm ấm áp như những cái ôm từ thú cưng của bạn.</p>
             </div>
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "plush-nhật-ký-xưởng-may");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Nhật ký xưởng may</h5>
               <p>Gấu Mochi đang là gương mặt bán chạy nhất tuần này. Bé Mèo Ú và Thỏ Tai Dài đang được tạo phom dáng tai thỏ và mặt tròn, hứa hẹn cực kỳ ôm chân.</p>
             </div>
-            <div className="col">
+            <div 
+              className="col"
+              onClick={() => {
+                if (onSelectArticle) {
+                  const found = ARTICLES_DB.find(a => a.id === "plush-tuyên-bố-nâng-niu");
+                  if (found) onSelectArticle(found);
+                }
+              }}
+            >
               <h5>Tuyên bố nâng niu</h5>
               <p>Sản phẩm an toàn 100% cho da nhạy cảm và trẻ em. Được sản xuất và kiểm duyệt nghiêm ngặt chống rụng lông hoặc xẹp bông trọn đời.</p>
             </div>
@@ -1664,6 +2066,244 @@ function FloatContact({ siteSettings }) {
         <img src="assets/icon-phone.png" alt="Hotline" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
         <span className="tooltip">Hotline: {phone}</span>
       </a>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ArticleDetailPage — detailed view of blog articles/columns with related content
+// ─────────────────────────────────────────────────────────────────────────────
+function ArticleDetailPage({ article, onClose, onSelectProduct, catalog, allArticles, onSelectArticle }) {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [article]);
+
+  if (!article) return null;
+
+  // Find related products based on article database or filter by category
+  const relatedProducts = (article.relatedProducts || [])
+    .map(id => catalog.find(p => p.id === id))
+    .filter(Boolean);
+  
+  if (relatedProducts.length === 0) {
+    relatedProducts.push(...catalog.filter(p => p.category === article.category).slice(0, 3));
+  }
+
+  // Find related articles based on article database or filter by category
+  const relatedArticles = (article.relatedArticles || [])
+    .map(id => allArticles.find(a => a.id === id))
+    .filter(Boolean);
+
+  if (relatedArticles.length === 0) {
+    relatedArticles.push(...allArticles.filter(a => a.category === article.category && a.id !== article.id).slice(0, 2));
+  }
+
+  // Choose style based on category
+  const categoryThemeStyles = {
+    politics: {
+      bg: "#f5e9d0",
+      color: "#16213a",
+      accent: "#b3242d",
+      border: "1.5px solid #16213a",
+      fontFamily: '"Lora", "Georgia", serif',
+      titleFont: '"UnifrakturMaguntia", "Grenze Gotisch", serif',
+      boxShadow: "6px 6px 0 #16213a",
+      articleBg: "#ffffff"
+    },
+    anime: {
+      bg: "#fff",
+      color: "#0a0a0a",
+      accent: "#ff4c94",
+      border: "3px solid #000",
+      fontFamily: '"Be Vietnam Pro", sans-serif',
+      titleFont: '"Bagel Fat One", sans-serif',
+      boxShadow: "8px 8px 0 #000",
+      articleBg: "#ffffff"
+    },
+    stars: {
+      bg: "#0a0814",
+      color: "#fff",
+      accent: "#ff3eb8",
+      border: "1px solid rgba(255, 255, 255, 0.15)",
+      fontFamily: '"Be Vietnam Pro", sans-serif',
+      titleFont: '"Bodoni Moda", "Playfair Display", serif',
+      boxShadow: "0 15px 40px rgba(0,0,0,0.6)",
+      articleBg: "#14111f"
+    },
+    plush: {
+      bg: "#fff4e6",
+      color: "#2a1c14",
+      accent: "#ff9eb1",
+      border: "2px solid #ff9eb1",
+      fontFamily: '"Lora", "Georgia", serif',
+      titleFont: '"Lora", "Georgia", serif',
+      boxShadow: "0 8px 24px rgba(255, 158, 177, 0.15)",
+      articleBg: "#ffffff"
+    }
+  };
+
+  const theme = categoryThemeStyles[article.category] || categoryThemeStyles.plush;
+
+  return (
+    <div className={`article-detail-page theme-${article.category}`} style={{ background: theme.bg, color: theme.color, minHeight: '100vh', padding: '120px 0 80px', fontFamily: theme.fontFamily }}>
+      <div className="wrap" style={{ maxWidth: '800px' }}>
+        
+        {/* Back Button */}
+        <button 
+          onClick={onClose} 
+          style={{
+            background: 'transparent',
+            border: theme.border,
+            color: 'inherit',
+            padding: '8px 16px',
+            borderRadius: '99px',
+            cursor: 'pointer',
+            fontFamily: 'var(--mono)',
+            fontSize: '11px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.12em',
+            marginBottom: '40px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'all 0.2s',
+            boxShadow: theme.boxShadow
+          }}
+          className="btn-back-article"
+        >
+          ← Quay lại trang chủ
+        </button>
+
+        {/* Article Container */}
+        <article style={{ 
+          border: theme.border, 
+          padding: '40px', 
+          background: theme.articleBg, 
+          boxShadow: theme.boxShadow,
+          borderRadius: article.category === 'plush' ? '24px' : '4px',
+          marginBottom: '60px'
+        }}>
+          {/* Header */}
+          <div style={{ borderBottom: `2px solid ${theme.accent}`, paddingBottom: '20px', marginBottom: '30px' }}>
+            <span style={{ 
+              fontFamily: 'var(--mono)', 
+              fontSize: '10.5px', 
+              color: theme.accent, 
+              fontWeight: 700, 
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase'
+            }}>
+              {article.date} · {article.category.toUpperCase()} ({article.tag || "TIN TỨC"})
+            </span>
+            <h1 style={{ 
+              fontFamily: theme.titleFont, 
+              fontSize: article.category === 'politics' ? '50px' : '36px',
+              fontWeight: 800,
+              lineHeight: 1.15,
+              margin: '12px 0',
+              color: article.category === 'politics' ? theme.color : 'inherit'
+            }}>
+              {article.title}
+            </h1>
+            <p style={{ fontSize: '16px', fontStyle: 'italic', opacity: 0.8, lineHeight: 1.5, marginTop: '12px' }}>
+              {article.summary}
+            </p>
+          </div>
+
+          {/* Body Content */}
+          <div style={{ fontSize: '15px', lineHeight: 1.75, whiteSpace: 'pre-line' }}>
+            {article.content}
+          </div>
+        </article>
+
+        {/* Related Articles Section */}
+        {relatedArticles.length > 0 && (
+          <div style={{ marginBottom: '60px' }}>
+            <h3 style={{ 
+              fontFamily: theme.titleFont, 
+              borderBottom: `1px solid ${theme.accent}`, 
+              paddingBottom: '10px', 
+              marginBottom: '20px',
+              fontSize: '20px'
+            }}>
+              📰 BÀI VIẾT LIÊN QUAN
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              {relatedArticles.map((rel, idx) => (
+                <div 
+                  key={idx} 
+                  onClick={() => onSelectArticle(rel)}
+                  style={{
+                    border: theme.border,
+                    borderRadius: article.category === 'plush' ? '16px' : '4px',
+                    padding: '20px',
+                    cursor: 'pointer',
+                    background: theme.articleBg,
+                    transition: 'all 0.2s',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+                  }}
+                  className="related-article-card"
+                >
+                  <span style={{ fontSize: '10px', opacity: 0.6 }}>{rel.date}</span>
+                  <h4 style={{ margin: '6px 0', fontSize: '15px', fontWeight: 700, lineHeight: 1.3 }}>{rel.title}</h4>
+                  <p style={{ fontSize: '12.5px', opacity: 0.7, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                    {rel.summary}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Related Products Section */}
+        {relatedProducts.length > 0 && (
+          <div>
+            <h3 style={{ 
+              fontFamily: theme.titleFont, 
+              borderBottom: `1px solid ${theme.accent}`, 
+              paddingBottom: '10px', 
+              marginBottom: '20px',
+              fontSize: '20px'
+            }}>
+              🛍️ SẢN PHẨM LIÊN QUAN
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
+              {relatedProducts.map((prod, idx) => {
+                const discount = prod.sizes?.[0] ? calcDiscountPct(prod.sizes[0].listedPrice, prod.sizes[0].salePrice) : 0;
+                return (
+                  <div 
+                    key={idx} 
+                    onClick={() => onSelectProduct(prod)}
+                    style={{
+                      border: theme.border,
+                      borderRadius: article.category === 'plush' ? '16px' : '4px',
+                      padding: '12px',
+                      cursor: 'pointer',
+                      background: theme.articleBg,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+                    }}
+                    className="related-product-card"
+                  >
+                    <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', background: '#eaeaea', borderRadius: article.category === 'plush' ? '12px' : '0', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {prod.img ? <img src={prod.img} alt={prod.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <SilStar color={theme.accent} />}
+                      {prod.isOnSale && discount > 0 && (
+                        <div style={{ position: 'absolute', top: '8px', right: '8px', background: '#b3242d', color: '#fff', fontSize: '9px', fontWeight: 700, padding: '2px 4px', borderRadius: '2px' }}>
+                          -{discount}%
+                        </div>
+                      )}
+                    </div>
+                    <h4 style={{ margin: '10px 0 4px', fontSize: '14px', fontWeight: 700 }}>{prod.name}</h4>
+                    <span style={{ fontSize: '13px', color: theme.accent, fontWeight: 700 }}>
+                      {prod.sizes?.[0]?.salePrice ? `${prod.sizes[0].salePrice.toLocaleString('vi-VN')}₫` : 'Liên hệ'}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+      </div>
     </div>
   );
 }
@@ -5627,6 +6267,7 @@ function App() {
   // Page loader and transition states
   const [pageLoading, setPageLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(() => getActiveProductFromUrl(catalog));
+  const [selectedArticle, setSelectedArticle] = useState(null);
   const [viewingCatalogCategory, setViewingCatalogCategory] = useState(() => {
     const path = decodeURIComponent(window.location.pathname).toLowerCase();
     if (path.includes("cua-hang") || path.includes("gpaw-cua-hang")) {
@@ -5638,6 +6279,7 @@ function App() {
   const openProductDetail = (p) => {
     setPageLoading(true);
     setTimeout(() => {
+      setSelectedArticle(null);
       setSelectedProduct(p);
       setTimeout(() => {
         setPageLoading(false);
@@ -5648,6 +6290,7 @@ function App() {
   const handleNavigateHomeOrSection = (id) => {
     setPageLoading(true);
     setTimeout(() => {
+      setSelectedArticle(null);
       setSelectedProduct(null);
       setViewingCatalogCategory(null);
       setTimeout(() => {
@@ -6263,7 +6906,7 @@ function App() {
         body, html, .world, .elle-editorial, .manga-magazine, .newspaper, .cozy-magazine {
           cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 120 120"><defs><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="3" dy="4" stdDeviation="3" flood-color="%23000000" flood-opacity="0.65"/></filter><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23ff4d5a"/><stop offset="50%" stop-color="%23b3242d"/><stop offset="100%" stop-color="%237a0e14"/></linearGradient></defs><g filter="url(%23sh)"><path d="M60 58C43 58 28 72 28 88C28 95 32 101 39 105C46 109 53 111 60 111C67 111 74 109 81 105C88 101 92 85 92 88C92 72 77 58 60 58Z" fill="url(%23g)"/><ellipse cx="28" cy="46" rx="12" ry="17" transform="rotate(-22 28 46)" fill="url(%23g)"/><ellipse cx="47" cy="34" rx="11" ry="16" transform="rotate(-8 47 34)" fill="url(%23g)"/><ellipse cx="73" cy="34" rx="11" ry="16" transform="rotate(8 73 34)" fill="url(%23g)"/><ellipse cx="92" cy="46" rx="12" ry="17" transform="rotate(22 92 46)" fill="url(%23g)"/><path d="M20 26C22 20 26 20 28 26C24 24 22 24 20 26Z" fill="%23ffccd0"/><path d="M41 16C43 10 47 10 49 16C45 14 43 14 41 16Z" fill="%23ffccd0"/><path d="M71 16C73 10 77 10 79 16C75 14 73 14 71 16Z" fill="%23ffccd0"/><path d="M92 26C94 20 98 20 100 26C96 24 94 24 92 26Z" fill="%23ffccd0"/></g></svg>') 12 12, auto !important;
         }
-        a, button, select, input[type="submit"], [role="button"], .logo, .buy-btn, .add-to-cart-btn, .product-card, .thumb, .close-btn, .nav-btn, .interactive {
+        a, button, select, input[type="submit"], [role="button"], .logo, .buy-btn, .add-to-cart-btn, .product-card, .thumb, .close-btn, .nav-btn, .interactive, .news-item, .paper-foot .col {
           cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 120 120"><defs><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="3" dy="4" stdDeviation="3" flood-color="%23000000" flood-opacity="0.65"/></filter><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23fff285"/><stop offset="50%" stop-color="%23ffd34d"/><stop offset="100%" stop-color="%23c49712"/></linearGradient></defs><g filter="url(%23sh)"><path d="M60 58C43 58 28 72 28 88C28 95 32 101 39 105C46 109 53 111 60 111C67 111 74 109 81 105C88 101 92 85 92 88C92 72 77 58 60 58Z" fill="url(%23g)"/><ellipse cx="28" cy="46" rx="12" ry="17" transform="rotate(-22 28 46)" fill="url(%23g)"/><ellipse cx="47" cy="34" rx="11" ry="16" transform="rotate(-8 47 34)" fill="url(%23g)"/><ellipse cx="73" cy="34" rx="11" ry="16" transform="rotate(8 73 34)" fill="url(%23g)"/><ellipse cx="92" cy="46" rx="12" ry="17" transform="rotate(22 92 46)" fill="url(%23g)"/><path d="M20 26C22 20 26 20 28 26C24 24 22 24 20 26Z" fill="%23fffde0"/><path d="M41 16C43 10 47 10 49 16C45 14 43 14 41 16Z" fill="%23fffde0"/><path d="M71 16C73 10 77 10 79 16C75 14 73 14 71 16Z" fill="%23fffde0"/><path d="M92 26C94 20 98 20 100 26C96 24 94 24 92 26Z" fill="%23fffde0"/></g></svg>') 12 12, pointer !important;
         }
         
@@ -6281,6 +6924,36 @@ function App() {
         body { padding-top: 0 !important; }
         .topnav { top: 0 !important; }
         .topnav .logo::before, .topnav .logo::after { content: none !important; }
+
+        .news-item, .paper-foot .col {
+          transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .news-item:hover, .paper-foot .col:hover {
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+          background: rgba(255,255,255,0.03);
+        }
+        .paper-foot .col {
+          padding: 12px;
+          border-radius: 8px;
+          border: 1px solid transparent;
+        }
+        .w-politics .news-item:hover, .w-politics .paper-foot .col:hover {
+          background: rgba(22, 33, 58, 0.03);
+          border-color: rgba(22, 33, 58, 0.1);
+        }
+        .w-anime .news-item:hover, .w-anime .paper-foot .col:hover {
+          background: rgba(255, 76, 148, 0.03);
+          border-color: rgba(255, 76, 148, 0.1);
+        }
+        .w-stars .news-item:hover, .w-stars .paper-foot .col:hover {
+          background: rgba(255, 255, 255, 0.03);
+          border-color: rgba(255, 255, 255, 0.1);
+        }
+        .w-plush .news-item:hover, .w-plush .paper-foot .col:hover {
+          background: rgba(168, 94, 114, 0.03);
+          border-color: rgba(168, 94, 114, 0.1);
+        }
         
         /* Anime Universe news/footer overrides */
         .w-anime .paper-news-section,
@@ -6786,7 +7459,16 @@ function App() {
               }
             }}
           />
-          {selectedProduct ? (
+          {selectedArticle ? (
+            <ArticleDetailPage
+              article={selectedArticle}
+              onClose={() => setSelectedArticle(null)}
+              onSelectProduct={openProductDetail}
+              catalog={catalog}
+              allArticles={ARTICLES_DB}
+              onSelectArticle={setSelectedArticle}
+            />
+          ) : selectedProduct ? (
             <ProductDetailPage
               catalog={catalog}
               product={catalog.find(p => p.id === selectedProduct.id) || selectedProduct}
@@ -6807,10 +7489,10 @@ function App() {
           ) : (
             <div style={{ position: "relative" }}>
               <BackgroundPaws count={50} />
-              <Politics catalog={catalog} onSelectProduct={openProductDetail} onOpenAuth={setAuthModal} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("politics")} />
-              <Anime catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("anime")} />
-              <Stars catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("stars")} />
-              <Plush catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("plush")} />
+              <Politics catalog={catalog} onSelectProduct={openProductDetail} onOpenAuth={setAuthModal} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("politics")} onSelectArticle={setSelectedArticle} />
+              <Anime catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("anime")} onSelectArticle={setSelectedArticle} />
+              <Stars catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("stars")} onSelectArticle={setSelectedArticle} />
+              <Plush catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("plush")} onSelectArticle={setSelectedArticle} />
             </div>
           )}
           <Complaint />

@@ -1544,7 +1544,7 @@ function TopNav({ activeTheme, currentUser, onOpenAuth, onLogout, onOpenVouchers
           {items.map((it) => (
             <a
               key={it.id}
-              href="#"
+              href={it.id === "shop" ? "gpaw-cua-hang.html" : `#${it.id}`}
               className={activeTheme === it.id ? "active" : ""}
               onClick={(e) => { e.preventDefault(); onNavClick && onNavClick(it.id); }}
             >
@@ -5635,7 +5635,13 @@ function App() {
   // Page loader and transition states
   const [pageLoading, setPageLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(() => getActiveProductFromUrl(catalog));
-  const [viewingCatalogCategory, setViewingCatalogCategory] = useState(null);
+  const [viewingCatalogCategory, setViewingCatalogCategory] = useState(() => {
+    const path = decodeURIComponent(window.location.pathname).toLowerCase();
+    if (path.includes("cua-hang") || path.includes("gpaw-cua-hang")) {
+      return "all";
+    }
+    return null;
+  });
 
   const openProductDetail = (p) => {
     setPageLoading(true);

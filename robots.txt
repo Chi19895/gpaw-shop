@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# AI crawlers and scrapers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+Sitemap: https://gpaw-shop.vercel.app/sitemap.xml

@@ -551,7 +551,7 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
       setActive((a) => (a + 1) % cards.length);
     }, 5000);
     return () => clearInterval(t);
-  }, [inView, cards.length]);
+  }, [inView, cards.length, active]);
 
   useEffect(() => {
     setFlipping(true);
@@ -635,10 +635,8 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
               <a
                 href={catalogItem?.url || "#"}
                 onClick={(e) => {
-                  if (!catalogItem || !catalogItem.url) {
-                    e.preventDefault();
-                    handleProductClick(featured);
-                  }
+                  e.preventDefault();
+                  handleProductClick(featured);
                 }}
                 className="feat-flip"
               >
@@ -769,7 +767,7 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore }) {
       setActive((a) => (a + 1) % cards.length);
     }, 5000);
     return () => clearInterval(t);
-  }, [inView, cards.length]);
+  }, [inView, cards.length, active]);
 
   useEffect(() => {
     setFlipping(true);
@@ -861,7 +859,7 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore }) {
               {/* Magazine cover frame with overlaid text like SOUL magazine */}
               <a
                 href={catalogItem?.url || "#"}
-                onClick={(e) => { if (!catalogItem || !catalogItem.url) { e.preventDefault(); handleProductClick(featured); } }}
+                onClick={(e) => { e.preventDefault(); handleProductClick(featured); }}
                 style={{ textDecoration: "none", color: "inherit", display: "block" }}
               >
                 <div className="frame manga-cover-frame" style={{ position: "relative" }}>
@@ -1043,7 +1041,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
       setActive((a) => (a + 1) % cards.length);
     }, 5000);
     return () => clearInterval(t);
-  }, [inView, cards.length]);
+  }, [inView, cards.length, active]);
 
   useEffect(() => {
     setTransitioning(true);
@@ -1126,7 +1124,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
 
             <a
               href={catalogItem?.url || "#"}
-              onClick={(e) => { if (!catalogItem || !catalogItem.url) { e.preventDefault(); handleProductClick(featured); } }}
+              onClick={(e) => { e.preventDefault(); handleProductClick(featured); }}
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
             >
               <div className="elle-cover-frame" style={{ position: "relative" }}>
@@ -1292,7 +1290,7 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore }) {
       setActive((a) => (a + 1) % cards.length);
     }, 5000);
     return () => clearInterval(t);
-  }, [inView, cards.length]);
+  }, [inView, cards.length, active]);
 
   useEffect(() => {
     setFlipping(true);
@@ -1376,7 +1374,7 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore }) {
 
               <a
                 href={catalogItem?.url || "#"}
-                onClick={(e) => { if (!catalogItem || !catalogItem.url) { e.preventDefault(); handleProductClick(featured); } }}
+                onClick={(e) => { e.preventDefault(); handleProductClick(featured); }}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <div className="frame" style={{ background: featured.c.bg, position: "relative" }}>

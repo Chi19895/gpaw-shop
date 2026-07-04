@@ -920,17 +920,16 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
                 </button>
               ))}
               <div className="t-progress" key={active}></div>
+              <div className="paper-more-container" style={{ margin: "16px 0 0", textAlign: "center" }}>
+                <button
+                  type="button"
+                  className="paper-more-btn interactive"
+                  onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+                >
+                  Xem thêm tất cả sản phẩm Chính trị ➔
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="paper-more-container" style={{ margin: "24px auto", textAlign: "center", width: "100%", clear: "both" }}>
-            <button
-              type="button"
-              className="paper-more-btn interactive"
-              onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
-            >
-              Xem thêm tất cả sản phẩm Chính trị ➔
-            </button>
           </div>
 
           {/* Breaking News Feed Section */}
@@ -1227,17 +1226,16 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
                 </button>
               ))}
               <div className="t-progress" key={active} style={{ background: "rgba(0,0,0,0.1)" }}></div>
+              <div className="manga-more-container" style={{ margin: "16px 0 0", textAlign: "center" }}>
+                <button
+                  type="button"
+                  className="manga-more-btn interactive"
+                  onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+                >
+                  Xem thêm tất cả sản phẩm Anime ➔
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="manga-more-container" style={{ margin: "24px auto", textAlign: "center", width: "100%" }}>
-            <button
-              type="button"
-              className="manga-more-btn interactive"
-              onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
-            >
-              Xem thêm tất cả sản phẩm Anime ➔
-            </button>
           </div>
 
           {/* Breaking News Feed Section */}
@@ -1530,16 +1528,16 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
             <div className="elle-progress-bar">
               <div className="elle-progress-fill" key={active}></div>
             </div>
-          </div>
 
-          <div className="elle-more-container" style={{ margin: "24px auto", textAlign: "center", width: "100%" }}>
-            <button
-              type="button"
-              className="elle-more-btn interactive"
-              onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
-            >
-              Xem thêm tất cả sản phẩm Ca sĩ ➔
-            </button>
+            <div className="elle-more-container" style={{ margin: "16px 0 0", textAlign: "center" }}>
+              <button
+                type="button"
+                className="elle-more-btn interactive"
+                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+              >
+                Xem thêm tất cả sản phẩm Ca sĩ ➔
+              </button>
+            </div>
           </div>
 
           {/* Breaking News Feed Section */}
@@ -1814,17 +1812,16 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore, onSelectArt
                 );
               })}
               <div className="t-progress" key={active} style={{ background: "rgba(168,94,114,0.15)" }}></div>
+              <div className="cozy-more-container" style={{ margin: "16px 0 0", textAlign: "center" }}>
+                <button
+                  type="button"
+                  className="cozy-more-btn interactive"
+                  onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+                >
+                  Xem thêm tất cả sản phẩm Thú bông ➔
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="cozy-more-container" style={{ margin: "24px auto", textAlign: "center", width: "100%" }}>
-            <button
-              type="button"
-              className="cozy-more-btn interactive"
-              onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
-            >
-              Xem thêm tất cả sản phẩm Thú bông ➔
-            </button>
           </div>
 
           {/* Breaking News Feed Section */}
@@ -7367,12 +7364,12 @@ function App() {
           transform: translateY(-3px) scale(1.02);
         }
 
-        /* More containers inside grids should span full width */
+        /* More containers inside grids should stay in their column */
         .paper-more-container,
         .manga-more-container,
         .elle-more-container,
         .cozy-more-container {
-          grid-column: 1 / -1;
+          grid-column: auto;
         }
 
         /* Dark variant of page-curl for dark backgrounds (Stars section) */

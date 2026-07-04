@@ -3110,6 +3110,8 @@ function CatalogPage({ catalog, onSelectProduct, initialCategory, onBackHome, si
   const [selectedTrends, setSelectedTrends] = useState([]);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
+  const [visibleLimit, setVisibleLimit] = useState(6);
+
   // Sync scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -3181,6 +3183,9 @@ function CatalogPage({ catalog, onSelectProduct, initialCategory, onBackHome, si
     }
     return true;
   });
+
+  const displayedProducts = filteredProducts.slice(0, visibleLimit);
+  const hasMore = filteredProducts.length > visibleLimit;
 
   return (
     <div className="catalog-page-container">
@@ -3261,9 +3266,9 @@ function CatalogPage({ catalog, onSelectProduct, initialCategory, onBackHome, si
           </div>
 
           {/* Grid content */}
-          <div className="catalog-grid-wrapper">
+          <div className="catalog-grid-wrapper" style={{ flex: 1 }}>
             <div className="catalog-results-count">
-              Hiển thị <strong>{filteredProducts.length}</strong> sản phẩm
+              Hiển thị <strong>{displayedProducts.length}</strong> trên tổng số <strong>{filteredProducts.length}</strong> sản phẩm
             </div>
 
             {filteredProducts.length === 0 ? (
@@ -3273,47 +3278,72 @@ function CatalogPage({ catalog, onSelectProduct, initialCategory, onBackHome, si
                 <button type="button" className="reset-btn-large" onClick={handleReset}>Đặt lại bộ lọc</button>
               </div>
             ) : (
-              <div className="catalog-products-grid">
-                {filteredProducts.map(p => {
-                  const minSizePrice = p.sizes && p.sizes.length > 0 ? p.sizes[0] : null;
-                  const discountPct = minSizePrice ? calcDiscountPct(minSizePrice.listedPrice, minSizePrice.salePrice) : 0;
-                  return (
-                    <div key={p.id} className="catalog-product-card interactive" onClick={() => onSelectProduct(p)}>
-                      <div className="card-image-wrapper">
-                        {p.isOnSale && discountPct > 0 && (
-                          <div className="sale-badge">-{discountPct}%</div>
-                        )}
-                        {p.tag && (
-                          <div className={`status-tag ${p.tag === 'Đang bán' ? 'tag-green' : p.tag === 'Đặt trước' ? 'tag-orange' : 'tag-gray'}`}>
-                            {p.tag}
+              <>
+                <div className="catalog-products-grid">
+                  {displayedProducts.map(p => {
+                    const minSizePrice = p.sizes && p.sizes.length > 0 ? p.sizes[0] : null;
+                    const discountPct = minSizePrice ? calcDiscountPct(minSizePrice.listedPrice, minSizePrice.salePrice) : 0;
+                    return (
+                      <div key={p.id} className="catalog-product-card interactive" onClick={() => onSelectProduct(p)}>
+                        <div className="card-image-wrapper">
+                          {p.isOnSale && discountPct > 0 && (
+                            <div className="sale-badge">-{discountPct}%</div>
+                          )}
+                          {p.tag && (
+                            <div className={`status-tag ${p.tag === 'Đang bán' ? 'tag-green' : p.tag === 'Đặt trước' ? 'tag-orange' : 'tag-gray'}`}>
+                              {p.tag}
+                            </div>
+                          )}
+                          <img src={p.images && p.images[0] ? p.images[0] : 'assets/pillow-front.png'} alt={p.name} />
+                        </div>
+                        <div className="card-info">
+                          <div className="category-tag">{p.category === 'politics' ? 'Chính trị' : p.category === 'anime' ? 'Anime' : p.category === 'stars' ? 'Ca sĩ' : 'Thú bông'}</div>
+                          <h3>{p.name}</h3>
+                          <p className="card-desc">{p.description}</p>
+                          <div className="card-bottom">
+                            <div className="price-box">
+                              {minSizePrice ? (
+                                <>
+                                  <span className="sale-price">{minSizePrice.salePrice.toLocaleString('vi-VN')}₫</span>
+                                  {minSizePrice.salePrice < minSizePrice.listedPrice && (
+                                    <span className="listed-price">{minSizePrice.listedPrice.toLocaleString('vi-VN')}₫</span>
+                                  )}
+                                </>
+                              ) : (
+                                <span className="sale-price">Liên hệ</span>
+                              )}
+                            </div>
+                            <button type="button" className="buy-btn-small">Chi tiết</button>
                           </div>
-                        )}
-                        <img src={p.images && p.images[0] ? p.images[0] : 'assets/pillow-front.png'} alt={p.name} />
-                      </div>
-                      <div className="card-info">
-                        <div className="category-tag">{p.category === 'politics' ? 'Chính trị' : p.category === 'anime' ? 'Anime' : p.category === 'stars' ? 'Ca sĩ' : 'Thú bông'}</div>
-                        <h3>{p.name}</h3>
-                        <p className="card-desc">{p.description}</p>
-                        <div className="card-bottom">
-                          <div className="price-box">
-                            {minSizePrice ? (
-                              <>
-                                <span className="sale-price">{minSizePrice.salePrice.toLocaleString('vi-VN')}₫</span>
-                                {minSizePrice.salePrice < minSizePrice.listedPrice && (
-                                  <span className="listed-price">{minSizePrice.listedPrice.toLocaleString('vi-VN')}₫</span>
-                                )}
-                              </>
-                            ) : (
-                              <span className="sale-price">Liên hệ</span>
-                            )}
-                          </div>
-                          <button type="button" className="buy-btn-small">Chi tiết</button>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+                
+                {hasMore && (
+                  <div style={{ textAlign: "center", marginTop: "40px" }}>
+                    <button
+                      type="button"
+                      className="paper-more-btn interactive"
+                      style={{
+                        background: "transparent",
+                        border: "1.5px solid #16213a",
+                        padding: "12px 36px",
+                        fontFamily: "var(--mono)",
+                        fontSize: "13px",
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.15em",
+                        cursor: "pointer"
+                      }}
+                      onClick={() => setVisibleLimit(prev => prev + 6)}
+                    >
+                      Tải thêm sản phẩm khác ➔
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

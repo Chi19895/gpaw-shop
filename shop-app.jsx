@@ -103,7 +103,7 @@ const BackgroundPaws = ({ count = 40 }) => {
       size: Math.floor(Math.random() * 60 + 20), // 20px to 80px scale
       rotation: Math.floor(Math.random() * 360),
       color: colors[Math.floor(Math.random() * colors.length)],
-      delay: `${Math.random() * -8}s` // initial stagger delay
+      delay: `${Math.random() * -2}s` // initial stagger delay
     };
   };
 
@@ -520,7 +520,7 @@ const calcDiscountPct = (listed, sale) => Math.round((1 - sale / listed) * 100);
 // ─────────────────────────────────────────────────────────────────────────────
 // ❶ POLITICS — newspaper layout with soft page flip curl
 // ─────────────────────────────────────────────────────────────────────────────
-function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings }) {
+function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMore }) {
   const [ref, inView] = useInView();
   const [active, setActive] = useState(0);
   const [flipping, setFlipping] = useState(false);
@@ -692,6 +692,18 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings }) {
                 </button>
               ))}
               <div className="t-progress" key={active}></div>
+              <button
+                type="button"
+                className="thumb interactive"
+                style={{ borderBottom: '1.5px solid #16213a', justifyContent: 'center', alignItems: 'center', padding: '16px 8px', background: 'transparent' }}
+                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+              >
+                <div className="t-info" style={{ alignItems: 'center', width: '100%' }}>
+                  <span className="t-name" style={{ fontSize: '15px', color: '#b3242d', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    Xem thêm sản phẩm ➔
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
 
@@ -734,7 +746,7 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // ❷ ANIME — manga magazine layout with soft page flip curl
 // ─────────────────────────────────────────────────────────────────────────────
-function Anime({ catalog, onSelectProduct, siteSettings }) {
+function Anime({ catalog, onSelectProduct, siteSettings, onShowMore }) {
   const [ref, inView] = useInView();
   const [active, setActive] = useState(0);
   const [flipping, setFlipping] = useState(false);
@@ -935,6 +947,18 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
                 </button>
               ))}
               <div className="t-progress" key={active} style={{ background: "rgba(0,0,0,0.1)" }}></div>
+              <button
+                type="button"
+                className="manga-thumb interactive"
+                style={{ borderBottom: '3px solid #000', justifyContent: 'center', alignItems: 'center', padding: '12px 4px', background: 'transparent' }}
+                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+              >
+                <div className="t-info" style={{ alignItems: 'center', width: '100%' }}>
+                  <span className="t-name" style={{ fontSize: '14px', color: '#ff4c94', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    Xem thêm sản phẩm ➔
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
 
@@ -988,7 +1012,7 @@ function Anime({ catalog, onSelectProduct, siteSettings }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // ❸ STARS — high-fashion concert layout with soft page flip curl
 // ─────────────────────────────────────────────────────────────────────────────
-function Stars({ catalog, onSelectProduct, siteSettings }) {
+function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
   const [ref, inView] = useInView();
   const [active, setActive] = useState(0);
   const [displayActive, setDisplayActive] = useState(0);
@@ -1098,10 +1122,10 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
         </div>
 
         {/* ELLE Editorial Grid */}
-        <div className={"elle-editorial ani-paper" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>
+        <div className="elle-editorial ani-paper">
 
           {/* Left: Cover Story */}
-          <div className="elle-cover-story">
+          <div className={"elle-cover-story" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>
             <div className="elle-cover-badge">{featured.cover}</div>
 
             <a
@@ -1135,7 +1159,7 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
           <div className="elle-sidebar">
 
             {/* Story headline */}
-            <div className="elle-story-box">
+            <div className={"elle-story-box" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>
               <div className="elle-story-tag">Cover Story</div>
               <h3 className="elle-story-headline">{catalogItem?.headline || featured.headline}</h3>
               <p className="elle-story-sub">{featured.subline}</p>
@@ -1177,6 +1201,18 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
                   {i === active && <div className="elle-active-dot"></div>}
                 </button>
               ))}
+              <button
+                type="button"
+                className="elle-issue-item interactive"
+                style={{ justifyContent: 'center', alignItems: 'center', color: '#ff3eb8', border: '1px dashed rgba(255,255,255,0.3)', borderRadius: '8px', padding: '12px', background: 'transparent' }}
+                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+              >
+                <div className="elle-issue-info" style={{ alignItems: 'center', width: '100%', paddingLeft: 0 }}>
+                  <span className="elle-issue-name" style={{ fontSize: '13px', color: '#ff3eb8', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
+                    Xem thêm sản phẩm ➔
+                  </span>
+                </div>
+              </button>
             </div>
 
             {/* Auto-progress bar */}
@@ -1237,7 +1273,7 @@ function Stars({ catalog, onSelectProduct, siteSettings }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // ❹ PLUSH — cozy pastel lifestyle layout with soft page flip curl
 // ─────────────────────────────────────────────────────────────────────────────
-function Plush({ catalog, onSelectProduct, siteSettings }) {
+function Plush({ catalog, onSelectProduct, siteSettings, onShowMore }) {
   const [ref, inView] = useInView();
   const [active, setActive] = useState(0);
   const [flipping, setFlipping] = useState(false);
@@ -1414,6 +1450,18 @@ function Plush({ catalog, onSelectProduct, siteSettings }) {
                 );
               })}
               <div className="t-progress" key={active} style={{ background: "rgba(168,94,114,0.15)" }}></div>
+              <button
+                type="button"
+                className="cozy-thumb interactive"
+                style={{ justifyContent: 'center', alignItems: 'center', color: '#a85e72', border: '1.5px dashed #a85e72', borderRadius: '8px', padding: '12px 8px', background: 'transparent' }}
+                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+              >
+                <div className="t-info" style={{ alignItems: 'center', width: '100%' }}>
+                  <span className="t-name" style={{ fontSize: '13px', color: '#a85e72', textTransform: 'uppercase', margin: 0 }}>
+                    Xem thêm sản phẩm ➔
+                  </span>
+                </div>
+              </button>
             </div>
           </div>
 
@@ -1483,6 +1531,7 @@ function TopNav({ activeTheme, currentUser, onOpenAuth, onLogout, onOpenVouchers
     { id: "anime",    vi: "Anime" },
     { id: "stars",    vi: "Ca sĩ · Diễn viên" },
     { id: "plush",    vi: "Thú nhồi bông" },
+    { id: "shop",     vi: "Cửa hàng" },
   ];
   return (
     <div className={"topnav theme-" + activeTheme} data-screen-label="00 Top nav">
@@ -2361,6 +2410,216 @@ function Footer({ siteSettings }) {
         <span>Parody merchandise · Sản phẩm mang tính giải trí</span>
       </div>
     </footer>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CatalogPage — Shop view with filters (size, price, category, material, trend)
+// ─────────────────────────────────────────────────────────────────────────────
+function CatalogPage({ catalog, onSelectProduct, initialCategory, onBackHome, siteSettings }) {
+  const [selectedCategories, setSelectedCategories] = useState(() => 
+    initialCategory && initialCategory !== "all" ? [initialCategory] : []
+  );
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedPrices, setSelectedPrices] = useState([]);
+  const [selectedMaterials, setSelectedMaterials] = useState([]);
+  const [selectedTrends, setSelectedTrends] = useState([]);
+
+  // Sync scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  const toggleFilter = (value, list, setList) => {
+    if (list.includes(value)) {
+      setList(list.filter(x => x !== value));
+    } else {
+      setList([...list, value]);
+    }
+  };
+
+  const handleReset = () => {
+    setSelectedCategories([]);
+    setSelectedSizes([]);
+    setSelectedPrices([]);
+    setSelectedMaterials([]);
+    setSelectedTrends([]);
+  };
+
+  const filteredProducts = catalog.filter(product => {
+    // Category filter
+    if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
+      return false;
+    }
+    // Size filter
+    if (selectedSizes.length > 0) {
+      const productSizes = (product.sizes || []).map(s => s.label);
+      const matchesSize = selectedSizes.some(sz => productSizes.includes(sz));
+      if (!matchesSize) return false;
+    }
+    // Price filter
+    if (selectedPrices.length > 0) {
+      const minPrice = product.sizes && product.sizes.length > 0
+        ? Math.min(...product.sizes.map(s => s.salePrice))
+        : 350000;
+      const matchesPrice = selectedPrices.some(range => {
+        if (range === 'under-300') return minPrice < 300000;
+        if (range === '300-450') return minPrice >= 300000 && minPrice <= 450000;
+        if (range === 'above-450') return minPrice > 450000;
+        return false;
+      });
+      if (!matchesPrice) return false;
+    }
+    // Material filter
+    if (selectedMaterials.length > 0) {
+      const specsText = (product.specs || "").toLowerCase();
+      const descText = (product.description || "").toLowerCase();
+      const nameText = (product.name || "").toLowerCase();
+      const matchesMaterial = selectedMaterials.some(mat => {
+        if (mat === 'cotton') return specsText.includes('cotton') || specsText.includes('lụa') || descText.includes('cotton') || nameText.includes('cotton');
+        if (mat === 'satin') return specsText.includes('satin') || descText.includes('satin') || nameText.includes('satin');
+        if (mat === 'poly') return specsText.includes('polyester') || specsText.includes('poly') || descText.includes('polyester');
+        if (mat === 'minky') return specsText.includes('minky') || specsText.includes('nhung') || descText.includes('nhung') || specsText.includes('gòn');
+        return false;
+      });
+      if (!matchesMaterial) return false;
+    }
+    // Hot Trend/Status filter
+    if (selectedTrends.length > 0) {
+      const matchesTrend = selectedTrends.some(trend => {
+        if (trend === 'best') return product.isBestSeller;
+        if (trend === 'sale') return product.isOnSale;
+        if (trend === 'pre') return product.tag === "Đặt trước" || product.tag === "Sắp ra mắt";
+        return false;
+      });
+      if (!matchesTrend) return false;
+    }
+    return true;
+  });
+
+  return (
+    <div className="catalog-page-container">
+      <div className="wrap">
+        <div className="catalog-header">
+          <div className="catalog-breadcrumb">
+            <span onClick={onBackHome} style={{ cursor: "pointer", opacity: 0.6 }}>Trang chủ</span> / <strong>Cửa hàng</strong>
+          </div>
+          <h1>VŨ TRỤ SẢN PHẨM</h1>
+          <p className="catalog-sub">{siteSettings?.catalogSlogan || "Khám phá vũ trụ gối ôm cao cấp GPAW Atelier"}</p>
+        </div>
+
+        <div className="catalog-layout">
+          {/* Sidebar */}
+          <div className="catalog-sidebar">
+            <div className="sidebar-header">
+              <h3>BỘ LỌC SẢN PHẨM</h3>
+              <button type="button" className="reset-btn" onClick={handleReset}>Xóa bộ lọc</button>
+            </div>
+
+            {/* Category Filter */}
+            <div className="filter-group">
+              <h4>Vũ trụ sản phẩm</h4>
+              <label><input type="checkbox" checked={selectedCategories.includes('politics')} onChange={() => toggleFilter('politics', selectedCategories, setSelectedCategories)} /> Chính trị (Politics)</label>
+              <label><input type="checkbox" checked={selectedCategories.includes('anime')} onChange={() => toggleFilter('anime', selectedCategories, setSelectedCategories)} /> Anime (Vjump Manga)</label>
+              <label><input type="checkbox" checked={selectedCategories.includes('stars')} onChange={() => toggleFilter('stars', selectedCategories, setSelectedCategories)} /> Ca sĩ · Diễn viên (Elle)</label>
+              <label><input type="checkbox" checked={selectedCategories.includes('plush')} onChange={() => toggleFilter('plush', selectedCategories, setSelectedCategories)} /> Thú bông (Kinfolk)</label>
+            </div>
+
+            {/* Size Filter */}
+            <div className="filter-group">
+              <h4>Kích thước</h4>
+              <label><input type="checkbox" checked={selectedSizes.includes('40cm')} onChange={() => toggleFilter('40cm', selectedSizes, setSelectedSizes)} /> 40cm</label>
+              <label><input type="checkbox" checked={selectedSizes.includes('60cm')} onChange={() => toggleFilter('60cm', selectedSizes, setSelectedSizes)} /> 60cm</label>
+              <label><input type="checkbox" checked={selectedSizes.includes('80cm')} onChange={() => toggleFilter('80cm', selectedSizes, setSelectedSizes)} /> 80cm</label>
+              <label><input type="checkbox" checked={selectedSizes.includes('100cm')} onChange={() => toggleFilter('100cm', selectedSizes, setSelectedSizes)} /> 100cm</label>
+              <label><input type="checkbox" checked={selectedSizes.includes('120cm')} onChange={() => toggleFilter('120cm', selectedSizes, setSelectedSizes)} /> 120cm</label>
+            </div>
+
+            {/* Price Filter */}
+            <div className="filter-group">
+              <h4>Khoảng giá</h4>
+              <label><input type="checkbox" checked={selectedPrices.includes('under-300')} onChange={() => toggleFilter('under-300', selectedPrices, setSelectedPrices)} /> Dưới 300.000₫</label>
+              <label><input type="checkbox" checked={selectedPrices.includes('300-450')} onChange={() => toggleFilter('300-450', selectedPrices, setSelectedPrices)} /> 300.000₫ - 450.000₫</label>
+              <label><input type="checkbox" checked={selectedPrices.includes('above-450')} onChange={() => toggleFilter('above-450', selectedPrices, setSelectedPrices)} /> Trên 450.000₫</label>
+            </div>
+
+            {/* Material Filter */}
+            <div className="filter-group">
+              <h4>Chất liệu</h4>
+              <label><input type="checkbox" checked={selectedMaterials.includes('cotton')} onChange={() => toggleFilter('cotton', selectedMaterials, setSelectedMaterials)} /> Cotton lụa</label>
+              <label><input type="checkbox" checked={selectedMaterials.includes('satin')} onChange={() => toggleFilter('satin', selectedMaterials, setSelectedMaterials)} /> Vải satin</label>
+              <label><input type="checkbox" checked={selectedMaterials.includes('poly')} onChange={() => toggleFilter('poly', selectedMaterials, setSelectedMaterials)} /> Polyester</label>
+              <label><input type="checkbox" checked={selectedMaterials.includes('minky')} onChange={() => toggleFilter('minky', selectedMaterials, setSelectedMaterials)} /> Nhung minky</label>
+            </div>
+
+            {/* Hot Trend Filter */}
+            <div className="filter-group">
+              <h4>Xu hướng / Trạng thái</h4>
+              <label><input type="checkbox" checked={selectedTrends.includes('best')} onChange={() => toggleFilter('best', selectedTrends, setSelectedTrends)} /> Bán chạy (Best Seller)</label>
+              <label><input type="checkbox" checked={selectedTrends.includes('sale')} onChange={() => toggleFilter('sale', selectedTrends, setSelectedTrends)} /> Khuyến mãi (On Sale)</label>
+              <label><input type="checkbox" checked={selectedTrends.includes('pre')} onChange={() => toggleFilter('pre', selectedTrends, setSelectedTrends)} /> Đặt trước (Pre-order)</label>
+            </div>
+          </div>
+
+          {/* Grid content */}
+          <div className="catalog-grid-wrapper">
+            <div className="catalog-results-count">
+              Hiển thị <strong>{filteredProducts.length}</strong> sản phẩm
+            </div>
+
+            {filteredProducts.length === 0 ? (
+              <div className="no-results">
+                <span className="no-results-icon">🧸</span>
+                <p>Không tìm thấy sản phẩm nào phù hợp với bộ lọc đã chọn.</p>
+                <button type="button" className="reset-btn-large" onClick={handleReset}>Đặt lại bộ lọc</button>
+              </div>
+            ) : (
+              <div className="catalog-products-grid">
+                {filteredProducts.map(p => {
+                  const minSizePrice = p.sizes && p.sizes.length > 0 ? p.sizes[0] : null;
+                  const discountPct = minSizePrice ? calcDiscountPct(minSizePrice.listedPrice, minSizePrice.salePrice) : 0;
+                  return (
+                    <div key={p.id} className="catalog-product-card interactive" onClick={() => onSelectProduct(p)}>
+                      <div className="card-image-wrapper">
+                        {p.isOnSale && discountPct > 0 && (
+                          <div className="sale-badge">-{discountPct}%</div>
+                        )}
+                        {p.tag && (
+                          <div className={`status-tag ${p.tag === 'Đang bán' ? 'tag-green' : p.tag === 'Đặt trước' ? 'tag-orange' : 'tag-gray'}`}>
+                            {p.tag}
+                          </div>
+                        )}
+                        <img src={p.images && p.images[0] ? p.images[0] : 'assets/pillow-front.png'} alt={p.name} />
+                      </div>
+                      <div className="card-info">
+                        <div className="category-tag">{p.category === 'politics' ? 'Chính trị' : p.category === 'anime' ? 'Anime' : p.category === 'stars' ? 'Ca sĩ' : 'Thú bông'}</div>
+                        <h3>{p.name}</h3>
+                        <p className="card-desc">{p.description}</p>
+                        <div className="card-bottom">
+                          <div className="price-box">
+                            {minSizePrice ? (
+                              <>
+                                <span className="sale-price">{minSizePrice.salePrice.toLocaleString('vi-VN')}₫</span>
+                                {minSizePrice.salePrice < minSizePrice.listedPrice && (
+                                  <span className="listed-price">{minSizePrice.listedPrice.toLocaleString('vi-VN')}₫</span>
+                                )}
+                              </>
+                            ) : (
+                              <span className="sale-price">Liên hệ</span>
+                            )}
+                          </div>
+                          <button type="button" className="buy-btn-small">Chi tiết</button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -5376,6 +5635,7 @@ function App() {
   // Page loader and transition states
   const [pageLoading, setPageLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(() => getActiveProductFromUrl(catalog));
+  const [viewingCatalogCategory, setViewingCatalogCategory] = useState(null);
 
   const openProductDetail = (p) => {
     setPageLoading(true);
@@ -5391,8 +5651,11 @@ function App() {
     setPageLoading(true);
     setTimeout(() => {
       setSelectedProduct(null);
+      setViewingCatalogCategory(null);
       setTimeout(() => {
-        if (id) {
+        if (id === "shop") {
+          setViewingCatalogCategory("all");
+        } else if (id) {
           const el = document.getElementById(id);
           if (el) el.scrollIntoView({ behavior: "smooth" });
         } else {
@@ -6014,7 +6277,7 @@ function App() {
           100% { opacity: 0; transform: scale(0.8) rotate(var(--rot)); }
         }
         .bg-paw-item {
-          animation: pawFadeInOut 8s ease-in-out infinite;
+          animation: pawFadeInOut 2s ease-in-out infinite;
         }
 
         body { padding-top: 0 !important; }
@@ -6079,20 +6342,323 @@ function App() {
         .w-plush .paper-foot .col h5 { color: #a85e72; font-family: "Lora", serif; font-size: 12px; }
         .w-plush .paper-foot .col p { color: #2a1c14; }
         .w-plush .paper-foot .col p:first-of-type::first-letter { color: #ff9eb1; font-family: "Lora", serif; }
+
+        /* Catalog Page Styling */
+        .catalog-page-container {
+          padding: 120px 0 100px;
+          background: #f7f4ee;
+          min-height: 100vh;
+        }
+        .catalog-header {
+          margin-bottom: 48px;
+          border-bottom: 2px solid rgba(22,33,58,0.1);
+          padding-bottom: 24px;
+        }
+        .catalog-breadcrumb {
+          font-family: var(--mono);
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.15em;
+          margin-bottom: 12px;
+          color: rgba(22,33,58,0.6);
+        }
+        .catalog-header h1 {
+          font-family: var(--display);
+          font-size: clamp(32px, 4vw, 48px);
+          font-weight: 900;
+          letter-spacing: -0.01em;
+          margin: 0 0 8px 0;
+          color: #16213a;
+        }
+        .catalog-sub {
+          font-size: 15px;
+          opacity: 0.7;
+          margin: 0;
+        }
+        .catalog-layout {
+          display: grid;
+          grid-template-columns: 280px 1fr;
+          gap: 40px;
+          align-items: start;
+        }
+        @media (max-width: 991px) {
+          .catalog-layout {
+            grid-template-columns: 1fr;
+          }
+        }
+        .catalog-sidebar {
+          background: #fff;
+          border: 1px solid rgba(22,33,58,0.12);
+          border-radius: 16px;
+          padding: 24px;
+          position: sticky;
+          top: 90px;
+          box-shadow: 0 4px 20px rgba(22,33,58,0.03);
+          z-index: 10;
+        }
+        .sidebar-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid rgba(22,33,58,0.1);
+          padding-bottom: 16px;
+          margin-bottom: 20px;
+        }
+        .sidebar-header h3 {
+          font-family: var(--display);
+          font-size: 14px;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          margin: 0;
+          color: #16213a;
+        }
+        .reset-btn {
+          background: none;
+          border: none;
+          font-family: var(--mono);
+          font-size: 10px;
+          font-weight: 700;
+          color: #b3242d;
+          cursor: pointer;
+          padding: 0;
+          text-transform: uppercase;
+        }
+        .filter-group {
+          margin-bottom: 24px;
+          border-bottom: 1px solid rgba(22,33,58,0.06);
+          padding-bottom: 20px;
+        }
+        .filter-group:last-of-type {
+          border-bottom: none;
+          padding-bottom: 0;
+          margin-bottom: 0;
+        }
+        .filter-group h4 {
+          font-family: var(--display);
+          font-size: 12px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin: 0 0 12px 0;
+          color: #16213a;
+        }
+        .filter-group label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 13.5px;
+          margin-bottom: 10px;
+          cursor: pointer;
+          color: #333;
+          user-select: none;
+          font-weight: 550;
+        }
+        .filter-group label input {
+          width: 16px;
+          height: 16px;
+          accent-color: #ff3a78;
+          cursor: pointer;
+        }
+        .catalog-results-count {
+          font-family: var(--mono);
+          font-size: 11px;
+          text-transform: uppercase;
+          margin-bottom: 20px;
+          color: rgba(22,33,58,0.6);
+        }
+        .catalog-products-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 28px;
+        }
+        .catalog-product-card {
+          background: #fff;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 4px 16px rgba(160, 140, 110, 0.08);
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          border: 1px solid rgba(22,33,58,0.06);
+        }
+        .catalog-product-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 32px rgba(160, 140, 110, 0.16);
+        }
+        .card-image-wrapper {
+          position: relative;
+          aspect-ratio: 1 / 1.05;
+          background: linear-gradient(180deg, #f7f4ee 0%, #eae5da 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+        .card-image-wrapper img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top;
+          transition: transform 0.5s ease;
+        }
+        .catalog-product-card:hover .card-image-wrapper img {
+          transform: scale(1.04);
+        }
+        .sale-badge {
+          position: absolute;
+          top: 12px;
+          left: 12px;
+          background: #b3242d;
+          color: #fff;
+          font-family: var(--mono);
+          font-size: 10px;
+          font-weight: 800;
+          padding: 4px 8px;
+          border-radius: 6px;
+          z-index: 2;
+        }
+        .status-tag {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          font-family: var(--mono);
+          font-size: 9px;
+          font-weight: 700;
+          padding: 4px 8px;
+          border-radius: 6px;
+          text-transform: uppercase;
+          z-index: 2;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .tag-green { background: #e2f9e6; color: #1e7e34; }
+        .tag-orange { background: #fff3cd; color: #856404; }
+        .tag-gray { background: #e2e3e5; color: #383d41; }
+        
+        .card-info {
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+        .category-tag {
+          font-family: var(--mono);
+          font-size: 9.5px;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #ff3a78;
+          margin-bottom: 6px;
+        }
+        .card-info h3 {
+          font-family: var(--display);
+          font-size: 17px;
+          font-weight: 800;
+          margin: 0 0 8px 0;
+          color: #16213a;
+          line-height: 1.25;
+        }
+        .card-desc {
+          font-size: 13px;
+          color: #666;
+          margin: 0 0 16px 0;
+          line-height: 1.45;
+          flex: 1;
+        }
+        .card-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: auto;
+          border-top: 1px solid rgba(22,33,58,0.06);
+          padding-top: 14px;
+        }
+        .price-box {
+          display: flex;
+          flex-direction: column;
+        }
+        .sale-price {
+          font-family: var(--mono);
+          font-size: 16px;
+          font-weight: 800;
+          color: #b3242d;
+        }
+        .listed-price {
+          font-family: var(--mono);
+          font-size: 12px;
+          color: rgba(22,33,58,0.5);
+          text-decoration: line-through;
+          margin-top: 2px;
+        }
+        .buy-btn-small {
+          background: #16213a;
+          color: #fff;
+          border: none;
+          font-family: var(--mono);
+          font-size: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+          padding: 8px 14px;
+          border-radius: 999px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .buy-btn-small:hover {
+          background: #ff3a78;
+        }
+        
+        .no-results {
+          text-align: center;
+          padding: 60px 20px;
+          background: #fff;
+          border-radius: 20px;
+          border: 1px solid rgba(22,33,58,0.08);
+          grid-column: 1 / -1;
+        }
+        .no-results-icon {
+          font-size: 48px;
+          display: block;
+          margin-bottom: 16px;
+        }
+        .no-results p {
+          font-size: 15px;
+          color: #666;
+          margin-bottom: 24px;
+        }
+        .reset-btn-large {
+          background: #16213a;
+          color: #fff;
+          border: none;
+          font-family: var(--mono);
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          padding: 12px 24px;
+          border-radius: 999px;
+          cursor: pointer;
+          transition: background 0.2s ease;
+        }
+        .reset-btn-large:hover {
+          background: #ff3a78;
+        }
       `}</style>
 
       {/* ────────────────── App Domains rendering ────────────────── */}
       {currentDomain === "gpaw.vn" ? (
         <>
           <TopNav
-            activeTheme={active || "politics"}
+            activeTheme={selectedProduct ? (selectedProduct.category || "politics") : viewingCatalogCategory ? "shop" : (active || "politics")}
             currentUser={currentUser}
             onOpenAuth={setAuthModal}
             onLogout={handleLogout}
             onOpenVouchers={() => setVoucherCenter(true)}
             siteSettings={siteSettings}
             onNavClick={(id) => {
-              const isHomepage = !selectedProduct;
+              if (id === "shop") {
+                setViewingCatalogCategory("all");
+                window.scrollTo({ top: 0 });
+                return;
+              }
+              const isHomepage = !selectedProduct && !viewingCatalogCategory;
               if (isHomepage) {
                 if (id) {
                   const el = document.getElementById(id);
@@ -6115,13 +6681,21 @@ function App() {
               onNavigate={handleNavigateHomeOrSection}
               onSelectProduct={openProductDetail}
             />
+          ) : viewingCatalogCategory ? (
+            <CatalogPage
+              catalog={catalog}
+              onSelectProduct={openProductDetail}
+              initialCategory={viewingCatalogCategory}
+              onBackHome={() => setViewingCatalogCategory(null)}
+              siteSettings={siteSettings}
+            />
           ) : (
             <div style={{ position: "relative" }}>
               <BackgroundPaws count={50} />
-              <Politics catalog={catalog} onSelectProduct={openProductDetail} onOpenAuth={setAuthModal} siteSettings={siteSettings} />
-              <Anime catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
-              <Stars catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
-              <Plush catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} />
+              <Politics catalog={catalog} onSelectProduct={openProductDetail} onOpenAuth={setAuthModal} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("politics")} />
+              <Anime catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("anime")} />
+              <Stars catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("stars")} />
+              <Plush catalog={catalog} onSelectProduct={openProductDetail} siteSettings={siteSettings} onShowMore={() => setViewingCatalogCategory("plush")} />
             </div>
           )}
           <Complaint />

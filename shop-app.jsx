@@ -1011,6 +1011,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
   const [active, setActive] = useState(0);
   const [displayActive, setDisplayActive] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   const cards = [
     { name: "Diva Sân Khấu",  en: "Stage Diva",     issue: "Issue 01", season: "Spring 2026", href: "gpaw-diva-san-khau-ca-si.html", real: true,
@@ -1036,12 +1037,12 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
   ];
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView || !isPlaying) return;
     const t = setInterval(() => {
       setActive((a) => (a + 1) % cards.length);
     }, 5000);
     return () => clearInterval(t);
-  }, [inView, cards.length, active]);
+  }, [inView, cards.length, active, isPlaying]);
 
   useEffect(() => {
     setTransitioning(true);
@@ -1119,7 +1120,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
         <div className="elle-editorial ani-paper">
 
           {/* Left: Cover Story */}
-          <div className={"elle-cover-story" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>
+          <div className="elle-cover-story">
             <div className="elle-cover-badge">{featured.cover}</div>
 
             <a
@@ -1127,7 +1128,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
               onClick={(e) => { e.preventDefault(); handleProductClick(featured); }}
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
             >
-              <div className="elle-cover-frame" style={{ position: "relative" }}>
+              <div className={"elle-cover-frame" + (transitioning ? " elle-fade-out" : " elle-fade-in")} style={{ position: "relative" }}>
                 {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
                   <div className="product-badge-container" style={{ top: '8px', right: '8px' }}>
                     <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -1140,7 +1141,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
             </a>
 
             {/* Pull quote */}
-            <div className="elle-pull-quote">
+            <div className={"elle-pull-quote" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>
               <svg width="20" height="14" viewBox="0 0 30 24" fill="currentColor" style={{ opacity: .45, marginBottom: 5, display: 'block' }}>
                 <path d="M0 24V14.4C0 10.32.96 6.96 2.88 4.32 4.8 1.44 7.68 0 11.52 0l1.44 2.16c-2.4.48-4.32 1.8-5.76 3.96-1.44 2.16-2.16 4.56-2.16 7.2H12V24H0zm16.32 0V14.4c0-4.08.96-7.44 2.88-10.08C21.12 1.44 24 0 27.84 0l1.44 2.16c-2.4.48-4.32 1.8-5.76 3.96-1.44 2.16-2.16 4.56-2.16 7.2H28.32V24H16.32z" />
               </svg>
@@ -1153,10 +1154,10 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
           <div className="elle-sidebar">
 
             {/* Story headline */}
-            <div className={"elle-story-box" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>
+            <div className="elle-story-box">
               <div className="elle-story-tag">Cover Story</div>
-              <h3 className="elle-story-headline">{catalogItem?.headline || featured.headline}</h3>
-              <p className="elle-story-sub">{featured.subline}</p>
+              <h3 className={"elle-story-headline" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>{catalogItem?.headline || featured.headline}</h3>
+              <p className={"elle-story-sub" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>{featured.subline}</p>
               <div className="elle-story-cta">
                 <button type="button" className="elle-btn-primary" onClick={() => handleProductClick(featured)}>
                   Xem sản phẩm →
@@ -1182,7 +1183,7 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
                   key={i}
                   type="button"
                   className={"elle-issue-item" + (i === active ? " active" : "")}
-                  onClick={() => setActive(i)}
+                  onClick={() => { setActive(i); setIsPlaying(false); }}
                 >
                   <div className="elle-issue-thumb">
                     <SilStar color={i === active ? "#ff3eb8" : "#555"} />

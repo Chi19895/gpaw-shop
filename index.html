@@ -559,14 +559,24 @@
     background: transparent; border: 0; padding: 12px 4px;
     text-align: left; cursor: pointer; width: 100%;
     border-bottom: 1px dashed rgba(22,33,58,.25);
-    transition: background .15s ease;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     color: inherit;
     font: inherit;
     position: relative;
+    border-radius: 8px;
   }
-  .thumb:last-of-type { border-bottom: 1.5px solid #16213a; }
-  .thumb:hover { background: rgba(22,33,58,.04); }
-  .thumb.active { background: rgba(179,36,45,.08); }
+  .thumb:last-of-type { border-bottom: 1.5px solid transparent; }
+  .thumb:hover { 
+    background: rgba(22,33,58,.04); 
+    transform: translateX(4px);
+    box-shadow: -2px 4px 12px rgba(22,33,58,0.06);
+    border-bottom-color: transparent;
+  }
+  .thumb.active { 
+    background: rgba(179,36,45,.08);
+    transform: translateX(4px);
+    border-bottom-color: transparent;
+  }
   .thumb.active .t-name { color: #b3242d; }
   .thumb.active::after {
     content: "▶"; position: absolute; right: 8px;
@@ -781,12 +791,21 @@
     width: 100%;
     color: inherit;
     position: relative;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border-radius: 8px;
   }
-  .manga-thumb:last-of-type { border-bottom: 3px solid #000; }
-  .manga-thumb:hover { background: rgba(255,76,148,0.06); }
+  .manga-thumb:last-of-type { border-bottom: 3px solid transparent; }
+  .manga-thumb:hover { 
+    background: rgba(255,76,148,0.06);
+    transform: translateX(4px);
+    box-shadow: -2px 4px 12px rgba(255, 76, 148, 0.1);
+    border-bottom-color: transparent;
+  }
   .manga-thumb.active {
     background: rgba(255,234,75,0.3);
     border-left: 4px solid #ff4c94;
+    transform: translateX(4px);
+    border-bottom-color: transparent;
   }
   .manga-thumb.active .t-name { color: #ff3a78; text-shadow: 0.5px 0.5px 0 #000; }
   .manga-thumb .t-frame {
@@ -1153,14 +1172,22 @@
     width: 100%;
     color: inherit;
     position: relative;
-    transition: background 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border-radius: 8px;
   }
-  .cozy-thumb:last-of-type { border-bottom: 2px solid #ffe2b3; }
-  .cozy-thumb:hover { background: rgba(255,158,177,0.08); }
+  .cozy-thumb:last-of-type { border-bottom: 2px solid transparent; }
+  .cozy-thumb:hover { 
+    background: rgba(255,158,177,0.08);
+    transform: translateX(4px);
+    box-shadow: -2px 4px 12px rgba(168,94,114,0.1);
+    border-bottom-color: transparent;
+  }
   .cozy-thumb.active {
     background: rgba(255,244,230,0.6);
     border-left: 3px solid #ff8ba0;
     border-radius: 0 8px 8px 0;
+    transform: translateX(4px);
+    border-bottom-color: transparent;
   }
   .cozy-thumb.active .t-name { color: #a85e72; }
   .cozy-thumb .t-frame {
@@ -3244,16 +3271,20 @@
     border: 1px solid transparent;
     cursor: pointer;
     text-align: left;
-    transition: background .15s, border-color .15s;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     position: relative;
+    border-radius: 8px;
   }
   .elle-issue-item:hover {
     background: rgba(255,255,255,.04);
-    border-color: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.1);
+    transform: translateX(4px);
+    box-shadow: -2px 4px 12px rgba(255,62,184,.1);
   }
   .elle-issue-item.active {
     background: rgba(255,62,184,.06);
-    border-color: rgba(255,62,184,.2);
+    border-color: rgba(255,62,184,.3);
+    transform: translateX(4px);
   }
   .elle-issue-thumb {
     width: 40px;

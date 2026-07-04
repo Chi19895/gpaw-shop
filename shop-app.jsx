@@ -2659,6 +2659,37 @@ function ProductDetailPage({ catalog, product, onBuyNow, onAddToCart, siteSettin
               );
             })}
           </div>
+          
+          <div style={{ textAlign: "center", marginTop: "32px" }}>
+            <button
+              type="button"
+              className="paper-more-btn interactive"
+              style={{
+                background: "transparent",
+                border: "1.5px solid #16213a",
+                padding: "12px 36px",
+                fontFamily: "var(--mono)",
+                fontSize: "13px",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.15em",
+                cursor: "pointer"
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                // Quay về trang cửa hàng hiển thị toàn bộ sản phẩm
+                window.scrollTo({ top: 0 });
+                if (typeof window.onNavigateCatalog === "function") {
+                  window.onNavigateCatalog("all");
+                } else {
+                  // Fallback: reload/điều hướng
+                  window.location.href = "gpaw-cua-hang.html";
+                }
+              }}
+            >
+              Xem thêm sản phẩm khác ➔
+            </button>
+          </div>
         </div>
 
         {/* Recently Viewed Products Section */}
@@ -6620,11 +6651,18 @@ function App() {
       }, 600);
     };
 
+    window.onNavigateCatalog = (cat) => {
+      setViewingCatalogCategory(cat || "all");
+      setSelectedProduct(null);
+      setSelectedArticle(null);
+    };
+
     window.addEventListener("click", handleGlobalClick);
     window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       clearTimeout(loadTimer);
+      delete window.onNavigateCatalog;
       window.removeEventListener("click", handleGlobalClick);
       window.removeEventListener("mousemove", handleMouseMove);
     };

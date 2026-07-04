@@ -1157,8 +1157,8 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
             {/* Story headline */}
             <div className="elle-story-box">
               <div className="elle-story-tag">Cover Story</div>
-              <h3 className={"elle-story-headline" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>{catalogItem?.headline || featured.headline}</h3>
-              <p className={"elle-story-sub" + (transitioning ? " elle-fade-out" : " elle-fade-in")}>{featured.subline}</p>
+              <h3 className={"elle-story-headline " + (transitioning ? "elle-fade-out" : "elle-fade-in")}>{catalogItem?.headline || featured.headline}</h3>
+              <p className={"elle-story-sub " + (transitioning ? "elle-fade-out" : "elle-fade-in")}>{featured.subline}</p>
               <div className="elle-story-cta">
                 <button type="button" className="elle-btn-primary" onClick={() => handleProductClick(featured)}>
                   Xem sản phẩm →

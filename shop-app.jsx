@@ -1377,7 +1377,7 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore }) {
                 onClick={(e) => { e.preventDefault(); handleProductClick(featured); }}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <div className="frame" style={{ background: featured.c.bg, position: "relative" }}>
+                <div className="frame cozy-cover-frame" style={{ background: featured.c.bg, position: "relative" }}>
                   {catalogItem?.isOnSale && catalogItemDiscount > 0 && (
                     <div className="product-badge-container">
                       <img src="assets/badge-super-sale.png" alt="Giảm giá" />
@@ -6635,6 +6635,50 @@ function App() {
         }
         .reset-btn-large:hover {
           background: #ff3a78;
+        }
+
+        /* Cover Story Hover Highlights */
+        .feat-flip {
+          transition: all 0.3s var(--ease-premium);
+        }
+        .feat-flip:hover {
+          border-color: #b3242d !important;
+          box-shadow: 0 12px 32px rgba(179, 36, 45, 0.14) !important;
+          transform: translateY(-2px);
+        }
+        .feat-flip .frame {
+          transition: all 0.3s var(--ease-premium);
+        }
+        .feat-flip:hover .frame {
+          border-color: #b3242d !important;
+          box-shadow: 0 0 20px rgba(179, 36, 45, 0.22) !important;
+        }
+
+        .manga-cover-frame {
+          transition: all 0.3s var(--ease-premium);
+        }
+        .manga-cover-frame:hover {
+          border-color: #ff4c94 !important;
+          box-shadow: 0 0 25px rgba(255, 76, 148, 0.3), 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+          transform: scale(1.025);
+        }
+
+        .elle-cover-frame {
+          transition: all 0.4s var(--ease-premium);
+        }
+        .elle-cover-frame:hover {
+          border-color: #ff3eb8 !important;
+          box-shadow: 0 0 30px rgba(255, 62, 184, 0.35), 0 12px 32px rgba(0, 0, 0, 0.25) !important;
+          transform: scale(1.03);
+        }
+
+        .cozy-cover-frame {
+          transition: all 0.3s var(--ease-premium);
+        }
+        .cozy-cover-frame:hover {
+          border-color: #ff9eb1 !important;
+          box-shadow: 0 0 25px rgba(255, 158, 177, 0.25), 0 8px 20px rgba(168, 94, 114, 0.1) !important;
+          transform: translateY(-3px) scale(1.02);
         }
 
         /* Centered See More Buttons */

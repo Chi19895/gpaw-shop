@@ -692,19 +692,17 @@ function Politics({ catalog, onSelectProduct, onOpenAuth, siteSettings, onShowMo
                 </button>
               ))}
               <div className="t-progress" key={active}></div>
-              <button
-                type="button"
-                className="thumb interactive"
-                style={{ borderBottom: '1.5px solid #16213a', justifyContent: 'center', alignItems: 'center', padding: '16px 8px', background: 'transparent' }}
-                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
-              >
-                <div className="t-info" style={{ alignItems: 'center', width: '100%' }}>
-                  <span className="t-name" style={{ fontSize: '15px', color: '#b3242d', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    Xem thêm sản phẩm ➔
-                  </span>
-                </div>
-              </button>
             </div>
+          </div>
+
+          <div className="paper-more-container" style={{ margin: "24px 0", textAlign: "center" }}>
+            <button
+              type="button"
+              className="paper-more-btn interactive"
+              onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+            >
+              Xem thêm tất cả sản phẩm Chính trị ➔
+            </button>
           </div>
 
           {/* Breaking News Feed Section */}
@@ -947,19 +945,17 @@ function Anime({ catalog, onSelectProduct, siteSettings, onShowMore }) {
                 </button>
               ))}
               <div className="t-progress" key={active} style={{ background: "rgba(0,0,0,0.1)" }}></div>
-              <button
-                type="button"
-                className="manga-thumb interactive"
-                style={{ borderBottom: '3px solid #000', justifyContent: 'center', alignItems: 'center', padding: '12px 4px', background: 'transparent' }}
-                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
-              >
-                <div className="t-info" style={{ alignItems: 'center', width: '100%' }}>
-                  <span className="t-name" style={{ fontSize: '14px', color: '#ff4c94', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    Xem thêm sản phẩm ➔
-                  </span>
-                </div>
-              </button>
             </div>
+          </div>
+
+          <div className="manga-more-container" style={{ margin: "24px 0", textAlign: "center" }}>
+            <button
+              type="button"
+              className="manga-more-btn interactive"
+              onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+            >
+              Xem thêm tất cả sản phẩm Anime ➔
+            </button>
           </div>
 
           {/* Breaking News Feed Section */}
@@ -1201,24 +1197,22 @@ function Stars({ catalog, onSelectProduct, siteSettings, onShowMore }) {
                   {i === active && <div className="elle-active-dot"></div>}
                 </button>
               ))}
-              <button
-                type="button"
-                className="elle-issue-item interactive"
-                style={{ justifyContent: 'center', alignItems: 'center', color: '#ff3eb8', border: '1px dashed rgba(255,255,255,0.3)', borderRadius: '8px', padding: '12px', background: 'transparent' }}
-                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
-              >
-                <div className="elle-issue-info" style={{ alignItems: 'center', width: '100%', paddingLeft: 0 }}>
-                  <span className="elle-issue-name" style={{ fontSize: '13px', color: '#ff3eb8', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
-                    Xem thêm sản phẩm ➔
-                  </span>
-                </div>
-              </button>
             </div>
 
             {/* Auto-progress bar */}
             <div className="elle-progress-bar">
               <div className="elle-progress-fill" key={active}></div>
             </div>
+          </div>
+
+          <div className="elle-more-container" style={{ margin: "24px 0", textAlign: "center" }}>
+            <button
+              type="button"
+              className="elle-more-btn interactive"
+              onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+            >
+              Xem thêm tất cả sản phẩm Ca sĩ ➔
+            </button>
           </div>
 
           {/* Breaking News Feed Section */}
@@ -1450,19 +1444,17 @@ function Plush({ catalog, onSelectProduct, siteSettings, onShowMore }) {
                 );
               })}
               <div className="t-progress" key={active} style={{ background: "rgba(168,94,114,0.15)" }}></div>
-              <button
-                type="button"
-                className="cozy-thumb interactive"
-                style={{ justifyContent: 'center', alignItems: 'center', color: '#a85e72', border: '1.5px dashed #a85e72', borderRadius: '8px', padding: '12px 8px', background: 'transparent' }}
-                onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
-              >
-                <div className="t-info" style={{ alignItems: 'center', width: '100%' }}>
-                  <span className="t-name" style={{ fontSize: '13px', color: '#a85e72', textTransform: 'uppercase', margin: 0 }}>
-                    Xem thêm sản phẩm ➔
-                  </span>
-                </div>
-              </button>
             </div>
+          </div>
+
+          <div className="cozy-more-container" style={{ margin: "24px 0", textAlign: "center" }}>
+            <button
+              type="button"
+              className="cozy-more-btn interactive"
+              onClick={(e) => { e.preventDefault(); onShowMore && onShowMore(); }}
+            >
+              Xem thêm tất cả sản phẩm Thú bông ➔
+            </button>
           </div>
 
           {/* Breaking News Feed Section */}
@@ -6645,6 +6637,79 @@ function App() {
         }
         .reset-btn-large:hover {
           background: #ff3a78;
+        }
+
+        /* Centered See More Buttons */
+        .paper-more-btn {
+          background: transparent;
+          border: 1.5px solid #16213a;
+          padding: 12px 36px;
+          font-family: var(--mono);
+          font-size: 13px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.15em;
+          color: #b3242d;
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+        .paper-more-btn:hover {
+          background: #16213a;
+          color: #fff !important;
+        }
+
+        .manga-more-btn {
+          background: transparent;
+          border: 3px solid #000;
+          padding: 12px 36px;
+          font-family: "Bagel Fat One", sans-serif;
+          font-size: 13px;
+          text-transform: uppercase;
+          color: #ff4c94;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          letter-spacing: 0.05em;
+        }
+        .manga-more-btn:hover {
+          background: #ff4c94;
+          color: #fff !important;
+        }
+
+        .elle-more-btn {
+          background: transparent;
+          border: 1.5px solid rgba(255, 255, 255, 0.4);
+          padding: 12px 36px;
+          font-family: "Bodoni Moda", "Playfair Display", serif;
+          font-size: 13px;
+          font-style: italic;
+          text-transform: uppercase;
+          color: #ff3eb8;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          letter-spacing: 0.1em;
+        }
+        .elle-more-btn:hover {
+          background: #ff3eb8;
+          color: #fff !important;
+          border-color: #ff3eb8;
+        }
+
+        .cozy-more-btn {
+          background: transparent;
+          border: 1.5px solid #ff9eb1;
+          border-radius: 999px;
+          padding: 12px 36px;
+          font-family: "Lora", serif;
+          font-size: 13.5px;
+          font-style: italic;
+          color: #a85e72;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .cozy-more-btn:hover {
+          background: #ff9eb1;
+          color: #fff !important;
+          border-color: #ff9eb1;
         }
       `}</style>
 

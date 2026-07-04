@@ -3108,6 +3108,7 @@ function CatalogPage({ catalog, onSelectProduct, initialCategory, onBackHome, si
   const [selectedPrices, setSelectedPrices] = useState([]);
   const [selectedMaterials, setSelectedMaterials] = useState([]);
   const [selectedTrends, setSelectedTrends] = useState([]);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Sync scroll to top on mount
   useEffect(() => {
@@ -3184,20 +3185,34 @@ function CatalogPage({ catalog, onSelectProduct, initialCategory, onBackHome, si
   return (
     <div className="catalog-page-container">
       <div className="wrap">
-        <div className="catalog-header">
-          <div className="catalog-breadcrumb">
-            <span onClick={onBackHome} style={{ cursor: "pointer", opacity: 0.6 }}>Trang chủ</span> / <strong>Cửa hàng</strong>
+        <div className="catalog-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "20px" }}>
+          <div>
+            <div className="catalog-breadcrumb">
+              <span onClick={onBackHome} style={{ cursor: "pointer", opacity: 0.6 }}>Trang chủ</span> / <strong>Cửa hàng</strong>
+            </div>
+            <h1>VŨ TRỤ SẢN PHẨM</h1>
+            <p className="catalog-sub">{siteSettings?.catalogSlogan || "Khám phá vũ trụ gối ôm cao cấp GPAW Atelier"}</p>
           </div>
-          <h1>VŨ TRỤ SẢN PHẨM</h1>
-          <p className="catalog-sub">{siteSettings?.catalogSlogan || "Khám phá vũ trụ gối ôm cao cấp GPAW Atelier"}</p>
+          
+          {/* Nút toggle bộ lọc trên thiết bị di động */}
+          <button 
+            type="button" 
+            className="mobile-filter-toggle-btn"
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+          >
+            {showMobileFilters ? "✕ Đóng Bộ Lọc" : "⚙ Lọc Sản Phẩm"}
+          </button>
         </div>
 
         <div className="catalog-layout">
           {/* Sidebar */}
-          <div className="catalog-sidebar">
+          <div className={`catalog-sidebar ${showMobileFilters ? "show" : ""}`}>
             <div className="sidebar-header">
               <h3>BỘ LỌC SẢN PHẨM</h3>
-              <button type="button" className="reset-btn" onClick={handleReset}>Xóa bộ lọc</button>
+              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                <button type="button" className="reset-btn" onClick={handleReset}>Xóa lọc</button>
+                <button type="button" className="mobile-close-filter-btn" onClick={() => setShowMobileFilters(false)}>✕</button>
+              </div>
             </div>
 
             {/* Category Filter */}
@@ -7123,11 +7138,71 @@ function App() {
           gap: 40px;
           align-items: start;
         }
+        
+        /* Mobile filter toggle buttons */
+        .mobile-filter-toggle-btn {
+          display: none;
+          background: #16213a;
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          padding: 10px 20px;
+          font-family: var(--mono);
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          cursor: pointer;
+          align-items: center;
+          gap: 8px;
+          transition: background 0.2s;
+        }
+        .mobile-filter-toggle-btn:hover {
+          background: #b3242d;
+        }
+        .mobile-close-filter-btn {
+          display: none;
+          background: none;
+          border: none;
+          font-size: 18px;
+          color: #16213a;
+          cursor: pointer;
+          font-weight: 800;
+        }
+
         @media (max-width: 991px) {
           .catalog-layout {
             grid-template-columns: 1fr;
           }
+          .mobile-filter-toggle-btn {
+            display: inline-flex;
+          }
+          .mobile-close-filter-btn {
+            display: block;
+          }
+          
+          /* Chuyển sidebar thành ngăn kéo trượt (Drawer) từ cạnh phải */
+          .catalog-sidebar {
+            position: fixed !important;
+            top: 0 !important;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            max-height: 100vh !important;
+            background: #fff;
+            z-index: 2500 !important;
+            padding: 30px 24px 80px !important;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15) !important;
+            transition: right 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow-y: auto;
+            border-radius: 0 !important;
+            border: none !important;
+          }
+          .catalog-sidebar.show {
+            right: 0;
+          }
         }
+        
         .catalog-sidebar {
           background: #fff;
           border: 1px solid rgba(22,33,58,0.12);
